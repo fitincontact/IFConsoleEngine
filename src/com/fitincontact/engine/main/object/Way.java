@@ -1,6 +1,6 @@
-package com.fitincontact.engine;
+package com.fitincontact.engine.main.object;
 
-import static com.fitincontact.engine.Utils.*;
+import static com.fitincontact.engine.Utils.pl;
 
 public class Way {
     private final Room room;
@@ -22,7 +22,7 @@ public class Way {
         return wayTitle;
     }
 
-    public void pw(){
-        p(wayTitle+"|");
+    public void pw() {
+        pl(wayTitle + "|");
     }
 }
