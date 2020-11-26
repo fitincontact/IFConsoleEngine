@@ -1,14 +1,22 @@
 package com.fitincontact.engine.main.object;
 
+import com.fitincontact.engine.api.Use;
+
+import java.util.List;
+
 import static com.fitincontact.engine.Utils.pl;
 
 public class Way {
     private final Room room;
     private final String wayTitle;
+    private boolean isLock;
+    private String lockTxt;
+    private Use use;
+    private String useTxt;
 
     protected Way(
-            Room room,
-            String wayTitle
+            final Room room,
+            final String wayTitle
     ) {
         this.room = room;
         this.wayTitle = wayTitle;
@@ -22,7 +30,53 @@ public class Way {
         return wayTitle;
     }
 
+    public boolean isLock() {
+        return isLock;
+    }
+
+    public void setLock(final boolean lock) {
+        isLock = lock;
+    }
+
+    public String getLockTxt() {
+        return lockTxt;
+    }
+
+    public void setLockTxt(final String lockTxt) {
+        this.lockTxt = lockTxt;
+    }
+
+    public void add(final Use use) {
+        this.use = use;
+    }
+
+    public String getUseTxt() {
+        return useTxt;
+    }
+
+    public void setUseTxt(final String useTxt) {
+        this.useTxt = useTxt;
+    }
+
+    public String use(
+            final Room room,
+            final List<Item> items
+    ){
+        if(use==null){
+            pl(useTxt);
+            return useTxt;
+        } else {
+            use.apply(room, items);
+            return "non default use";
+        }
+    }
+
     public void pw() {
         pl(wayTitle + "|");
+    }
+
+    @Override
+    public String toString(){
+        return wayTitle;
     }
 }

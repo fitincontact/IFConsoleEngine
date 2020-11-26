@@ -9,7 +9,7 @@ public class Generator {
     private final GeneratorObject generatorObject = new GeneratorObject();
     private final GeneratorCore generatorCore = new GeneratorCore();
 
-    public Person newPerson() {
+    public Game newPerson() {
         return generatorObject.newPerson();
     }
 
@@ -26,13 +26,15 @@ public class Generator {
     }
 
     public Item newItem(
-            String word,
+            final String word,
             final boolean isForInventory,
-            String invName,
-            String roomDescription,
-            String actRoomTxt,
-            String actInventoryTxt,
-            String useTxt
+            final String invName,
+            final String roomDescription,
+            final String actRoomTxt,
+            final String actInventoryTxt,
+            final String useTxt,
+            final Act act,
+            final Use use
     ) {
         return generatorObject.newItem(
                 word,
@@ -41,13 +43,15 @@ public class Generator {
                 roomDescription,
                 actRoomTxt,
                 actInventoryTxt,
-                useTxt
+                useTxt,
+                act,
+                use
         );
     }
 
     public Way newWay(
-            Room room,
-            String wayTitle
+            final Room room,
+            final String wayTitle
     ) {
         return generatorObject.newWay(
                 room,
@@ -61,12 +65,12 @@ public class Generator {
     }
 
     public Core newCore(
-            final Person person,
+            final Game game,
             final Room room,
             final Inventory inventory
     ){
         return generatorCore.newCore(
-                person,
+                game,
                 room,
                 inventory
         );

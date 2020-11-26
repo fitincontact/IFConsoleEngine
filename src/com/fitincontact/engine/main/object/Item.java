@@ -1,6 +1,7 @@
 package com.fitincontact.engine.main.object;
 
-import com.fitincontact.engine.api.ActItem;
+import com.fitincontact.engine.api.Act;
+import com.fitincontact.engine.api.Use;
 
 import java.util.List;
 
@@ -16,16 +17,19 @@ public class Item {
     private final String actRoomTxt;
     private final String actInventoryTxt;
     private final String useTxt;
-    public ActItem actItem;
+    private Act act;
+    private Use use;
 
     protected Item(
-            String word,
-            boolean isForInventory,
-            String invName,
-            String roomDescription,
-            String actText,
-            String takeText,
-            String useText
+            final String word,
+            final boolean isForInventory,
+            final String invName,
+            final String roomDescription,
+            final String actText,
+            final String takeText,
+            final String useTxt,
+            final Act act,
+            final Use use
     ) {
         this.word = word;
         this.isForInventory = isForInventory;
@@ -33,15 +37,17 @@ public class Item {
         this.roomDescription = roomDescription;
         this.actRoomTxt = actText;
         this.actInventoryTxt = takeText;
-        this.useTxt = useText;
+        this.useTxt = useTxt;
+        this.act = act;
+        this.use = use;
     }
 
-    public ActItem getActItem() {
-        return actItem;
+    public Act getActItem() {
+        return act;
     }
 
-    public void setActItem(ActItem actItem) {
-        this.actItem = actItem;
+    public void setActItem(final Act act) {
+        this.act = act;
     }
 
     public String getWord() {
@@ -68,6 +74,22 @@ public class Item {
         return useTxt;
     }
 
+    public Act getAct() {
+        return act;
+    }
+
+    public void setAct(final Act act) {
+        this.act = act;
+    }
+
+    public Use getUse() {
+        return use;
+    }
+
+    public void add(final Use use) {
+        this.use = use;
+    }
+
     public boolean isForInventory() {
         return isForInventory;
     }
@@ -76,28 +98,43 @@ public class Item {
         p(roomDescription + " ");
     }
 
-    public void pn() {
+    public void pi() {
         pl(invName + ", ");
+    }
+
+    @Override
+    public String toString(){
+        return word;
     }
 
     public String act(
             final Room room,
             final Inventory inventory
     ) {
-        if (actItem == null) {
+        if (act == null) {
             pl(actRoomTxt);
             if (isForInventory) {
                 move(room, inventory);
-                inventory.pi();
+                room.pr(inventory);
             }
-
             return actRoomTxt;
+        } else {
+            act.apply(room, inventory);
+            return "non default act";
         }
+    }
 
-        actItem.apply(room, inventory);
-
-        return "actItem!=null";
-
+    public String use(
+            final Room room,
+            final List<Item> items
+    ) {
+        if (use == null) {
+            pl(useTxt);
+            return useTxt;
+        } else {
+            use.apply(room, items);
+            return "non default use";
+        }
     }
 
     public void move(
@@ -122,11 +159,6 @@ public class Item {
     ) {
         room.getItems().add(this);
         inventory.remove(this);
-    }
-
-    public String use(Room room, List<Item> items) {
-        p("");
-        return "";
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static com.fitincontact.engine.Utils.*;
 
 public class Inventory {
-    private List<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     protected Inventory() {
     }
@@ -16,18 +16,30 @@ public class Inventory {
         return items;
     }
 
-    public void add(Item item) {
+    public void add(final Item item) {
         items.add(item);
     }
 
     public void pi() {
-        p(":");
-        AtomicReference<String> print = new AtomicReference<>("");
-        items.forEach(i -> print.set(print + i.getInvName() + ", "));
-        pl(print.get().substring(0, print.get().length() - 2));
+        pl(toString());
     }
 
-    public void remove(Item item) {
+    public boolean isHave(final Item item){
+        return items.contains(item);
+    }
+
+    @Override
+    public String toString() {
+        final String printFinal = ":";
+        if (items.isEmpty()) {
+            return printFinal;
+        }
+        final AtomicReference<String> print = new AtomicReference<>("");
+        items.forEach(i -> print.set(print + i.getInvName() + ", "));
+        return printFinal + print.get().substring(0, print.get().length() - 2);
+    }
+
+    public void remove(final Item item) {
         items.remove(item);
     }
 

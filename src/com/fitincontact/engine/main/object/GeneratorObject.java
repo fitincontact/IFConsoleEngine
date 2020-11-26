@@ -1,10 +1,13 @@
 package com.fitincontact.engine.main.object;
 
 
+import com.fitincontact.engine.api.Act;
+import com.fitincontact.engine.api.Use;
+
 public class GeneratorObject {
 
-    public Person newPerson() {
-        return new Person();
+    public Game newPerson() {
+        return new Game();
     }
 
     public Room newRoom(
@@ -26,7 +29,9 @@ public class GeneratorObject {
             final String roomDescription,
             final String actRoomTxt,
             final String actInventoryTxt,
-            final String useTxt
+            final String useTxt,
+            final Act act,
+            final Use use
     ) {
         return new Item(
                 word,
@@ -35,7 +40,9 @@ public class GeneratorObject {
                 roomDescription,
                 actRoomTxt,
                 actInventoryTxt,
-                useTxt
+                useTxt,
+                act,
+                use
         );
     }
 

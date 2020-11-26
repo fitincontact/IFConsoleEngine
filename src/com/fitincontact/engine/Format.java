@@ -13,7 +13,7 @@ public class Format {
     private Format() {
     }
 
-    public Format(
+    public void set(
             final String wayHead,
             final String roomTitleHead,
             final String roomDescriptionHead,

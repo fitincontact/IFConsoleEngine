@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Act {
+public class Monitor {
     private Way wayGo;
     private Item roomItemAct;
     private Item invItemAct;
@@ -36,7 +36,7 @@ public class Act {
         return wayGo;
     }
 
-    public void setWayGo(Way wayGo) {
+    public void setWayGo(final Way wayGo) {
         this.wayGo = wayGo;
     }
 
@@ -44,7 +44,7 @@ public class Act {
         return roomItemAct;
     }
 
-    public void setRoomItemAct(Item roomItemAct) {
+    public void setRoomItemAct(final Item roomItemAct) {
         this.roomItemAct = roomItemAct;
     }
 
@@ -52,7 +52,7 @@ public class Act {
         return invItemAct;
     }
 
-    public void setInvItemAct(Item invItemAct) {
+    public void setInvItemAct(final Item invItemAct) {
         this.invItemAct = invItemAct;
     }
 
@@ -60,7 +60,7 @@ public class Act {
         return itemsUse;
     }
 
-    public void setItemsUse(List<Item> itemsUse) {
+    public void setItemsUse(final List<Item> itemsUse) {
         this.itemsUse = itemsUse;
     }
 
@@ -68,7 +68,7 @@ public class Act {
         return actType;
     }
 
-    public void setActType(ActType actType) {
+    public void setActType(final ActType actType) {
         this.actType = actType;
     }
 
@@ -76,7 +76,7 @@ public class Act {
         return roomCurrent;
     }
 
-    public void setRoomCurrent(Room roomCurrent) {
+    public void setRoomCurrent(final Room roomCurrent) {
         this.roomCurrent = roomCurrent;
     }
 
@@ -84,7 +84,7 @@ public class Act {
         return inventoryCurrent;
     }
 
-    public void setInventoryCurrent(Inventory inventoryCurrent) {
+    public void setInventoryCurrent(final Inventory inventoryCurrent) {
         this.inventoryCurrent = inventoryCurrent;
     }
 
@@ -92,34 +92,31 @@ public class Act {
         return victory;
     }
 
-    public void setVictory(boolean victory) {
+    public void setVictory(final boolean victory) {
         this.victory = victory;
     }
 
-    public void pa() {
-        roomCurrent.pr();
-        inventoryCurrent.pi();
+    public void pm() {
+        roomCurrent.pr(inventoryCurrent);
     }
 
-    public void add(Item item) {
+    @Override
+    public String toString(){
+       return roomCurrent.roomAndInventoryString(inventoryCurrent);
+    }
+
+    public void add(final Item item) {
         itemsUse.add(item);
     }
 
-    protected void use(
-            Room room,
-            List<Item> items
-    ) {
-        items.forEach(i -> i.use(room, items));
-    }
-
     List<Room> getRooms() {
-        Set<Room> roomSet = new HashSet<Room>();
+        final Set<Room> roomSet = new HashSet<Room>();
         roomSet.add(roomCurrent);
         addRoomFromWays(roomSet, roomCurrent);
         return new ArrayList<>(roomSet);
     }
 
-    void addRoomFromWays(Set<Room> roomSet, Room room) {
+    void addRoomFromWays(final Set<Room> roomSet, final Room room) {
         room.getWays().forEach(w -> {
             roomSet.add(w.getRoom());
             addRoomFromWays(roomSet, w.getRoom());
