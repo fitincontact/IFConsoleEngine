@@ -170,8 +170,12 @@ public class Room {
         this.ways.addAll(Arrays.asList(ways));
     }
 
-    public void remove(final Item item) {
-        items.remove(item);
+    public boolean remove(final Item item) {
+        if(items.contains(item)){
+            items.remove(item);
+            return true;
+        }
+        return false;
     }
 
     @Override

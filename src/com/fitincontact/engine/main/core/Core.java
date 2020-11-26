@@ -36,6 +36,8 @@ public class Core {
 
     private void defineAct(final String word) {
 
+        //if(monitor.getInventoryCurrent().isHave()){}
+
         final AtomicBoolean isInItems = new AtomicBoolean(false);
         final AtomicBoolean isInInventory = new AtomicBoolean(false);
         final AtomicBoolean isInWay = new AtomicBoolean(false);
@@ -49,14 +51,20 @@ public class Core {
 
                 monitor.getRoomCurrent().getItems().forEach(i -> {
                     if (i.getWord().equals(splitUnSpaceWord)) {
-                        monitor.setActType(ActType.USE);
+                        monitor.setActType(ActType.USE_ITEM);
                         monitor.getItemsUse().add(i);
                     }
                 });
                 monitor.getInventoryCurrent().getItems().forEach(i -> {
                     if (i.getWord().equals(splitUnSpaceWord)) {
-                        monitor.setActType(ActType.USE);
+                        monitor.setActType(ActType.USE_ITEM);
                         monitor.getItemsUse().add(i);
+                    }
+                });
+                monitor.getRoomCurrent().getWays().forEach(w -> {
+                    if (w.getWayTitle().equals(splitUnSpaceWord)) {
+                        monitor.setActType(ActType.USE_WAY);
+                        monitor.setWayUse(w);
                     }
                 });
 
@@ -65,11 +73,17 @@ public class Core {
                            .anyMatch(i ->
                                    splitWords
                                            .stream()
-                                           .noneMatch(s -> i.getWord().equals(s)))) {
+                                           .noneMatch(s -> i.getWord().equals(s))) &&
+                    monitor.getWayUse() == null
+                ) {
                     unDefininedWord(splitUnSpaceWord);
                     monitor.cleanGoActUse();
                 }
-
+            }
+            if (monitor.getActType() == ActType.USE_ITEM &&
+                monitor.getItemsUse().size() < 2) {
+                unDefininedWord2(word);
+                monitor.cleanGoActUse();
             }
             return;
         }
@@ -95,17 +109,24 @@ public class Core {
             }
         });
 
-
         if (!isInWay.get() &&
             !isInItems.get() &&
-            !isInInventory.get()) {
+            !isInInventory.get()
+        ) {
             unDefininedWord(word);
             monitor.cleanGoActUse();
         }
+        isInWay.set(false);
+        isInItems.set(false);
+        isInInventory.set(false);
     }
 
     private void act(final Monitor monitor) {
-        if (monitor.getActType() == ActType.USE) {
+        if (monitor.getActType() == ActType.USE_WAY) {
+            monitor.getWayUse().use(monitor.getRoomCurrent(), monitor.getItemsUse());
+        }
+
+        if (monitor.getActType() == ActType.USE_ITEM) {
             final Item rootItemOrRandom = getItemRootOrRandom(monitor.getItemsUse());
             rootItemOrRandom.use(
                     monitor.getRoomCurrent(),
@@ -125,19 +146,19 @@ public class Core {
         }
 
         if (monitor.getActType() == ActType.GO) {
-            if(monitor.getRoomCurrent().exit(
+            if (monitor.getRoomCurrent().exit(
                     monitor.getWayGo().getRoom(),
                     monitor.getInventoryCurrent()
-            )){
-                if(!monitor.getRoomCurrent().exit(monitor.getWayGo().getRoom(),monitor.getInventoryCurrent())){
+            )) {
+                if (!monitor.getRoomCurrent().exit(monitor.getWayGo().getRoom(), monitor.getInventoryCurrent())) {
                     pl(monitor.getRoomCurrent().getExitTxt());
                     return;
                 }
-                if(monitor.getWayGo().isLock()){
+                if (monitor.getWayGo().isLock()) {
                     pl(monitor.getWayGo().getLockTxt());
                     return;
                 }
-                if(!monitor.getWayGo().getRoom().enter(monitor.getRoomCurrent(), monitor.getInventoryCurrent())){
+                if (!monitor.getWayGo().getRoom().enter(monitor.getRoomCurrent(), monitor.getInventoryCurrent())) {
                     pl(monitor.getWayGo().getRoom().getEnterTxt());
                     return;
                 }
@@ -151,11 +172,15 @@ public class Core {
     }
 
     private void unDefininedWord(final String word) {
-        if(monitor.toString().contains(word)){
-            pl(word + " - я не буду это использовать");
+        if (monitor.toString().contains(word)) {
+            pl(word + " - это невозможно использовать, мой друг");
             return;
         }
         pl(word + " - не вижу здесь чего-то похожего");
+    }
+//todo naming logic
+    private void unDefininedWord2(final String word) {
+        pl(word + " - нужно попробовать что-то другое");
     }
 
     private Item getItemRootOrRandom(final List<Item> useItems) {
@@ -188,7 +213,7 @@ public class Core {
         return "";
     }
 
-    private String defineShotWord(final String word){
+    private String defineShotWord(final String word) {
         if (word.equals("ф.")) {
             p("финиш");
             return "финиш";
@@ -206,5 +231,4 @@ public class Core {
         }
         return "";
     }
-
 }

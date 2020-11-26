@@ -8,30 +8,16 @@ import java.io.IOException;
 
 import static com.fitincontact.engine.Utils.pl;
 
-public class Example {
+public final class Example {
 
-    final Generator generator = new Generator();
-    final Game game = generator.newPerson();
+    private final Generator generator = new Generator();
+    private final Game game = getGenerator().newPerson();
 
     public static void main(final String[] args) throws IOException {
 
         final Generator generator = new Generator();
         final Game game = generator.newPerson();
         final Inventory inventory = generator.newInventory();
-
-//        final Room r0_main = generator.newRoom(
-//                "menu",
-//                "ПО СЛЕДАМ ВОЛШЕБСТВА",
-//                "Волшебник Зазул жаден, так считает мой король, пославший меня, своего верного "+
-//                "придворного, за средством от золотожорного дракона - \"Друг мой Аруй, многие столетия " +
-//                "наши земли не знали такого напастья, ненасытный змей разоряет Наше царство,"+
-//                "только колдовская настойка багульника и благородного боярышника избавит нас от него\". И "+
-//                "вот ты в замке Зазула, сам волшебник сбежал увидев как ты въезжаешь во двор, еще бы, " +
-//                "цена этого зелья так велика, что в казне, попросту, не хватит монет чтобы оплатить услуги колдуна"+
-//                "так что король и советники решили воззвать к чести и совести "+
-//                "чародея, а если не согласится то возвать к менее благородным чувствам, к боязни битья и унижения."+
-//                " Зазул"
-//        );
 
         final Room main_room = generator.newRoom(
                 "menu",
@@ -109,21 +95,21 @@ public class Example {
                 "Иголкой к столу пришпилена записка.",
                 "Кажется это не иголка а миниатюная сабля, а записочку возьму",
                 "какие-то мелкие еле различимые каракули, это что записка для мышей?",
-                "рот, компот и банка шпрот\n ",
+                "\n\"в рот, компот и банку шпрот\nпропади же обормот\"\nчто это может значить?",
                 null,
                 null
         );
 
         final Use useNote = (room, items) -> {
             if (items.size() == 2 && items.contains(magnifier)) {
-                pl("теперь можно различит буквы, вот что тут написано: " + note.getUseTxt());
+                pl("теперь можно различить буквы, вот что тут написано: " + note.getUseTxt());
                 return true;
             }
             return false;
         };
         note.add(useNote);
 
-        hall.add(table, note, trash, magnifier, cabinet);
+        hall.add(table, note, trash, cabinet);
 
         //---//
 
@@ -157,8 +143,8 @@ public class Example {
                 "бутыль",
                 false,
                 "",
-                "Большая, величиной с бочку, бутыль с прозрачной жидкостью, с этикеткой \"ОСНОВА ВСЕГО\".",
-                "отвинтил курышку и чуть не свалился от резкого запаха, это спирт",
+                "У стены стоит большая, величиной с бочку, бутыль с прозрачной жидкостью, с этикеткой \"ОСНОВА ВСЕГО\".",
+                "отвинтил курышку и чуть не свалился от резкого запаха, это спирт, так пахнет пятница мой друг",
                 "",
                 "",
                 null,
@@ -169,7 +155,7 @@ public class Example {
                 "ключ",
                 true,
                 "ключ",
-                "Пол покрывает слой даже думать не хочу чего, рожь можно сеять, кажется тут лежит ключ",
+                "Пол покрывает слой даже думать не хочу чего, рожь можно сеять, из под луковой шелухи блестит ключ.",
                 "возьму этот ключ, может пригодиться",
                 "надо бы поискать дверь к которой он подойдет",
                 "ключ подошел к двери, но дверь так заржавела что пришлось приложить все силы чтобы " +
@@ -191,9 +177,11 @@ public class Example {
         );
         final Use useWindow = (room, items) -> {
             if (items.size() == 2 && items.contains(hammer)) {
-                pl("разнес окно в дребезги, в душное пространство лаборатории ворвался лесной ветер, ветер душицы, " +
-                   "ветер странствий, едкий дым развеяло");
+                pl("разнес окно в дребезги, в душное пространство лаборатории ворвался лесной ветер, ветер хвои, " +
+                   "душицы и смородины, ветер странствий, едкий дым развеяло");
                 labor.add(key);
+                labor.add(magnifier);
+                labor.remove(window);
                 labor.setDescription(
                         "Реторты и склянки, бадьи с водорослями, корзина живых лягушек, " +
                         "клетки на полу и на стенах с чудными тварями, стеклоглазы. "
@@ -220,11 +208,13 @@ public class Example {
         final Way wayPanty = generator.newWay(
                 panty, "ржавая дверь"
         );
-        wayPanty.setLock(false);
+        wayPanty.setLock(true);
+        wayPanty.setLockTxt("не открывается, может просто нужен ключ?");
         final Use useWayPanty = (room, items) -> {
-            if (items.size() == 2 && items.contains(key)) {
-                wayPanty.setLock(true);
+            if (items.size() == 1 && items.contains(key)) {
+                wayPanty.setLock(false);
                 pl(key.getUseTxt());
+                return true;
             }
             pl("это не поможет");
             return false;
@@ -232,27 +222,25 @@ public class Example {
         wayPanty.add(useWayPanty);
         labor.add(wayPanty);
 
-
         final Room r3 = generator.newRoom(
                 "зала",
                 "большая зала",
                 "тут мы собираемся всей семьей"
         );
 
-
         final Way w1_2 = generator.newWay(
                 r3, "в зал"
         );
-
-//        r1.add(w1_1);
-//        r1.add(w1_2);
-
 
         generator.newCore(game, main_room, inventory).start();
     }
 
     private void go(final Room room) {
         game.go(room);
+    }
+
+    public Generator getGenerator() {
+        return generator;
     }
     /*
      * https://stackoverflow.com/questions/17913409/what-is-a-sam-type-in-java

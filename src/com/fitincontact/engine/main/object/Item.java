@@ -17,6 +17,7 @@ public class Item {
     private final String actRoomTxt;
     private final String actInventoryTxt;
     private final String useTxt;
+    private boolean isInInventory;
     private Act act;
     private Use use;
 
@@ -94,6 +95,14 @@ public class Item {
         return isForInventory;
     }
 
+    public boolean isInInventory() {
+        return isInInventory;
+    }
+
+    public void setInInventory(final boolean inInventory) {
+        isInInventory = inInventory;
+    }
+
     public void pd() {
         p(roomDescription + " ");
     }
@@ -103,7 +112,7 @@ public class Item {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return word;
     }
 
@@ -112,12 +121,22 @@ public class Item {
             final Inventory inventory
     ) {
         if (act == null) {
-            pl(actRoomTxt);
-            if (isForInventory) {
+            if (isForInventory && !isInInventory) {
+                //todo check boolean
                 move(room, inventory);
+                pl(actRoomTxt);
                 room.pr(inventory);
+                return "";
             }
-            return actRoomTxt;
+            if (isForInventory && isInInventory) {
+                pl(actInventoryTxt);
+                return "";
+            }
+            if (!isForInventory) {
+                pl(actRoomTxt);
+                return "";
+            }
+            return "";
         } else {
             act.apply(room, inventory);
             return "non default act";
@@ -137,12 +156,16 @@ public class Item {
         }
     }
 
-    public void move(
+    public boolean move(
             final Room room,
             final Inventory inventory
     ) {
-        room.remove(this);
-        inventory.add(this);
+        if (room.remove(this) && this.isForInventory) {
+            inventory.add(this);
+            this.isInInventory = true;
+            return true;
+        }
+        return false;
     }
 
     public void move(

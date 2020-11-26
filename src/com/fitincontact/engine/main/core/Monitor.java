@@ -16,6 +16,7 @@ public class Monitor {
     private Item roomItemAct;
     private Item invItemAct;
     private List<Item> itemsUse = new ArrayList<>();
+    private Way wayUse;
     private ActType actType;
     private Room roomCurrent;
     private Inventory inventoryCurrent;
@@ -58,6 +59,14 @@ public class Monitor {
 
     public List<Item> getItemsUse() {
         return itemsUse;
+    }
+
+    public void setWayUse(Way wayUse) {
+         this.wayUse = wayUse;
+    }
+
+    public Way getWayUse() {
+        return wayUse;
     }
 
     public void setItemsUse(final List<Item> itemsUse) {
