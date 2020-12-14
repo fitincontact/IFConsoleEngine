@@ -2,15 +2,23 @@ package com.fitincontact.engine.api;
 
 import com.fitincontact.engine.main.core.Core;
 import com.fitincontact.engine.main.core.GeneratorCore;
+import com.fitincontact.engine.main.format.Format;
+import com.fitincontact.engine.main.format.GeneratorFormat;
+import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
 
 public class Generator {
 
     private final GeneratorObject generatorObject = new GeneratorObject();
     private final GeneratorCore generatorCore = new GeneratorCore();
+    private final GeneratorFormat generatorFormat = new GeneratorFormat();
 
-    public Game newPerson() {
-        return generatorObject.newPerson();
+    public Game newGame(final Person person) {
+        return generatorObject.newGame(person);
+    }
+
+    public Person newPerson(final String name) {
+        return generatorObject.newPerson(name);
     }
 
     public Room newRoom(
@@ -59,8 +67,7 @@ public class Generator {
         );
     }
 
-    public Inventory newInventory()
-    {
+    public Inventory newInventory() {
         return generatorObject.newInventory();
     }
 
@@ -68,12 +75,24 @@ public class Generator {
             final Game game,
             final Room room,
             final Inventory inventory
-    ){
+    ) {
         return generatorCore.newCore(
                 game,
                 room,
                 inventory
         );
+    }
+
+    public PreFormat newPreFormat() {
+        return generatorFormat.newPreFormat();
+    }
+
+    public int setInstance(final PreFormat preFormat) {
+        return generatorFormat.setInstance(preFormat);
+    }
+
+    public Format getInstance() {
+        return generatorFormat.getInstance();
     }
 
 }

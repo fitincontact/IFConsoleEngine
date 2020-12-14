@@ -2,6 +2,7 @@ package game;
 
 import com.fitincontact.engine.api.Generator;
 import com.fitincontact.engine.api.Use;
+import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
 
 import java.io.IOException;
@@ -11,12 +12,22 @@ import static com.fitincontact.engine.Utils.pl;
 public final class Example {
 
     private final Generator generator = new Generator();
-    private final Game game = getGenerator().newPerson();
+    //private final Game game = getGenerator().newGame();
+//    private void go(final Room room) {
+//        game.go(room);
+//    }
+
 
     public static void main(final String[] args) throws IOException {
-
         final Generator generator = new Generator();
-        final Game game = generator.newPerson();
+
+        final PreFormat preFormat = generator.newPreFormat();
+        preFormat.setUnDefininedWordIfNotContains(" - не вижу здесь чего-то похожего");
+        preFormat.setUnDefininedWordIfContains(" - это невозможно использовать");
+        preFormat.setUnDefininedWordUse(" - нужно попробовать что-то другое");
+        generator.setInstance(preFormat);
+
+        final Game game = generator.newGame(generator.newPerson("Аруй"));
         final Inventory inventory = generator.newInventory();
 
         final Room main_room = generator.newRoom(
@@ -30,6 +41,19 @@ public final class Example {
                 "как только ему доложили о моем приезде. Что ж, как ищейка мне придется идти по его следам, " +
                 "смекалкой и чутьем отыскать его, где бы этот скряга не спрятался."
         );
+
+        final Item sd = generator.newItem(
+                "ыв",
+                true,
+                "ыв",
+                "Вот лежит ыв огромный ыв.",
+                "я взял ыв",
+                "ыв пахнет ладогой",
+                "я использовал ыв",
+                null,
+                null
+        );
+        main_room.add(sd);
 
         //---//
 
@@ -85,7 +109,9 @@ public final class Example {
                 "Кажется на столе из под кипы книг торчит ручка лупы.",
                 "я ее взял",
                 "очень сильная лупа",
-                "я использовал лупу", null, null
+                "я использовал лупу",
+                null,
+                null
         );
 
         final Item note = generator.newItem(
@@ -234,17 +260,4 @@ public final class Example {
 
         generator.newCore(game, main_room, inventory).start();
     }
-
-    private void go(final Room room) {
-        game.go(room);
-    }
-
-    public Generator getGenerator() {
-        return generator;
-    }
-    /*
-     * https://stackoverflow.com/questions/17913409/what-is-a-sam-type-in-java
-     * https://stackoverflow.com/questions/4685563/how-to-pass-a-function-as-a-parameter-in-java
-     * https://techndeck.com/how-to-pass-function-as-a-parameter-in-a-method-in-java-8/
-     * */
 }

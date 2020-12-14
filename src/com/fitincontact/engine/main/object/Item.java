@@ -2,6 +2,7 @@ package com.fitincontact.engine.main.object;
 
 import com.fitincontact.engine.api.Act;
 import com.fitincontact.engine.api.Use;
+import com.fitincontact.engine.main.format.Format;
 
 import java.util.List;
 
@@ -9,9 +10,11 @@ import static com.fitincontact.engine.Utils.p;
 import static com.fitincontact.engine.Utils.pl;
 
 public class Item {
+    private final Format format = Format.getInstance();
+
     private final String word;
     private final boolean isForInventory;
-    //if "" then invisible
+    //if Format.EMPTY then invisible
     private final String invName;
     private final String roomDescription;
     private final String actRoomTxt;
@@ -27,7 +30,7 @@ public class Item {
             final String invName,
             final String roomDescription,
             final String actText,
-            final String takeText,
+            final String actInventoryTxt,
             final String useTxt,
             final Act act,
             final Use use
@@ -37,7 +40,7 @@ public class Item {
         this.invName = invName;
         this.roomDescription = roomDescription;
         this.actRoomTxt = actText;
-        this.actInventoryTxt = takeText;
+        this.actInventoryTxt = actInventoryTxt;
         this.useTxt = useTxt;
         this.act = act;
         this.use = use;
@@ -104,11 +107,11 @@ public class Item {
     }
 
     public void pd() {
-        p(roomDescription + " ");
+        p(roomDescription + format.getItemRoomDescription());
     }
 
     public void pi() {
-        pl(invName + ", ");
+        pl(invName + format.getItemInvName());
     }
 
     @Override
@@ -116,7 +119,7 @@ public class Item {
         return word;
     }
 
-    public String act(
+    public void act(
             final Room room,
             final Inventory inventory
     ) {
@@ -126,33 +129,24 @@ public class Item {
                 move(room, inventory);
                 pl(actRoomTxt);
                 room.pr(inventory);
-                return "";
-            }
-            if (isForInventory && isInInventory) {
+            } else if (isForInventory && isInInventory) {
                 pl(actInventoryTxt);
-                return "";
-            }
-            if (!isForInventory) {
+            } else if (!isForInventory) {
                 pl(actRoomTxt);
-                return "";
             }
-            return "";
         } else {
             act.apply(room, inventory);
-            return "non default act";
         }
     }
 
-    public String use(
+    public void use(
             final Room room,
             final List<Item> items
     ) {
         if (use == null) {
             pl(useTxt);
-            return useTxt;
         } else {
             use.apply(room, items);
-            return "non default use";
         }
     }
 

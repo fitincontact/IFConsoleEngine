@@ -58,25 +58,19 @@ public class Way {
         this.useTxt = useTxt;
     }
 
-    public String use(
+    public void use(
             final Room room,
             final List<Item> items
-    ){
-        if(use==null){
+    ) {
+        if (use == null) {
             pl(useTxt);
-            return useTxt;
         } else {
             use.apply(room, items);
-            return "non default use";
         }
     }
 
-    public void pw() {
-        pl(wayTitle + "|");
-    }
-
     @Override
-    public String toString(){
+    public String toString() {
         return wayTitle;
     }
 }

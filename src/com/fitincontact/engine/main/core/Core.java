@@ -1,6 +1,7 @@
 package com.fitincontact.engine.main.core;
 
 import com.fitincontact.engine.main.enums.ActType;
+import com.fitincontact.engine.main.format.Format;
 import com.fitincontact.engine.main.object.Game;
 import com.fitincontact.engine.main.object.Inventory;
 import com.fitincontact.engine.main.object.Item;
@@ -21,6 +22,7 @@ public class Core {
 
     private final Monitor monitor = new Monitor();
     private final Game game;
+    private final Format format = Format.getInstance();
 
     protected Core(
             final Game game,
@@ -31,7 +33,7 @@ public class Core {
         this.monitor.setInventoryCurrent(inventory);
         this.monitor.setVictory(false);
         this.game = game;
-        this.game.setAct(monitor);
+        this.game.add(monitor);
     }
 
     private void defineAct(final String word) {
@@ -42,9 +44,9 @@ public class Core {
         final AtomicBoolean isInInventory = new AtomicBoolean(false);
         final AtomicBoolean isInWay = new AtomicBoolean(false);
 
-        if (word.indexOf("-") > 0) {
+        if (word.indexOf(format.getUseSplitSymbol()) > 0) {
             final List<String> splitWords = new ArrayList<>();
-            for (final String splitWord : word.split("-")) {
+            for (final String splitWord : word.split(format.getUseSplitSymbol())) {
 
                 final String splitUnSpaceWord = splitWord.trim();
                 splitWords.add(splitUnSpaceWord);
@@ -173,14 +175,15 @@ public class Core {
 
     private void unDefininedWord(final String word) {
         if (monitor.toString().contains(word)) {
-            pl(word + " - это невозможно использовать, мой друг");
+            pl(word + format.getUnDefininedWordIfContains());
             return;
         }
-        pl(word + " - не вижу здесь чего-то похожего");
+        pl(word + format.getUnDefininedWordIfNotContains());
     }
-//todo naming logic
+
+    //todo naming logic
     private void unDefininedWord2(final String word) {
-        pl(word + " - нужно попробовать что-то другое");
+        pl(word + format.getUnDefininedWordUse());
     }
 
     private Item getItemRootOrRandom(final List<Item> useItems) {
@@ -200,35 +203,38 @@ public class Core {
             if (first) {
                 monitor.pm();
                 first = false;
-
             }
-            p(">");
+            p(format.getConsoleHead());
             word = reader.readLine();
 
-            defineShotWord(word);
-
-            defineAct(word);
-            act(monitor);
+            if (!defineShotWord(word)) {
+                defineAct(word);
+                act(monitor);
+            }
         }
-        return "";
+        return Format.EMPTY;
     }
 
-    private String defineShotWord(final String word) {
-        if (word.equals("ф.")) {
-            p("финиш");
-            return "финиш";
+    private boolean defineShotWord(final String word) {
+        if (word.equals(format.getFlagFinish().getKey())) {
+            p(format.getFlagFinish().getValue());
+            monitor.setVictory(true);
+            return true;
         }
-        if (word.equals("о.")) {
-            p("Объкты:");
+        if (word.equals(format.getFlagItems().getKey())) {
+            p(format.getFlagItems().getValue());
             monitor.getRoomCurrent().pri();
+            return true;
         }
-        if (word.equals("и.")) {
-            p("Инвентарь:");
+        if (word.equals(format.getFlagInventory().getKey())) {
+            p(format.getFlagInventory().getValue());
             monitor.getInventoryCurrent().pi();
+            return true;
         }
-        if (word.equals("к.")) {
+        if (word.equals(format.getFlagRoom().getKey())) {
             monitor.pm();
+            return true;
         }
-        return "";
+        return false;
     }
 }

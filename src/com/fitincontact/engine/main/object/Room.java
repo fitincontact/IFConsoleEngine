@@ -2,6 +2,7 @@ package com.fitincontact.engine.main.object;
 
 import com.fitincontact.engine.api.Enter;
 import com.fitincontact.engine.api.Exit;
+import com.fitincontact.engine.main.format.Format;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,16 +12,14 @@ import java.util.concurrent.atomic.AtomicReference;
 import static com.fitincontact.engine.Utils.pl;
 
 public class Room {
+    private final Format format = Format.getInstance();
     private final String name;
     private final String title;
+    private final List<Item> items = new ArrayList<>();
+    private final List<Way> ways = new ArrayList<>();
     private String description;
-    private List<Item> items = new ArrayList<>();
-    private List<Way> ways = new ArrayList<>();
     private Enter enter;
     private Exit exit;
-    private final String enterTxt = "я не могу войти сюда";
-    private final String exitTxt = "я не могу выйти отсюда";
-
 
     protected Room(
             final String name,
@@ -30,20 +29,6 @@ public class Room {
         this.name = name;
         this.title = title;
         this.description = description;
-    }
-
-    protected Room(
-            final String name,
-            final String title,
-            final String description,
-            final List<Item> items,
-            final List<Way> ways
-    ) {
-        this.name = name;
-        this.title = title;
-        this.description = description;
-        this.items = items;
-        this.ways = ways;
     }
 
     public String getName() {
@@ -87,11 +72,11 @@ public class Room {
     }
 
     public String getEnterTxt() {
-        return enterTxt;
+        return format.getEnterTxt();
     }
 
     public String getExitTxt() {
-        return exitTxt;
+        return format.getExitTxt();
     }
 
     public boolean exit(
@@ -115,15 +100,15 @@ public class Room {
     }
 
     public void pr() {
-        pl(":" + title);
-        pl(":" + description);
+        pl(format.getRoomTitleHead() + title);
+        pl(format.getRoomDescriptionHead() + description);
         pri();
         prw();
     }
 
     public void pr(final Inventory inventory) {
-        pl(":" + title);
-        pl(":" + description);
+        pl(format.getRoomTitleHead() + title);
+        pl(format.getRoomDescriptionHead() + description);
         pri();
         inventory.pi();
         prw();
@@ -138,24 +123,22 @@ public class Room {
     }
 
     public String riString() {
-        final String formatHead = ":";
-        final AtomicReference<String> print = new AtomicReference<>("");
-        items.forEach(i -> print.set(print + i.getRoomDescription() + " "));
-        final String body = print.get().isEmpty() ? "" : print.get().substring(0, print.get().length() - 1);
-        return formatHead + body;
+        final AtomicReference<String> print = new AtomicReference<>(Format.EMPTY);
+        items.forEach(i -> print.set(print + i.getRoomDescription() + format.getRoomItemSplit()));
+        final String body = print.get().isEmpty() ? Format.EMPTY : print.get().substring(0, print.get().length() - 1);
+        return format.getRoomItemsHead() + body;
     }
 
     public String rwString() {
-        final String formatHead = ":";
-        final AtomicReference<String> print = new AtomicReference<>("");
-        ways.forEach(i -> print.set(print + i.getWayTitle() + " | "));
-        final String body = print.get().isEmpty() ? "" : print.get().substring(0, print.get().length() - 2);
-        return formatHead + body;
+        final AtomicReference<String> print = new AtomicReference<>(Format.EMPTY);
+        ways.forEach(i -> print.set(print + i.getWayTitle() + format.getRoomWaySplit()));
+        final String body = print.get().isEmpty() ? Format.EMPTY : print.get().substring(0, print.get().length() - 2);
+        return format.getWayHead() + body;
     }
 
     public String roomAndInventoryString(final Inventory inventory) {
-        final String print = ":" + title +
-                             ":" + description +
+        final String print = format.getRoomTitleHead() + title +
+                             format.getRoomDescriptionHead() + description +
                              riString() +
                              inventory +
                              rwString();
@@ -171,7 +154,7 @@ public class Room {
     }
 
     public boolean remove(final Item item) {
-        if(items.contains(item)){
+        if (items.contains(item)) {
             items.remove(item);
             return true;
         }
@@ -206,5 +189,4 @@ public class Room {
                other.title.equals(title) &&
                other.description.equals(description);
     }
-
 }

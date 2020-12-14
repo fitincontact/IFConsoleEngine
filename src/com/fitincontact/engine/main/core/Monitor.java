@@ -61,16 +61,16 @@ public class Monitor {
         return itemsUse;
     }
 
-    public void setWayUse(Way wayUse) {
-         this.wayUse = wayUse;
+    public void setItemsUse(final List<Item> itemsUse) {
+        this.itemsUse = itemsUse;
     }
 
     public Way getWayUse() {
         return wayUse;
     }
 
-    public void setItemsUse(final List<Item> itemsUse) {
-        this.itemsUse = itemsUse;
+    public void setWayUse(final Way wayUse) {
+        this.wayUse = wayUse;
     }
 
     public ActType getActType() {
@@ -110,8 +110,8 @@ public class Monitor {
     }
 
     @Override
-    public String toString(){
-       return roomCurrent.roomAndInventoryString(inventoryCurrent);
+    public String toString() {
+        return roomCurrent.roomAndInventoryString(inventoryCurrent);
     }
 
     public void add(final Item item) {

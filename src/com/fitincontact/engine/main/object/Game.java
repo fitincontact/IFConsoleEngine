@@ -1,26 +1,37 @@
 package com.fitincontact.engine.main.object;
 
 import com.fitincontact.engine.main.core.Monitor;
+import com.fitincontact.engine.main.format.Format;
 
-import static com.fitincontact.engine.Utils.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.fitincontact.engine.Utils.pl;
 
 public class Game {
+    private final Format format = Format.getInstance();
+
     private Monitor monitor;
+    private final List<Person> persons = new ArrayList<>();
 
     protected Game() {
     }
 
-    public Monitor getAct() {
-        return monitor;
+    protected Game(final Person person) {
+        this.persons.add(person);
     }
 
-    public void setAct(final Monitor monitor) {
+    public void add(final Monitor monitor) {
         this.monitor = monitor;
     }
 
-    public String go(final Room room){
+    public void add(final Person person) {
+        this.persons.add(person);
+    }
+
+    public String go(final Room room) {
         monitor.setRoomCurrent(room);
-        final String msg = "совершен переход в " + room.getTitle();
+        final String msg = format.getGoTxt() + room.getTitle();
         pl(msg);
         return msg;
     }

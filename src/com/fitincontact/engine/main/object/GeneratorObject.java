@@ -1,13 +1,16 @@
 package com.fitincontact.engine.main.object;
 
-
 import com.fitincontact.engine.api.Act;
 import com.fitincontact.engine.api.Use;
 
 public class GeneratorObject {
 
-    public Game newPerson() {
-        return new Game();
+    public Game newGame(final Person person) {
+        return new Game(person);
+    }
+
+    public Person newPerson(final String name) {
+        return new Person(name);
     }
 
     public Room newRoom(
