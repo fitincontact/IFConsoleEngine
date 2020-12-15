@@ -6,7 +6,7 @@ import com.fitincontact.engine.main.format.Format;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.fitincontact.engine.Utils.pl;
+import static com.fitincontact.engine.main.utils.Utils.pl;
 
 public class Game {
     private final Format format = Format.getInstance();

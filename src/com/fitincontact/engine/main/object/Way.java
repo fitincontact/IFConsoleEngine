@@ -4,7 +4,7 @@ import com.fitincontact.engine.api.Use;
 
 import java.util.List;
 
-import static com.fitincontact.engine.Utils.pl;
+import static com.fitincontact.engine.main.utils.Utils.pl;
 
 public class Way {
     private final Room room;

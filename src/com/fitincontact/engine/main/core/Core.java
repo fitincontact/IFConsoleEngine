@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-import static com.fitincontact.engine.Utils.p;
-import static com.fitincontact.engine.Utils.pl;
+import static com.fitincontact.engine.main.utils.Utils.p;
+import static com.fitincontact.engine.main.utils.Utils.pl;
 
 public class Core {
 
@@ -37,8 +37,6 @@ public class Core {
     }
 
     private void defineAct(final String word) {
-
-        //if(monitor.getInventoryCurrent().isHave()){}
 
         final AtomicBoolean isInItems = new AtomicBoolean(false);
         final AtomicBoolean isInInventory = new AtomicBoolean(false);

@@ -1,6 +1,7 @@
 package com.fitincontact.engine.main.core;
 
 import com.fitincontact.engine.main.enums.ActType;
+import com.fitincontact.engine.main.history.RoomHistory;
 import com.fitincontact.engine.main.object.Inventory;
 import com.fitincontact.engine.main.object.Item;
 import com.fitincontact.engine.main.object.Room;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 public class Monitor {
+    private final RoomHistory roomHistory = RoomHistory.getInstance();
+
     private Way wayGo;
     private Item roomItemAct;
     private Item invItemAct;
@@ -86,6 +89,7 @@ public class Monitor {
     }
 
     public void setRoomCurrent(final Room roomCurrent) {
+        roomHistory.push(roomCurrent);
         this.roomCurrent = roomCurrent;
     }
 

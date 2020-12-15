@@ -6,12 +6,14 @@ import com.fitincontact.engine.main.format.Format;
 import com.fitincontact.engine.main.format.GeneratorFormat;
 import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
+import com.fitincontact.engine.main.history.RoomHistory;
 
 public class Generator {
 
     private final GeneratorObject generatorObject = new GeneratorObject();
     private final GeneratorCore generatorCore = new GeneratorCore();
     private final GeneratorFormat generatorFormat = new GeneratorFormat();
+    private final RoomHistory roomHistory = RoomHistory.getInstance();
 
     public Game newGame(final Person person) {
         return generatorObject.newGame(person);
@@ -25,12 +27,14 @@ public class Generator {
             final String name,
             final String title,
             final String description
-    ) {
-        return generatorObject.newRoom(
+    ) throws Exception {
+        final Room room =  generatorObject.newRoom(
                 name,
                 title,
                 description
         );
+        roomHistory.add(room);
+        return room;
     }
 
     public Item newItem(

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.fitincontact.engine.Utils.pl;
+import static com.fitincontact.engine.main.utils.Utils.pl;
 
 public class Inventory {
     private final Format format = Format.getInstance();

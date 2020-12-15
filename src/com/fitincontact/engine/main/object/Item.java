@@ -6,8 +6,8 @@ import com.fitincontact.engine.main.format.Format;
 
 import java.util.List;
 
-import static com.fitincontact.engine.Utils.p;
-import static com.fitincontact.engine.Utils.pl;
+import static com.fitincontact.engine.main.utils.Utils.p;
+import static com.fitincontact.engine.main.utils.Utils.pl;
 
 public class Item {
     private final Format format = Format.getInstance();

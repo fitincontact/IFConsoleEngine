@@ -5,20 +5,13 @@ import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
 
-import java.io.IOException;
-
-import static com.fitincontact.engine.Utils.pl;
+import static com.fitincontact.engine.main.utils.Utils.pl;
 
 public final class Example {
 
     private final Generator generator = new Generator();
-    //private final Game game = getGenerator().newGame();
-//    private void go(final Room room) {
-//        game.go(room);
-//    }
 
-
-    public static void main(final String[] args) throws IOException {
+    public static void main(final String[] args) throws Exception {
         final Generator generator = new Generator();
 
         final PreFormat preFormat = generator.newPreFormat();
@@ -41,19 +34,6 @@ public final class Example {
                 "как только ему доложили о моем приезде. Что ж, как ищейка мне придется идти по его следам, " +
                 "смекалкой и чутьем отыскать его, где бы этот скряга не спрятался."
         );
-
-        final Item sd = generator.newItem(
-                "ыв",
-                true,
-                "ыв",
-                "Вот лежит ыв огромный ыв.",
-                "я взял ыв",
-                "ыв пахнет ладогой",
-                "я использовал ыв",
-                null,
-                null
-        );
-        main_room.add(sd);
 
         //---//
 

@@ -9,9 +9,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.fitincontact.engine.Utils.pl;
+import static com.fitincontact.engine.main.utils.Utils.pl;
 
 public class Room {
+
     private final Format format = Format.getInstance();
     private final String name;
     private final String title;
@@ -26,6 +27,7 @@ public class Room {
             final String title,
             final String description
     ) {
+
         this.name = name;
         this.title = title;
         this.description = description;

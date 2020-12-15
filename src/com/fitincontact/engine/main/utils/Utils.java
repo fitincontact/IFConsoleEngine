@@ -1,4 +1,4 @@
-package com.fitincontact.engine;
+package com.fitincontact.engine.main.utils;
 
 import com.fitincontact.engine.main.format.Format;
 import com.fitincontact.engine.main.object.Item;
