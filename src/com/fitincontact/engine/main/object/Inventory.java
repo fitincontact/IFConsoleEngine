@@ -4,9 +4,6 @@ import com.fitincontact.engine.main.format.Format;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static com.fitincontact.engine.main.utils.Utils.pl;
 
 public class Inventory {
     private final Format format = Format.getInstance();
@@ -23,27 +20,21 @@ public class Inventory {
         items.add(item);
     }
 
-    public void pi() {
-        pl(toString());
-    }
-
-    public boolean isHave(final Item item){
+    public boolean isHave(final Item item) {
         return items.contains(item);
     }
 
-    @Override
-    public String toString() {
-        final String inventoryHead = format.getInventoryHead();
+    public List<String> toStr() {
+        final List<String> printList = new ArrayList<>();
+        printList.add(format.getInventoryHead());
         if (items.isEmpty()) {
-            return inventoryHead;
+            return printList;
         }
-        final AtomicReference<String> print = new AtomicReference<>(Format.EMPTY);
-        items.forEach(i -> print.set(print + i.getInvName() + format.getInventoryItem()));
-        return inventoryHead + print.get().substring(0, print.get().length() - 2);
+        items.forEach(i -> printList.add(i.getInvName() + format.getInventoryItemSplit()));
+        return printList;
     }
 
     public void remove(final Item item) {
         items.remove(item);
     }
-
 }

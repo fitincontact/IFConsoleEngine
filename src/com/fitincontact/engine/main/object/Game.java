@@ -6,13 +6,10 @@ import com.fitincontact.engine.main.format.Format;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.fitincontact.engine.main.utils.Utils.pl;
-
 public class Game {
     private final Format format = Format.getInstance();
-
-    private Monitor monitor;
     private final List<Person> persons = new ArrayList<>();
+    private Monitor monitor;
 
     protected Game() {
     }
@@ -32,7 +29,6 @@ public class Game {
     public String go(final Room room) {
         monitor.setRoomCurrent(room);
         final String msg = format.getGoTxt() + room.getTitle();
-        pl(msg);
         return msg;
     }
 }

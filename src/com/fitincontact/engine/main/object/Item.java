@@ -4,17 +4,14 @@ import com.fitincontact.engine.api.Act;
 import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.format.Format;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static com.fitincontact.engine.main.utils.Utils.p;
-import static com.fitincontact.engine.main.utils.Utils.pl;
 
 public class Item {
     private final Format format = Format.getInstance();
 
     private final String word;
     private final boolean isForInventory;
-    //if Format.EMPTY then invisible
     private final String invName;
     private final String roomDescription;
     private final String actRoomTxt;
@@ -31,9 +28,7 @@ public class Item {
             final String roomDescription,
             final String actText,
             final String actInventoryTxt,
-            final String useTxt,
-            final Act act,
-            final Use use
+            final String useTxt
     ) {
         this.word = word;
         this.isForInventory = isForInventory;
@@ -42,8 +37,6 @@ public class Item {
         this.actRoomTxt = actText;
         this.actInventoryTxt = actInventoryTxt;
         this.useTxt = useTxt;
-        this.act = act;
-        this.use = use;
     }
 
     public Act getActItem() {
@@ -106,47 +99,41 @@ public class Item {
         isInInventory = inInventory;
     }
 
-    public void pd() {
-        p(roomDescription + format.getItemRoomDescription());
-    }
-
-    public void pi() {
-        pl(invName + format.getItemInvName());
-    }
-
     @Override
     public String toString() {
         return word;
     }
 
-    public void act(
+    public List<String> act(
             final Room room,
             final Inventory inventory
     ) {
+        final List<String> print = new ArrayList<>();
         if (act == null) {
             if (isForInventory && !isInInventory) {
-                //todo check boolean
                 move(room, inventory);
-                pl(actRoomTxt);
-                room.pr(inventory);
+                print.add(actRoomTxt);
+                print.addAll(room.toStrRoom(inventory));
             } else if (isForInventory && isInInventory) {
-                pl(actInventoryTxt);
+                print.add(actInventoryTxt);
             } else if (!isForInventory) {
-                pl(actRoomTxt);
+                print.add(actRoomTxt);
             }
         } else {
             act.apply(room, inventory);
         }
+        return print;
     }
 
-    public void use(
+    public String use(
             final Room room,
             final List<Item> items
     ) {
         if (use == null) {
-            pl(useTxt);
+            return useTxt;
         } else {
             use.apply(room, items);
+            return Format.EMPTY;
         }
     }
 

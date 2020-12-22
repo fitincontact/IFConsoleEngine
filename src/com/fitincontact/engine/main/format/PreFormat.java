@@ -3,16 +3,16 @@ package com.fitincontact.engine.main.format;
 import javafx.util.Pair;
 
 public class PreFormat {
-    private String roomTitleHead = ":";
-    private String roomDescriptionHead = ":";
-    private String roomItemsHead = ":";
+    private String roomTitleHead = "RTH:";
+    private String roomDescriptionHead = "RDH:";
+    private String roomItemsHead = "ItH:";
     private String roomItemSplit = " ";
     private String roomWaySplit = " | ";
     private String itemRoomDescription = " ";
     private String itemInvName = ", ";
-    private String inventoryHead = ":";
-    private String inventoryItem = ", ";
-    private String wayHead = ":";
+    private String inventoryHead = "InH:";
+    private String inventoryItemSplit = ", ";
+    private String wayHead = "Wh:";
     private String consoleHead = ">";
     private String useSplitSymbol = "-";
     private String goTxt = "transition to the ";
@@ -93,12 +93,12 @@ public class PreFormat {
         this.inventoryHead = inventoryHead;
     }
 
-    public String getInventoryItem() {
-        return inventoryItem;
+    public String getInventoryItemSplit() {
+        return inventoryItemSplit;
     }
 
-    public void setInventoryItem(final String inventoryItem) {
-        this.inventoryItem = inventoryItem;
+    public void setInventoryItemSplit(final String inventoryItemSplit) {
+        this.inventoryItemSplit = inventoryItemSplit;
     }
 
     public String getWayHead() {

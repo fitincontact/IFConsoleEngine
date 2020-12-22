@@ -123,26 +123,26 @@ public class Core {
 
     private void act(final Monitor monitor) {
         if (monitor.getActType() == ActType.USE_WAY) {
-            monitor.getWayUse().use(monitor.getRoomCurrent(), monitor.getItemsUse());
+            pl(monitor.getWayUse().use(monitor.getRoomCurrent(), monitor.getItemsUse()));
         }
 
         if (monitor.getActType() == ActType.USE_ITEM) {
             final Item rootItemOrRandom = getItemRootOrRandom(monitor.getItemsUse());
-            rootItemOrRandom.use(
+            pl(rootItemOrRandom.use(
                     monitor.getRoomCurrent(),
                     monitor.getItemsUse()
-            );
+            ));
         }
 
         if (monitor.getActType() == ActType.ACT_ROOM_ITEM) {
-            monitor.getRoomItemAct().act(
+            pl(monitor.getRoomItemAct().act(
                     monitor.getRoomCurrent(),
                     monitor.getInventoryCurrent()
-            );
+            ));
         }
 
         if (monitor.getActType() == ActType.ACT_INVENTORY_ITEM) {
-            monitor.getInvItemAct().act(monitor.getRoomCurrent(), monitor.getInventoryCurrent());
+            pl(monitor.getInvItemAct().act(monitor.getRoomCurrent(), monitor.getInventoryCurrent()));
         }
 
         if (monitor.getActType() == ActType.GO) {
@@ -162,10 +162,9 @@ public class Core {
                     pl(monitor.getWayGo().getRoom().getEnterTxt());
                     return;
                 }
-                //game.go()
                 monitor.setRoomCurrent(monitor.getWayGo().getRoom());
             }
-            this.monitor.pm();
+            pl(this.monitor.toStrRoomCurrent());
         }
 
         monitor.cleanGoActUse();
@@ -199,7 +198,7 @@ public class Core {
         boolean first = true;
         while (!monitor.isVictory()) {
             if (first) {
-                monitor.pm();
+                pl(monitor.toStrRoomCurrent());
                 first = false;
             }
             p(format.getConsoleHead());
@@ -221,16 +220,16 @@ public class Core {
         }
         if (word.equals(format.getFlagItems().getKey())) {
             p(format.getFlagItems().getValue());
-            monitor.getRoomCurrent().pri();
+            pl(monitor.getRoomCurrent().riString());
             return true;
         }
         if (word.equals(format.getFlagInventory().getKey())) {
             p(format.getFlagInventory().getValue());
-            monitor.getInventoryCurrent().pi();
+            pl(monitor.getInventoryCurrent().toStr());
             return true;
         }
         if (word.equals(format.getFlagRoom().getKey())) {
-            monitor.pm();
+            pl(monitor.toStrRoomCurrent());
             return true;
         }
         return false;

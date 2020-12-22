@@ -9,11 +9,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.fitincontact.engine.main.utils.Utils.pl;
-
 public class Room {
 
     private final Format format = Format.getInstance();
+
     private final String name;
     private final String title;
     private final List<Item> items = new ArrayList<>();
@@ -101,27 +100,14 @@ public class Room {
         return true;
     }
 
-    public void pr() {
-        pl(format.getRoomTitleHead() + title);
-        pl(format.getRoomDescriptionHead() + description);
-        pri();
-        prw();
-    }
-
-    public void pr(final Inventory inventory) {
-        pl(format.getRoomTitleHead() + title);
-        pl(format.getRoomDescriptionHead() + description);
-        pri();
-        inventory.pi();
-        prw();
-    }
-
-    public void pri() {
-        pl(riString());
-    }
-
-    public void prw() {
-        pl(rwString());
+    public List<String> toStrRoom(final Inventory inventory) {
+        final List<String> print = new ArrayList<>();
+        print.add(format.getRoomTitleHead() + title);
+        print.add(format.getRoomDescriptionHead() + description);
+        print.add(riString());
+        print.addAll(inventory.toStr());
+        print.add(rwString());
+        return print;
     }
 
     public String riString() {

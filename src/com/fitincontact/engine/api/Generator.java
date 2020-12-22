@@ -6,8 +6,9 @@ import com.fitincontact.engine.main.format.Format;
 import com.fitincontact.engine.main.format.GeneratorFormat;
 import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.history.ItemHistory;
-import com.fitincontact.engine.main.object.*;
 import com.fitincontact.engine.main.history.RoomHistory;
+import com.fitincontact.engine.main.object.*;
+import com.fitincontact.engine.main.utils.Utils;
 
 public class Generator {
 
@@ -16,6 +17,14 @@ public class Generator {
     private final GeneratorFormat generatorFormat = new GeneratorFormat();
     private final RoomHistory roomHistory = RoomHistory.getInstance();
     private final ItemHistory itemHistory = ItemHistory.getInstance();
+
+    public static void pl(final String s) {
+        Utils.pl(s);
+    }
+
+    public static void p(final String s) {
+        Utils.p(s);
+    }
 
     public Game newGame(final Person person) {
         return generatorObject.newGame(person);
@@ -30,7 +39,7 @@ public class Generator {
             final String title,
             final String description
     ) throws Exception {
-        final Room room =  generatorObject.newRoom(
+        final Room room = generatorObject.newRoom(
                 name,
                 title,
                 description
@@ -46,9 +55,7 @@ public class Generator {
             final String roomDescription,
             final String actRoomTxt,
             final String actInventoryTxt,
-            final String useTxt,
-            final Act act,
-            final Use use
+            final String useTxt
     ) throws Exception {
         final Item item = generatorObject.newItem(
                 word,
@@ -57,9 +64,7 @@ public class Generator {
                 roomDescription,
                 actRoomTxt,
                 actInventoryTxt,
-                useTxt,
-                act,
-                use
+                useTxt
         );
         itemHistory.add(item);
         return item;

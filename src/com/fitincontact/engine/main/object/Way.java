@@ -1,12 +1,12 @@
 package com.fitincontact.engine.main.object;
 
 import com.fitincontact.engine.api.Use;
+import com.fitincontact.engine.main.format.Format;
 
 import java.util.List;
 
-import static com.fitincontact.engine.main.utils.Utils.pl;
-
 public class Way {
+
     private final Room room;
     private final String wayTitle;
     private boolean isLock;
@@ -58,14 +58,15 @@ public class Way {
         this.useTxt = useTxt;
     }
 
-    public void use(
+    public String use(
             final Room room,
             final List<Item> items
     ) {
         if (use == null) {
-            pl(useTxt);
+            return useTxt;
         } else {
             use.apply(room, items);
+            return Format.EMPTY;
         }
     }
 

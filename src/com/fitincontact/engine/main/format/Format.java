@@ -15,7 +15,7 @@ public class Format {
     private final String itemRoomDescription;
     private final String itemInvName;
     private final String inventoryHead;
-    private final String inventoryItem;
+    private final String inventoryItemSplit;
     private final String wayHead;
     private final String consoleHead;
     private final String useSplitSymbol;
@@ -39,7 +39,7 @@ public class Format {
             final String itemRoomDescription,
             final String itemInvName,
             final String inventoryHead,
-            final String inventoryItem,
+            final String inventoryItemSplit,
             final String wayHead,
             final String consoleHead,
             final String useSplitSymbol,
@@ -62,7 +62,7 @@ public class Format {
         this.itemRoomDescription = itemRoomDescription;
         this.itemInvName = itemInvName;
         this.inventoryHead = inventoryHead;
-        this.inventoryItem = inventoryItem;
+        this.inventoryItemSplit = inventoryItemSplit;
         this.wayHead = wayHead;
         this.consoleHead = consoleHead;
         this.useSplitSymbol = useSplitSymbol;
@@ -89,7 +89,7 @@ public class Format {
                     preFormat.getItemRoomDescription(),
                     preFormat.getItemInvName(),
                     preFormat.getInventoryHead(),
-                    preFormat.getInventoryItem(),
+                    preFormat.getInventoryItemSplit(),
                     preFormat.getWayHead(),
                     preFormat.getConsoleHead(),
                     preFormat.getUseSplitSymbol(),
@@ -174,8 +174,8 @@ public class Format {
         return itemInvName;
     }
 
-    public String getInventoryItem() {
-        return inventoryItem;
+    public String getInventoryItemSplit() {
+        return inventoryItemSplit;
     }
 
     public String getGoTxt() {

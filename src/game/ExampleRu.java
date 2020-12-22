@@ -5,11 +5,15 @@ import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
 
-import static com.fitincontact.engine.main.utils.Utils.pl;
+public final class ExampleRu {
 
-public final class Example {
+    public static void pl(final String s) {
+        Generator.pl(s);
+    }
 
-    private final Generator generator = new Generator();
+    public static void p(final String s) {
+        Generator.p(s);
+    }
 
     public static void main(final String[] args) throws Exception {
         final Generator generator = new Generator();
@@ -20,7 +24,8 @@ public final class Example {
         preFormat.setUnDefininedWordUse(" - нужно попробовать что-то другое");
         generator.setInstance(preFormat);
 
-        final Game game = generator.newGame(generator.newPerson("Аруй"));
+        final Person person = generator.newPerson("Аруй");
+        final Game game = generator.newGame(person);
         final Inventory inventory = generator.newInventory();
 
         final Room main_room = generator.newRoom(
@@ -53,9 +58,7 @@ public final class Example {
                 "Высокий черный шкаф, на дверцах изображения чудовищ.",
                 "дверцы не открываются, хоть шкаф и большой не думаю что волшебник там",
                 "",
-                "",
-                null,
-                null
+                ""
         );
 
         final Item table = generator.newItem(
@@ -65,9 +68,8 @@ public final class Example {
                 "Красивый резной стол.",
                 "под столом пусто. Зазул, ау!",
                 "",
-                "",
-                null,
-                null
+                ""
+
         );
 
         final Item trash = generator.newItem(
@@ -77,9 +79,7 @@ public final class Example {
                 "Тут полно всякого хлама.",
                 "там в завалах сам черт ногу сломит, не хочу там копаться, пойду где светло и чисто",
                 "",
-                "",
-                null,
-                null
+                ""
         );
 
         final Item magnifier = generator.newItem(
@@ -89,9 +89,7 @@ public final class Example {
                 "Кажется на столе из под кипы книг торчит ручка лупы.",
                 "я ее взял",
                 "очень сильная лупа",
-                "я использовал лупу",
-                null,
-                null
+                "я использовал лупу"
         );
 
         final Item note = generator.newItem(
@@ -101,9 +99,7 @@ public final class Example {
                 "Иголкой к столу пришпилена записка.",
                 "Кажется это не иголка а миниатюная сабля, а записочку возьму",
                 "какие-то мелкие еле различимые каракули, это что записка для мышей?",
-                "\n\"в рот, компот и банку шпрот\nпропади же обормот\"\nчто это может значить?",
-                null,
-                null
+                "\n\"в рот, компот и банку шпрот\nпропади же обормот\"\nчто это может значить?"
         );
 
         final Use useNote = (room, items) -> {
@@ -140,9 +136,7 @@ public final class Example {
                 "В углу почему-то валяется молоток.",
                 "я взял молоток",
                 "тяжелый молоток",
-                "я ударил молотком",
-                null,
-                null
+                "я ударил молотком"
         );
 
         final Item alcohol = generator.newItem(
@@ -150,11 +144,9 @@ public final class Example {
                 false,
                 "",
                 "У стены стоит большая, величиной с бочку, бутыль с прозрачной жидкостью, с этикеткой \"ОСНОВА ВСЕГО\".",
-                "отвинтил курышку и чуть не свалился от резкого запаха, это спирт, так пахнет пятница мой друг",
+                "отвинтил крышку и чуть не свалился от резкого запаха, это спирт, так пахнет пятница мой друг",
                 "",
-                "",
-                null,
-                null
+                ""
         );
 
         final Item key = generator.newItem(
@@ -164,10 +156,7 @@ public final class Example {
                 "Пол покрывает слой даже думать не хочу чего, рожь можно сеять, из под луковой шелухи блестит ключ.",
                 "возьму этот ключ, может пригодиться",
                 "надо бы поискать дверь к которой он подойдет",
-                "ключ подошел к двери, но дверь так заржавела что пришлось приложить все силы чтобы " +
-                "открыть ее",
-                null,
-                null
+                "ключ подошел к двери, я открыл её"
         );
 
         final Item window = generator.newItem(
@@ -177,9 +166,7 @@ public final class Example {
                 "Огромное окно высотой в два человечьих роста.",
                 "за окном лес до самого горизонта",
                 "",
-                "",
-                null,
-                null
+                ""
         );
         final Use useWindow = (room, items) -> {
             if (items.size() == 2 && items.contains(hammer)) {
@@ -192,10 +179,10 @@ public final class Example {
                         "Реторты и склянки, бадьи с водорослями, корзина живых лягушек, " +
                         "клетки на полу и на стенах с чудными тварями, стеклоглазы. "
                 );
-                if(!inventory.isHave(hammer)){
-                    hammer.move(labor,inventory);
+                if (!inventory.isHave(hammer)) {
+                    hammer.move(labor, inventory);
                 }
-                room.pr(inventory);
+                room.toStrRoom(inventory);
                 return true;
             }
             return false;
@@ -227,16 +214,6 @@ public final class Example {
         };
         wayPanty.add(useWayPanty);
         labor.add(wayPanty);
-
-        final Room r3 = generator.newRoom(
-                "зала",
-                "большая зала",
-                "тут мы собираемся всей семьей"
-        );
-
-        final Way w1_2 = generator.newWay(
-                r3, "в зал"
-        );
 
         generator.newCore(game, main_room, inventory).start();
     }

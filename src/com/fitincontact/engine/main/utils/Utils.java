@@ -11,8 +11,16 @@ public class Utils {
         System.out.print(s);
     }
 
+    public static void p(final List<String> list) {
+        list.forEach(i -> System.out.print(i));
+    }
+
     public static void pl(final String s) {
         System.out.println(s);
+    }
+
+    public static void pl(final List<String> list) {
+        list.forEach(i -> System.out.println(i));
     }
 
     public static int countSubString(final String subString, final String string) {

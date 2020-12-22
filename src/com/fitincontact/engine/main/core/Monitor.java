@@ -109,8 +109,8 @@ public class Monitor {
         this.victory = victory;
     }
 
-    public void pm() {
-        roomCurrent.pr(inventoryCurrent);
+    public List<String> toStrRoomCurrent() {
+        return roomCurrent.toStrRoom(inventoryCurrent);
     }
 
     @Override
