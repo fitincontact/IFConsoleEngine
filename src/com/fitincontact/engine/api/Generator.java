@@ -5,6 +5,7 @@ import com.fitincontact.engine.main.core.GeneratorCore;
 import com.fitincontact.engine.main.format.Format;
 import com.fitincontact.engine.main.format.GeneratorFormat;
 import com.fitincontact.engine.main.format.PreFormat;
+import com.fitincontact.engine.main.history.ItemHistory;
 import com.fitincontact.engine.main.object.*;
 import com.fitincontact.engine.main.history.RoomHistory;
 
@@ -14,6 +15,7 @@ public class Generator {
     private final GeneratorCore generatorCore = new GeneratorCore();
     private final GeneratorFormat generatorFormat = new GeneratorFormat();
     private final RoomHistory roomHistory = RoomHistory.getInstance();
+    private final ItemHistory itemHistory = ItemHistory.getInstance();
 
     public Game newGame(final Person person) {
         return generatorObject.newGame(person);
@@ -47,8 +49,8 @@ public class Generator {
             final String useTxt,
             final Act act,
             final Use use
-    ) {
-        return generatorObject.newItem(
+    ) throws Exception {
+        final Item item = generatorObject.newItem(
                 word,
                 isForInventory,
                 invName,
@@ -59,6 +61,8 @@ public class Generator {
                 act,
                 use
         );
+        itemHistory.add(item);
+        return item;
     }
 
     public Way newWay(

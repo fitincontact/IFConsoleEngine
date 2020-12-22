@@ -21,7 +21,7 @@ public class RoomHistory {
 
     public void add(final Room room) throws Exception {
         if (rooms.stream().anyMatch(r -> r.getName().equals(room.getName()))) {
-            throw new Exception("name for room must be unique!");
+            throw new Exception("field 'name' for room must be unique!");
         }
         rooms.add(room);
     }
