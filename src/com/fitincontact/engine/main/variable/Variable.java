@@ -60,7 +60,15 @@ public class Variable implements Serializable {
         return i;
     }
 
-    public void set(final Variable variable) {
+    public void set(final Variable v) {
+        booleans.removeAll(booleans);
+        booleans.addAll(v.booleans);
+        longs.removeAll(longs);
+        longs.addAll(v.longs);
+        doubles.removeAll(doubles);
+        doubles.addAll(v.doubles);
+        strings.removeAll(strings);
+        strings.addAll(v.strings);
     }
 
 }

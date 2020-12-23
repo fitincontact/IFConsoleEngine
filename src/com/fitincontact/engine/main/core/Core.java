@@ -2,10 +2,10 @@ package com.fitincontact.engine.main.core;
 
 import com.fitincontact.engine.main.enums.ActType;
 import com.fitincontact.engine.main.format.Format;
-import com.fitincontact.engine.main.object.Game;
 import com.fitincontact.engine.main.object.Inventory;
 import com.fitincontact.engine.main.object.Item;
 import com.fitincontact.engine.main.object.Room;
+import com.fitincontact.engine.main.save.GameDeserialisation;
 import com.fitincontact.engine.main.save.GameSerialisation;
 
 import java.io.BufferedReader;
@@ -22,7 +22,6 @@ import static com.fitincontact.engine.main.utils.Utils.pl;
 public class Core {
 
     private final Monitor monitor = Monitor.getInstance();
-    private final Game game = Game.getInstance();
     private final Format format = Format.getInstance();
 
     protected Core(
@@ -190,7 +189,7 @@ public class Core {
         return useItemsWithNonDefaultUse.get(0);
     }
 
-    public String start() throws IOException {
+    public String start() throws IOException, ClassNotFoundException {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String word;
         boolean first = true;
@@ -210,7 +209,7 @@ public class Core {
         return Format.EMPTY;
     }
 
-    private boolean defineShotWord(final String word) throws IOException {
+    private boolean defineShotWord(final String word) throws IOException, ClassNotFoundException {
         if (word.equals(format.getFlagFinish().getKey())) {
             p(format.getFlagFinish().getValue());
             monitor.setVictory(true);
@@ -233,6 +232,10 @@ public class Core {
         final String[] splited = word.split("\\s+");
         if (splited[0].equals("s.")) {
             GameSerialisation.main(splited);
+            return true;
+        }
+        if (splited[0].equals("l.")) {
+            GameDeserialisation.main(splited);
             return true;
         }
         return false;

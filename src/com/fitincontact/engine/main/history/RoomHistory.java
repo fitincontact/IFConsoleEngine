@@ -3,16 +3,17 @@ package com.fitincontact.engine.main.history;
 import com.fitincontact.engine.main.object.Room;
 
 import java.io.Serializable;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Stack;
 
 public class RoomHistory implements Serializable {
 
     private static final long serialVersionUID = -7868882172095239441L;
     private static RoomHistory instance;
-    private final Set<Room> rooms = new HashSet<Room>();
-    private final Stack<Room> roomHistory = new Stack<Room>();
+    private final Set<Room> rooms = new HashSet<>();
+    private final Deque<Room> roomHistory = new ArrayDeque<>();
 
     private RoomHistory() {
     }
@@ -36,10 +37,10 @@ public class RoomHistory implements Serializable {
     }
 
     public void set(final RoomHistory r) {
-        this.rooms.removeAll(this.rooms);
-        this.rooms.addAll(r.rooms);
-        this.roomHistory.removeAll(this.roomHistory);
-        this.roomHistory.addAll(r.roomHistory);
+        rooms.removeAll(rooms);
+        rooms.addAll(r.rooms);
+        roomHistory.removeAll(roomHistory);
+        roomHistory.addAll(r.roomHistory);
     }
 
 }

@@ -3,16 +3,19 @@ package com.fitincontact.engine.main.history;
 import com.fitincontact.engine.main.object.Item;
 
 import java.io.Serializable;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Stack;
 
 public class ItemHistory implements Serializable {
 
     private static final long serialVersionUID = -7761809927129811200L;
+
     private static ItemHistory instance;
-    private final Set<Item> items = new HashSet<Item>();
-    private final Stack<Item> itemHistory = new Stack<Item>();
+
+    private final Set<Item> items = new HashSet<>();
+    private final Deque<Item> itemHistory = new ArrayDeque<>();
 
     private ItemHistory() {
     }
@@ -35,6 +38,10 @@ public class ItemHistory implements Serializable {
         itemHistory.push(item);
     }
 
-    public void set(final ItemHistory itemHistory) {
+    public void set(final ItemHistory i) {
+        items.removeAll(items);
+        items.addAll(i.items);
+        itemHistory.removeAll(itemHistory);
+        itemHistory.addAll(i.itemHistory);
     }
 }

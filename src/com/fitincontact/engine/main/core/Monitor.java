@@ -149,15 +149,15 @@ public class Monitor implements Serializable {
     }
 
     public void set(final Monitor m) {
-        this.wayGo = m.wayGo;
-        this.roomItemAct = m.roomItemAct;
-        this.invItemAct = m.invItemAct;
-        this.itemsUse = m.itemsUse;
-        this.wayUse = m.wayUse;
-        this.actType = m.actType;
-        this.roomCurrent = m.roomCurrent;
-        this.inventoryCurrent = m.inventoryCurrent;
-        this.victory = m.victory;
+        wayGo = m.wayGo;
+        roomItemAct = m.roomItemAct;
+        invItemAct = m.invItemAct;
+        itemsUse = m.itemsUse;
+        wayUse = m.wayUse;
+        actType = m.actType;
+        roomCurrent = m.roomCurrent;
+        inventoryCurrent = m.inventoryCurrent;
+        victory = m.victory;
     }
 
 }

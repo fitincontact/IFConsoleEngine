@@ -8,17 +8,19 @@ import java.util.Set;
 
 public class WayHistory implements Serializable {
     private static final long serialVersionUID = 8224917193934168792L;
+
     private static WayHistory instance;
+
     private final Set<Way> ways = new HashSet<>();
+
+    private WayHistory() {
+    }
 
     public static WayHistory getInstance() {
         if (instance == null) {
             instance = new WayHistory();
         }
         return instance;
-    }
-
-    private WayHistory() {
     }
 
     public void add(final Way way) throws Exception {
@@ -28,8 +30,9 @@ public class WayHistory implements Serializable {
         ways.add(way);
     }
 
-    public void set(final WayHistory wayHistory){
-
+    public void set(final WayHistory w) {
+        ways.removeAll(ways);
+        ways.addAll(w.ways);
     }
 
 }

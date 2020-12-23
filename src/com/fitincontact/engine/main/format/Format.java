@@ -5,14 +5,16 @@ import javafx.util.Pair;
 import java.io.Serializable;
 
 public class Format implements Serializable {
-
-    private static final long serialVersionUID = 7009343869686846026L;
-
     public static final String EMPTY = "";
+    public static final String SPACE = " ";
+    private static final long serialVersionUID = 7009343869686846026L;
     private static Format instance;
 
     private String gameName;
-    private String saveName;
+    private final String saveName;
+    private final String gameSaveMsg;
+    private final String gameLoadMsg;
+    private final String filenameExtension;
     private String roomTitleHead;
     private String roomDescriptionHead;
     private String roomItemsHead;
@@ -39,6 +41,9 @@ public class Format implements Serializable {
     protected Format(
             final String gameName,
             final String saveName,
+            final String gameSaveMsg,
+            final String gameLoadMsg,
+            final String filenameExtension,
             final String roomTitleHead,
             final String roomDescriptionHead,
             final String roomItemsHead,
@@ -64,6 +69,9 @@ public class Format implements Serializable {
     ) {
         this.gameName = gameName;
         this.saveName = saveName;
+        this.gameSaveMsg = gameSaveMsg;
+        this.gameLoadMsg = gameLoadMsg;
+        this.filenameExtension = filenameExtension;
         this.roomTitleHead = roomTitleHead;
         this.roomDescriptionHead = roomDescriptionHead;
         this.roomItemsHead = roomItemsHead;
@@ -93,6 +101,9 @@ public class Format implements Serializable {
             instance = new Format(
                     preFormat.getGameName(),
                     preFormat.getSaveName(),
+                    preFormat.getGameSaveMsg(),
+                    preFormat.getGameLoadMsg(),
+                    preFormat.getFilenameExtension(),
                     preFormat.getRoomTitleHead(),
                     preFormat.getRoomDescriptionHead(),
                     preFormat.getRoomItemsHead(),
@@ -140,6 +151,18 @@ public class Format implements Serializable {
 
     public String getSaveName() {
         return saveName;
+    }
+
+    public String getGameSaveMsg() {
+        return gameSaveMsg;
+    }
+
+    public String getGameLoadMsg() {
+        return gameLoadMsg;
+    }
+
+    public String getFilenameExtension() {
+        return filenameExtension;
     }
 
     public String getRoomTitleHead() {

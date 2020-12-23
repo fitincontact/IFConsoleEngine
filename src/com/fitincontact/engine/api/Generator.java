@@ -7,6 +7,7 @@ import com.fitincontact.engine.main.format.GeneratorFormat;
 import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.history.ItemHistory;
 import com.fitincontact.engine.main.history.RoomHistory;
+import com.fitincontact.engine.main.history.WayHistory;
 import com.fitincontact.engine.main.object.*;
 import com.fitincontact.engine.main.utils.Utils;
 import com.fitincontact.engine.main.variable.*;
@@ -18,6 +19,7 @@ public class Generator {
     private final GeneratorFormat generatorFormat = new GeneratorFormat();
     private final RoomHistory roomHistory = RoomHistory.getInstance();
     private final ItemHistory itemHistory = ItemHistory.getInstance();
+    private final WayHistory wayHistory = WayHistory.getInstance();
     private final Variable variable = new GeneratorValuable().getVariable();
 
     public static void pl(final String s) {
@@ -76,11 +78,13 @@ public class Generator {
     public Way newWay(
             final Room room,
             final String wayTitle
-    ) {
-        return generatorObject.newWay(
+    ) throws Exception {
+        final Way way = generatorObject.newWay(
                 room,
                 wayTitle
         );
+        wayHistory.add(way);
+        return way;
     }
 
     public Inventory newInventory() {

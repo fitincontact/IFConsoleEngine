@@ -25,30 +25,52 @@ public class Game implements Serializable {
     private Game() {
     }
 
-    protected Game(
-            final Format format,
-            final List<Person> persons,
-            final Monitor monitor,
-            final RoomHistory roomHistory,
-            final WayHistory wayHistory,
-            final ItemHistory itemHistory,
-            final Variable variable
-    ) {
-        this.format.set(format);
-        this.persons.removeAll(this.persons);
-        this.persons.addAll(persons);
-        this.monitor.set(monitor);
-        this.roomHistory.set(roomHistory);
-        this.wayHistory.set(wayHistory);
-        this.itemHistory.set(itemHistory);
-        this.variable.set(variable);
-    }
-
     public static Game getInstance() {
         if (instance == null) {
             instance = new Game();
         }
         return instance;
+    }
+
+    public void set(
+            final Game game
+    ) {
+        this.format.set(game.getFormat());
+        this.persons.removeAll(this.persons);
+        this.persons.addAll(game.getPersons());
+        this.monitor.set(game.getMonitor());
+        this.roomHistory.set(game.getRoomHistory());
+        this.wayHistory.set(game.getWayHistory());
+        this.itemHistory.set(game.getItemHistory());
+        this.variable.set(game.getVariable());
+    }
+
+    public Format getFormat() {
+        return format;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public Monitor getMonitor() {
+        return monitor;
+    }
+
+    public RoomHistory getRoomHistory() {
+        return roomHistory;
+    }
+
+    public WayHistory getWayHistory() {
+        return wayHistory;
+    }
+
+    public ItemHistory getItemHistory() {
+        return itemHistory;
+    }
+
+    public Variable getVariable() {
+        return variable;
     }
 
     public void add(final Person person) {

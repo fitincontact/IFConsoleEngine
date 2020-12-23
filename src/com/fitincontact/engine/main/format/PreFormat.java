@@ -5,6 +5,9 @@ import javafx.util.Pair;
 public class PreFormat {
     private String gameName = "game";
     private String saveName = "save";
+    private String gameSaveMsg = "game save";
+    private String gameLoadMsg = "game load";
+    private String filenameExtension = ".ser";
     private String roomTitleHead = "RTH:";
     private String roomDescriptionHead = "RDH:";
     private String roomItemsHead = "ItH:";
@@ -35,12 +38,16 @@ public class PreFormat {
         return gameName;
     }
 
+    public void setGameName(final String gameName) {
+        this.gameName = gameName;
+    }
+
     public String getRoomTitleHead() {
         return roomTitleHead;
     }
 
-    public void setGameName(final String gameName) {
-        this.gameName = gameName;
+    public void setRoomTitleHead(final String roomTitleHead) {
+        this.roomTitleHead = roomTitleHead;
     }
 
     public String getSaveName() {
@@ -51,8 +58,28 @@ public class PreFormat {
         this.saveName = saveName;
     }
 
-    public void setRoomTitleHead(final String roomTitleHead) {
-        this.roomTitleHead = roomTitleHead;
+    public String getGameSaveMsg() {
+        return gameSaveMsg;
+    }
+
+    public void setGameSaveMsg(final String gameSaveMsg) {
+        this.gameSaveMsg = gameSaveMsg;
+    }
+
+    public String getGameLoadMsg() {
+        return gameLoadMsg;
+    }
+
+    public void setGameLoadMsg(final String gameLoadMsg) {
+        this.gameLoadMsg = gameLoadMsg;
+    }
+
+    public String getFilenameExtension() {
+        return filenameExtension;
+    }
+
+    public void setFilenameExtension(final String filenameExtension) {
+        this.filenameExtension = filenameExtension;
     }
 
     public String getRoomDescriptionHead() {
