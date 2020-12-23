@@ -7,14 +7,18 @@ import com.fitincontact.engine.main.object.Item;
 import com.fitincontact.engine.main.object.Room;
 import com.fitincontact.engine.main.object.Way;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Monitor {
-    private final RoomHistory roomHistory = RoomHistory.getInstance();
+public class Monitor implements Serializable {
 
+    private static final long serialVersionUID = -2028574438713832452L;
+
+    private static Monitor instance;
+    private final RoomHistory roomHistory = RoomHistory.getInstance();
     private Way wayGo;
     private Item roomItemAct;
     private Item invItemAct;
@@ -25,14 +29,22 @@ public class Monitor {
     private Inventory inventoryCurrent;
     private boolean victory;
 
+    private Monitor() {
+    }
+
+    public static Monitor getInstance() {
+        if (instance == null) {
+            instance = new Monitor();
+        }
+        return instance;
+    }
+
     void cleanGoActUse() {
         wayGo = null;
         roomItemAct = null;
         invItemAct = null;
         itemsUse = new ArrayList<>();
-        actType = ActType.UNKNOWN;
-        //roomPrint = null;
-        //inventoryPrint = null;
+        actType = ActType.EMPTY;
         victory = false;
     }
 
@@ -134,6 +146,18 @@ public class Monitor {
             roomSet.add(w.getRoom());
             addRoomFromWays(roomSet, w.getRoom());
         });
+    }
+
+    public void set(final Monitor m) {
+        this.wayGo = m.wayGo;
+        this.roomItemAct = m.roomItemAct;
+        this.invItemAct = m.invItemAct;
+        this.itemsUse = m.itemsUse;
+        this.wayUse = m.wayUse;
+        this.actType = m.actType;
+        this.roomCurrent = m.roomCurrent;
+        this.inventoryCurrent = m.inventoryCurrent;
+        this.victory = m.victory;
     }
 
 }

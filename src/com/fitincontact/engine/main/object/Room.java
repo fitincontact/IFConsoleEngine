@@ -4,12 +4,15 @@ import com.fitincontact.engine.api.Enter;
 import com.fitincontact.engine.api.Exit;
 import com.fitincontact.engine.main.format.Format;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Room {
+public class Room implements Serializable {
+
+    private static final long serialVersionUID = -8988988578369997739L;
 
     private final Format format = Format.getInstance();
 

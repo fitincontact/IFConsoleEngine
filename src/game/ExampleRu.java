@@ -4,6 +4,10 @@ import com.fitincontact.engine.api.Generator;
 import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
+import com.fitincontact.engine.main.variable.L;
+import com.fitincontact.engine.main.variable.S;
+
+import java.io.Serializable;
 
 public final class ExampleRu {
 
@@ -18,14 +22,28 @@ public final class ExampleRu {
     public static void main(final String[] args) throws Exception {
         final Generator generator = new Generator();
 
+        final L l1 = generator.newLong(111111111);
+        //p(l1.toString());
+        //System.out.println(l1.hashCode());
+        l1.set(222222222);
+        //p(l1.toString());
+        //System.out.println(l1.hashCode());
+        l1.set(222222222);
+        //p(l1.toString());
+        //System.out.println(l1.hashCode());
+        final S sss = generator.newString("asdfg dghhhhhhh  uuuuuu t5y6u7i8 jjjjjjjj");
+
         final PreFormat preFormat = generator.newPreFormat();
+        preFormat.setGameName("БОЯРКА СПИРТ И МАГИЯ или ПО СЛЕДАМ ВОЛШЕБСТВА");
+        preFormat.setSaveName("save");
         preFormat.setUnDefininedWordIfNotContains(" - не вижу здесь чего-то похожего");
         preFormat.setUnDefininedWordIfContains(" - это невозможно использовать");
         preFormat.setUnDefininedWordUse(" - нужно попробовать что-то другое");
         generator.setInstance(preFormat);
 
         final Person person = generator.newPerson("Аруй");
-        final Game game = generator.newGame(person);
+        final Game game = generator.newGame();
+        game.add(person);
         final Inventory inventory = generator.newInventory();
 
         final Room main_room = generator.newRoom(
@@ -102,7 +120,7 @@ public final class ExampleRu {
                 "\n\"в рот, компот и банку шпрот\nпропади же обормот\"\nчто это может значить?"
         );
 
-        final Use useNote = (room, items) -> {
+        final Use useNote = (Use & Serializable) (room, items) -> {
             if (items.size() == 2 && items.contains(magnifier)) {
                 pl("теперь можно различить буквы, вот что тут написано: " + note.getUseTxt());
                 return true;
@@ -168,7 +186,7 @@ public final class ExampleRu {
                 "",
                 ""
         );
-        final Use useWindow = (room, items) -> {
+        final Use useWindow = (Use & Serializable) (room, items) -> {
             if (items.size() == 2 && items.contains(hammer)) {
                 pl("разнес окно в дребезги, в душное пространство лаборатории ворвался лесной ветер, ветер хвои, " +
                    "душицы и смородины, ветер странствий, едкий дым развеяло");
@@ -203,7 +221,7 @@ public final class ExampleRu {
         );
         wayPanty.setLock(true);
         wayPanty.setLockTxt("не открывается, может просто нужен ключ?");
-        final Use useWayPanty = (room, items) -> {
+        final Use useWayPanty = (Use & Serializable) (room, items) -> {
             if (items.size() == 1 && items.contains(key)) {
                 wayPanty.setLock(false);
                 pl(key.getUseTxt());
@@ -215,6 +233,6 @@ public final class ExampleRu {
         wayPanty.add(useWayPanty);
         labor.add(wayPanty);
 
-        generator.newCore(game, main_room, inventory).start();
+        generator.newCore(main_room, inventory).start();
     }
 }

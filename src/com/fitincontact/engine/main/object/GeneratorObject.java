@@ -2,8 +2,8 @@ package com.fitincontact.engine.main.object;
 
 public class GeneratorObject {
 
-    public Game newGame(final Person person) {
-        return new Game(person);
+    public Game newGame() {
+        return Game.getInstance();
     }
 
     public Person newPerson(final String name) {
@@ -55,5 +55,6 @@ public class GeneratorObject {
     public Inventory newInventory() {
         return new Inventory();
     }
+
 
 }

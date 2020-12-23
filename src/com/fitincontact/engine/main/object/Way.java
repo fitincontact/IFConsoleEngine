@@ -3,9 +3,12 @@ package com.fitincontact.engine.main.object;
 import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.format.Format;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Way {
+public class Way  implements Serializable {
+
+    private static final long serialVersionUID = -3295874691010061271L;
 
     private final Room room;
     private final String wayTitle;

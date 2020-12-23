@@ -2,10 +2,12 @@ package com.fitincontact.engine.main.object;
 
 import com.fitincontact.engine.main.format.Format;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory {
+public class Inventory implements Serializable {
+    private static final long serialVersionUID = 6145303040368813210L;
     private final Format format = Format.getInstance();
     private final List<Item> items = new ArrayList<>();
 

@@ -9,6 +9,7 @@ import com.fitincontact.engine.main.history.ItemHistory;
 import com.fitincontact.engine.main.history.RoomHistory;
 import com.fitincontact.engine.main.object.*;
 import com.fitincontact.engine.main.utils.Utils;
+import com.fitincontact.engine.main.variable.*;
 
 public class Generator {
 
@@ -17,6 +18,7 @@ public class Generator {
     private final GeneratorFormat generatorFormat = new GeneratorFormat();
     private final RoomHistory roomHistory = RoomHistory.getInstance();
     private final ItemHistory itemHistory = ItemHistory.getInstance();
+    private final Variable variable = new GeneratorValuable().getVariable();
 
     public static void pl(final String s) {
         Utils.pl(s);
@@ -26,8 +28,9 @@ public class Generator {
         Utils.p(s);
     }
 
-    public Game newGame(final Person person) {
-        return generatorObject.newGame(person);
+    //todo delete ? or stay for debug?
+    public Game newGame() {
+        return generatorObject.newGame();
     }
 
     public Person newPerson(final String name) {
@@ -85,12 +88,10 @@ public class Generator {
     }
 
     public Core newCore(
-            final Game game,
             final Room room,
             final Inventory inventory
     ) {
         return generatorCore.newCore(
-                game,
                 room,
                 inventory
         );
@@ -106,6 +107,22 @@ public class Generator {
 
     public Format getInstance() {
         return generatorFormat.getInstance();
+    }
+
+    public B newBoolean(final boolean v) {
+        return variable.newBoolean(v);
+    }
+
+    public L newLong(final long v) {
+        return variable.newLong(v);
+    }
+
+    public D newDouble(final double v) {
+        return variable.newDouble(v);
+    }
+
+    public S newString(final String v) {
+        return variable.newString(v);
     }
 
 }

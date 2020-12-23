@@ -2,35 +2,43 @@ package com.fitincontact.engine.main.format;
 
 import javafx.util.Pair;
 
-public class Format {
-    public static final String EMPTY = "";
+import java.io.Serializable;
 
+public class Format implements Serializable {
+
+    private static final long serialVersionUID = 7009343869686846026L;
+
+    public static final String EMPTY = "";
     private static Format instance;
 
-    private final String roomTitleHead;
-    private final String roomDescriptionHead;
-    private final String roomItemsHead;
-    private final String roomItemSplit;
-    private final String roomWaySplit;
-    private final String itemRoomDescription;
-    private final String itemInvName;
-    private final String inventoryHead;
-    private final String inventoryItemSplit;
-    private final String wayHead;
-    private final String consoleHead;
-    private final String useSplitSymbol;
-    private final String goTxt;
-    private final String enterTxt;
-    private final String exitTxt;
-    private final String unDefininedWordIfContains;
-    private final String unDefininedWordIfNotContains;
-    private final String unDefininedWordUse;
-    private final Pair<String, String> flagFinish;
-    private final Pair<String, String> flagItems;
-    private final Pair<String, String> flagInventory;
-    private final Pair<String, String> flagRoom;
+    private String gameName;
+    private String saveName;
+    private String roomTitleHead;
+    private String roomDescriptionHead;
+    private String roomItemsHead;
+    private String roomItemSplit;
+    private String roomWaySplit;
+    private String itemRoomDescription;
+    private String itemInvName;
+    private String inventoryHead;
+    private String inventoryItemSplit;
+    private String wayHead;
+    private String consoleHead;
+    private String useSplitSymbol;
+    private String goTxt;
+    private String enterTxt;
+    private String exitTxt;
+    private String unDefininedWordIfContains;
+    private String unDefininedWordIfNotContains;
+    private String unDefininedWordUse;
+    private Pair<String, String> flagFinish;
+    private Pair<String, String> flagItems;
+    private Pair<String, String> flagInventory;
+    private Pair<String, String> flagRoom;
 
     protected Format(
+            final String gameName,
+            final String saveName,
             final String roomTitleHead,
             final String roomDescriptionHead,
             final String roomItemsHead,
@@ -54,6 +62,8 @@ public class Format {
             final Pair<String, String> flagInventory,
             final Pair<String, String> flagRoom
     ) {
+        this.gameName = gameName;
+        this.saveName = saveName;
         this.roomTitleHead = roomTitleHead;
         this.roomDescriptionHead = roomDescriptionHead;
         this.roomItemsHead = roomItemsHead;
@@ -81,6 +91,8 @@ public class Format {
     protected static int setInstance(final PreFormat preFormat) {
         if (instance == null) {
             instance = new Format(
+                    preFormat.getGameName(),
+                    preFormat.getSaveName(),
                     preFormat.getRoomTitleHead(),
                     preFormat.getRoomDescriptionHead(),
                     preFormat.getRoomItemsHead(),
@@ -118,8 +130,16 @@ public class Format {
         return instance;
     }
 
+    public String getGameName() {
+        return gameName;
+    }
+
     public String getWayHead() {
         return wayHead;
+    }
+
+    public String getSaveName() {
+        return saveName;
     }
 
     public String getRoomTitleHead() {
@@ -204,5 +224,31 @@ public class Format {
 
     public Pair<String, String> getFlagRoom() {
         return flagRoom;
+    }
+
+    public void set(final Format f) {
+        this.gameName = f.gameName;
+        this.roomTitleHead = f.roomTitleHead;
+        this.roomDescriptionHead = f.roomDescriptionHead;
+        this.roomItemsHead = f.roomItemsHead;
+        this.roomItemSplit = f.roomItemSplit;
+        this.roomWaySplit = f.roomWaySplit;
+        this.itemRoomDescription = f.itemRoomDescription;
+        this.itemInvName = f.itemInvName;
+        this.inventoryHead = f.inventoryHead;
+        this.inventoryItemSplit = f.inventoryItemSplit;
+        this.wayHead = f.wayHead;
+        this.consoleHead = f.consoleHead;
+        this.useSplitSymbol = f.useSplitSymbol;
+        this.goTxt = f.goTxt;
+        this.enterTxt = f.enterTxt;
+        this.exitTxt = f.exitTxt;
+        this.unDefininedWordIfContains = f.unDefininedWordIfContains;
+        this.unDefininedWordIfNotContains = f.unDefininedWordIfNotContains;
+        this.unDefininedWordUse = f.unDefininedWordUse;
+        this.flagFinish = f.flagFinish;
+        this.flagItems = f.flagItems;
+        this.flagInventory = f.flagInventory;
+        this.flagRoom = f.flagRoom;
     }
 }

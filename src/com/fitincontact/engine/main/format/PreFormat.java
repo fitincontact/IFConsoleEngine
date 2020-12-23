@@ -3,6 +3,8 @@ package com.fitincontact.engine.main.format;
 import javafx.util.Pair;
 
 public class PreFormat {
+    private String gameName = "game";
+    private String saveName = "save";
     private String roomTitleHead = "RTH:";
     private String roomDescriptionHead = "RDH:";
     private String roomItemsHead = "ItH:";
@@ -29,8 +31,24 @@ public class PreFormat {
     protected PreFormat() {
     }
 
+    public String getGameName() {
+        return gameName;
+    }
+
     public String getRoomTitleHead() {
         return roomTitleHead;
+    }
+
+    public void setGameName(final String gameName) {
+        this.gameName = gameName;
+    }
+
+    public String getSaveName() {
+        return saveName;
+    }
+
+    public void setSaveName(final String saveName) {
+        this.saveName = saveName;
     }
 
     public void setRoomTitleHead(final String roomTitleHead) {

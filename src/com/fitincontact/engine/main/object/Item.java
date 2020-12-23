@@ -4,12 +4,13 @@ import com.fitincontact.engine.api.Act;
 import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.format.Format;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Item {
-    private final Format format = Format.getInstance();
+public class Item implements Serializable {
 
+    private static final long serialVersionUID = -3514284914219542231L;
     private final String word;
     private final boolean isForInventory;
     private final String invName;

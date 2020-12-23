@@ -6,5 +6,5 @@ public enum ActType {
     ACT_INVENTORY_ITEM,
     USE_ITEM,
     USE_WAY,
-    UNKNOWN
+    EMPTY
 }

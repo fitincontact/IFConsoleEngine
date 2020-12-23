@@ -2,15 +2,20 @@ package com.fitincontact.engine.main.history;
 
 import com.fitincontact.engine.main.object.Item;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class ItemHistory {
+public class ItemHistory implements Serializable {
 
+    private static final long serialVersionUID = -7761809927129811200L;
     private static ItemHistory instance;
     private final Set<Item> items = new HashSet<Item>();
     private final Stack<Item> itemHistory = new Stack<Item>();
+
+    private ItemHistory() {
+    }
 
     public static ItemHistory getInstance() {
         if (instance == null) {
@@ -30,4 +35,6 @@ public class ItemHistory {
         itemHistory.push(item);
     }
 
+    public void set(final ItemHistory itemHistory) {
+    }
 }
