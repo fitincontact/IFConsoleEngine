@@ -91,6 +91,10 @@ public class Generator {
         return generatorObject.newInventory();
     }
 
+    public Dialog newDialog(final String title) {
+        return generatorObject.newDialog(title);
+    }
+
     public Core newCore(
             final Room room,
             final Inventory inventory

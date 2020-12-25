@@ -1,6 +1,6 @@
 package com.fitincontact.engine.main.core;
 
-import com.fitincontact.engine.main.enums.ActType;
+import com.fitincontact.engine.main.enums.EffectType;
 import com.fitincontact.engine.main.history.RoomHistory;
 import com.fitincontact.engine.main.object.Inventory;
 import com.fitincontact.engine.main.object.Item;
@@ -24,7 +24,7 @@ public class Monitor implements Serializable {
     private Item invItemAct;
     private List<Item> itemsUse = new ArrayList<>();
     private Way wayUse;
-    private ActType actType;
+    private EffectType effectType;
     private Room roomCurrent;
     private Inventory inventoryCurrent;
     private boolean victory;
@@ -44,7 +44,7 @@ public class Monitor implements Serializable {
         roomItemAct = null;
         invItemAct = null;
         itemsUse = new ArrayList<>();
-        actType = ActType.EMPTY;
+        effectType = EffectType.EMPTY;
         victory = false;
     }
 
@@ -88,12 +88,12 @@ public class Monitor implements Serializable {
         this.wayUse = wayUse;
     }
 
-    public ActType getActType() {
-        return actType;
+    public EffectType getActType() {
+        return effectType;
     }
 
-    public void setActType(final ActType actType) {
-        this.actType = actType;
+    public void setActType(final EffectType effectType) {
+        this.effectType = effectType;
     }
 
     public Room getRoomCurrent() {
@@ -154,7 +154,7 @@ public class Monitor implements Serializable {
         invItemAct = m.invItemAct;
         itemsUse = m.itemsUse;
         wayUse = m.wayUse;
-        actType = m.actType;
+        effectType = m.effectType;
         roomCurrent = m.roomCurrent;
         inventoryCurrent = m.inventoryCurrent;
         victory = m.victory;

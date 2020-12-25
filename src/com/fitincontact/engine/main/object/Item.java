@@ -4,6 +4,7 @@ import com.fitincontact.engine.api.Act;
 import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.format.Format;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,10 @@ public class Item implements Serializable {
         this.use = use;
     }
 
+    public void add(final Act act) {
+        this.act = act;
+    }
+
     public boolean isForInventory() {
         return isForInventory;
     }
@@ -108,7 +113,7 @@ public class Item implements Serializable {
     public List<String> act(
             final Room room,
             final Inventory inventory
-    ) {
+    ) throws IOException, ClassNotFoundException {
         final List<String> print = new ArrayList<>();
         if (act == null) {
             if (isForInventory && !isInInventory) {

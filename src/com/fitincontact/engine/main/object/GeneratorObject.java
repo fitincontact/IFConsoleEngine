@@ -1,6 +1,10 @@
 package com.fitincontact.engine.main.object;
 
+import com.fitincontact.engine.main.history.DialogHistory;
+
 public class GeneratorObject {
+
+    private final DialogHistory dialogHistory = DialogHistory.getInstance();
 
     public Game newGame() {
         return Game.getInstance();
@@ -56,5 +60,9 @@ public class GeneratorObject {
         return new Inventory();
     }
 
-
+    public Dialog newDialog(final String title) {
+        final Dialog dialog = new Dialog(title);
+        dialog.setUniqueLong(dialogHistory.getDialogs().size());
+        return dialog;
+    }
 }

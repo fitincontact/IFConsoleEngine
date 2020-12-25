@@ -1,6 +1,8 @@
 package game;
 
+import com.fitincontact.engine.api.Act;
 import com.fitincontact.engine.api.Generator;
+import com.fitincontact.engine.api.Phrase;
 import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
@@ -21,6 +23,7 @@ public final class ExampleRu {
 
     public static void main(final String[] args) throws Exception {
         final Generator generator = new Generator();
+        final RR r = new RR();
 
         final L l1 = generator.newLong(111111111);
         //p(l1.toString());
@@ -32,6 +35,73 @@ public final class ExampleRu {
         //p(l1.toString());
         //System.out.println(l1.hashCode());
         final S sss = generator.newString("asdfg dghhhhhhh  uuuuuu t5y6u7i8 jjjjjjjj");
+
+
+        final Phrase ph1 = (Phrase & Serializable) (room, inventory) -> {
+            pl("где волшебник?");
+            return true;
+        };
+
+        final Phrase ph2 = (Phrase & Serializable) (room, inventory) -> {
+            pl("где волшебник");
+            return true;
+        };
+
+        System.out.println(ph1);
+        System.out.println(ph2);
+        System.out.println(ph2);
+
+        final Dialog dlg1 = generator.newDialog(
+                "я начал разговор c дворецким"
+        );
+        {
+            final Dialog dlg1_1 = dlg1.addContinues(new Dialog(
+                    "Доложите о моем приезде.",
+                    "Господин просил не мешать."
+            ));
+            final Dialog dlg1_2 = dlg1.addContinues(new Dialog("Впустите меня!", "И не подумаю!"));
+            final Dialog dlg1_3 = dlg1.addContinues(new Dialog(
+                    "Где ваш хозяин?",
+                    "Боюсь вам сегодня не назначено. Ступайте, сударь."
+            ));
+            {
+                final Dialog dlg1_1_1 = dlg1_3.addContinues(new Dialog("Именем короля, впустите!", "Я плохо слышу."));
+                final Dialog dlg1_1_2 = dlg1_3.addContinues(new Dialog(
+                        "Ну, смерд, отведаешь ты у меня плетей!",
+                        "Кажется я начинаю вас понимать..."
+                ));
+                {
+                    final Dialog dlg1_1_2_1 = dlg1_1_2.addContinues(new Dialog(
+                            "И что дальше?",
+                            "Входите пожалуйста, здесь вам искренне рады!"
+                    ));
+                }
+            }
+        }
+
+//RR jjj= {"sss","xxxxx",new Object[]{"",ph1}};
+        final Object[] rwww = {
+                new Object[]{"sss", "xxxxx"},
+                new Object[]{
+                        "tttt", ph1,
+                        new Object[]{ph2, "kjhgfdsa"}
+                }
+        };
+
+//        final Object[] rwww2 = {
+//                r.newRR({"sss", ph1}),
+//                new Object[]{
+//                        "tttt", ph1,
+//                        new Object[]{ph2, "kjhgfdsa"}
+//                }
+//        };
+
+        //final Object[] sdsd = {"sss","xxxxx",r.newRR((Object[]){"",ph1}),};
+
+
+        final String[][][] threeD_arr = new String[10][20][20];
+        final int[] cats = {2, 5, 7, 8, 3, 0};
+
 
         final PreFormat preFormat = generator.newPreFormat();
         preFormat.setGameName("БОЯРКА СПИРТ И МАГИЯ или ПО СЛЕДАМ ВОЛШЕБСТВА");
@@ -57,6 +127,24 @@ public final class ExampleRu {
                 "как только ему доложили о моем приезде. Что ж, как ищейка мне придется идти по его следам, " +
                 "смекалкой и чутьем отыскать его, где бы этот скряга не спрятался."
         );
+
+        final Act butlerAct = (Act & Serializable) (room, inv) -> {
+            dlg1.start();
+            return true;
+        };
+
+        final Item butler = generator.newItem(
+                "дворецкий",
+                false,
+                "",
+                "Передо мной стоит дворецкий, наглая ухмылка не сходит с его лица, не нравиться он мне.",
+                "",
+                "",
+                ""
+        );
+        butler.add(butlerAct);
+
+        main_room.add(butler);
 
         //---//
 

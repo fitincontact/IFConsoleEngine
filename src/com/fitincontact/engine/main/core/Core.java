@@ -1,6 +1,6 @@
 package com.fitincontact.engine.main.core;
 
-import com.fitincontact.engine.main.enums.ActType;
+import com.fitincontact.engine.main.enums.EffectType;
 import com.fitincontact.engine.main.format.Format;
 import com.fitincontact.engine.main.object.Inventory;
 import com.fitincontact.engine.main.object.Item;
@@ -33,7 +33,55 @@ public class Core {
         this.monitor.setVictory(false);
     }
 
-    private void defineAct(final String word) {
+    public String start() throws IOException, ClassNotFoundException {
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String word;
+        pl(monitor.toStrRoomCurrent());
+        while (!monitor.isVictory()) {
+            p(format.getConsoleHead());
+            word = reader.readLine();
+
+            if (!word.equals(Format.EMPTY) && !defineShotWord(word)) {
+                defineEffect(word);
+                produceEffect(monitor);
+            }
+        }
+        return Format.EMPTY;
+    }
+
+    private boolean defineShotWord(final String word) throws IOException, ClassNotFoundException {
+        if (word.equals(format.getFlagFinish().getKey())) {
+            p(format.getFlagFinish().getValue());
+            monitor.setVictory(true);
+            return true;
+        }
+        if (word.equals(format.getFlagItems().getKey())) {
+            p(format.getFlagItems().getValue());
+            pl(monitor.getRoomCurrent().riString());
+            return true;
+        }
+        if (word.equals(format.getFlagInventory().getKey())) {
+            p(format.getFlagInventory().getValue());
+            pl(monitor.getInventoryCurrent().toStr());
+            return true;
+        }
+        if (word.equals(format.getFlagRoom().getKey())) {
+            pl(monitor.toStrRoomCurrent());
+            return true;
+        }
+        final String[] splited = word.split("\\s+");
+        if (splited[0].equals("s.")) {
+            GameSerialisation.main(splited);
+            return true;
+        }
+        if (splited[0].equals("l.")) {
+            GameDeserialisation.main(splited);
+            return true;
+        }
+        return false;
+    }
+
+    private void defineEffect(final String word) {
 
         final AtomicBoolean isInItems = new AtomicBoolean(false);
         final AtomicBoolean isInInventory = new AtomicBoolean(false);
@@ -48,19 +96,19 @@ public class Core {
 
                 monitor.getRoomCurrent().getItems().forEach(i -> {
                     if (i.getWord().equals(splitUnSpaceWord)) {
-                        monitor.setActType(ActType.USE_ITEM);
+                        monitor.setActType(EffectType.USE_ITEM);
                         monitor.getItemsUse().add(i);
                     }
                 });
                 monitor.getInventoryCurrent().getItems().forEach(i -> {
                     if (i.getWord().equals(splitUnSpaceWord)) {
-                        monitor.setActType(ActType.USE_ITEM);
+                        monitor.setActType(EffectType.USE_ITEM);
                         monitor.getItemsUse().add(i);
                     }
                 });
                 monitor.getRoomCurrent().getWays().forEach(w -> {
                     if (w.getWayTitle().equals(splitUnSpaceWord)) {
-                        monitor.setActType(ActType.USE_WAY);
+                        monitor.setActType(EffectType.USE_WAY);
                         monitor.setWayUse(w);
                     }
                 });
@@ -77,7 +125,7 @@ public class Core {
                     monitor.cleanGoActUse();
                 }
             }
-            if (monitor.getActType() == ActType.USE_ITEM &&
+            if (monitor.getActType() == EffectType.USE_ITEM &&
                 monitor.getItemsUse().size() < 2) {
                 unDefininedWord2(word);
                 monitor.cleanGoActUse();
@@ -86,23 +134,26 @@ public class Core {
         }
         monitor.getRoomCurrent().getWays().forEach(w -> {
             if (w.getWayTitle().equals(word)) {
-                monitor.setActType(ActType.GO);
+                monitor.setActType(EffectType.GO);
                 monitor.setWayGo(w);
                 isInWay.set(true);
+                return;
             }
         });
         monitor.getRoomCurrent().getItems().forEach(i -> {
             if (i.getWord().equals(word)) {
-                monitor.setActType(ActType.ACT_ROOM_ITEM);
+                monitor.setActType(EffectType.ACT_ROOM_ITEM);
                 monitor.setRoomItemAct(i);
                 isInItems.set(true);
+                return;
             }
         });
         monitor.getInventoryCurrent().getItems().forEach(i -> {
             if (i.getWord().equals(word)) {
-                monitor.setActType(ActType.ACT_INVENTORY_ITEM);
+                monitor.setActType(EffectType.ACT_INVENTORY_ITEM);
                 monitor.setInvItemAct(i);
                 isInInventory.set(true);
+                return;
             }
         });
 
@@ -118,12 +169,12 @@ public class Core {
         isInInventory.set(false);
     }
 
-    private void act(final Monitor monitor) {
-        if (monitor.getActType() == ActType.USE_WAY) {
+    private void produceEffect(final Monitor monitor) throws IOException, ClassNotFoundException {
+        if (monitor.getActType() == EffectType.USE_WAY) {
             pl(monitor.getWayUse().use(monitor.getRoomCurrent(), monitor.getItemsUse()));
         }
 
-        if (monitor.getActType() == ActType.USE_ITEM) {
+        if (monitor.getActType() == EffectType.USE_ITEM) {
             final Item rootItemOrRandom = getItemRootOrRandom(monitor.getItemsUse());
             pl(rootItemOrRandom.use(
                     monitor.getRoomCurrent(),
@@ -131,18 +182,18 @@ public class Core {
             ));
         }
 
-        if (monitor.getActType() == ActType.ACT_ROOM_ITEM) {
+        if (monitor.getActType() == EffectType.ACT_ROOM_ITEM) {
             pl(monitor.getRoomItemAct().act(
                     monitor.getRoomCurrent(),
                     monitor.getInventoryCurrent()
             ));
         }
 
-        if (monitor.getActType() == ActType.ACT_INVENTORY_ITEM) {
+        if (monitor.getActType() == EffectType.ACT_INVENTORY_ITEM) {
             pl(monitor.getInvItemAct().act(monitor.getRoomCurrent(), monitor.getInventoryCurrent()));
         }
 
-        if (monitor.getActType() == ActType.GO) {
+        if (monitor.getActType() == EffectType.GO) {
             if (monitor.getRoomCurrent().exit(
                     monitor.getWayGo().getRoom(),
                     monitor.getInventoryCurrent()
@@ -187,57 +238,5 @@ public class Core {
             return useItems.get(0);
         }
         return useItemsWithNonDefaultUse.get(0);
-    }
-
-    public String start() throws IOException, ClassNotFoundException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String word;
-        boolean first = true;
-        while (!monitor.isVictory()) {
-            if (first) {
-                pl(monitor.toStrRoomCurrent());
-                first = false;
-            }
-            p(format.getConsoleHead());
-            word = reader.readLine();
-
-            if (!defineShotWord(word)) {
-                defineAct(word);
-                act(monitor);
-            }
-        }
-        return Format.EMPTY;
-    }
-
-    private boolean defineShotWord(final String word) throws IOException, ClassNotFoundException {
-        if (word.equals(format.getFlagFinish().getKey())) {
-            p(format.getFlagFinish().getValue());
-            monitor.setVictory(true);
-            return true;
-        }
-        if (word.equals(format.getFlagItems().getKey())) {
-            p(format.getFlagItems().getValue());
-            pl(monitor.getRoomCurrent().riString());
-            return true;
-        }
-        if (word.equals(format.getFlagInventory().getKey())) {
-            p(format.getFlagInventory().getValue());
-            pl(monitor.getInventoryCurrent().toStr());
-            return true;
-        }
-        if (word.equals(format.getFlagRoom().getKey())) {
-            pl(monitor.toStrRoomCurrent());
-            return true;
-        }
-        final String[] splited = word.split("\\s+");
-        if (splited[0].equals("s.")) {
-            GameSerialisation.main(splited);
-            return true;
-        }
-        if (splited[0].equals("l.")) {
-            GameDeserialisation.main(splited);
-            return true;
-        }
-        return false;
     }
 }
