@@ -23,7 +23,6 @@ public final class ExampleRu {
 
     public static void main(final String[] args) throws Exception {
         final Generator generator = new Generator();
-        final RR r = new RR();
 
         final L l1 = generator.newLong(111111111);
         //p(l1.toString());
