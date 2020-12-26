@@ -2,10 +2,7 @@ package com.fitincontact.engine.main.core;
 
 import com.fitincontact.engine.main.enums.EffectType;
 import com.fitincontact.engine.main.history.RoomHistory;
-import com.fitincontact.engine.main.object.Inventory;
-import com.fitincontact.engine.main.object.Item;
-import com.fitincontact.engine.main.object.Room;
-import com.fitincontact.engine.main.object.Way;
+import com.fitincontact.engine.main.object.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +24,7 @@ public class Monitor implements Serializable {
     private EffectType effectType;
     private Room roomCurrent;
     private Inventory inventoryCurrent;
+    private Dialog dialogCurrent;
     private boolean victory;
 
     private Monitor() {
@@ -119,6 +117,14 @@ public class Monitor implements Serializable {
 
     public void setVictory(final boolean victory) {
         this.victory = victory;
+    }
+
+    public Dialog getDialogCurrent() {
+        return dialogCurrent;
+    }
+
+    public void setDialogCurrent(final Dialog dialogCurrent) {
+        this.dialogCurrent = dialogCurrent;
     }
 
     public List<String> toStrRoomCurrent() {

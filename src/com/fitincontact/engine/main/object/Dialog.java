@@ -7,6 +7,7 @@ import com.fitincontact.engine.main.format.Format;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -14,7 +15,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static com.fitincontact.engine.main.utils.Utils.p;
 import static com.fitincontact.engine.main.utils.Utils.pl;
 
-public class Dialog {
+public class Dialog implements Serializable {
+
+    private static final long serialVersionUID = -5762702416347307236L;
 
     final Format format = Format.getInstance();
     final Monitor monitor = Monitor.getInstance();
@@ -24,11 +27,12 @@ public class Dialog {
     private Dialog root;
     private String title;
     private String number;
-    private String requestStr;
-    private String responseStr;
+    private String requestTxt;
+    private String responseTxt;
     private Phrase requestPhr;
     private Phrase responsePhr;
     private boolean isActive = true;
+    private boolean isStop = false;
     private long uniqueLong;
     private long depth;
     private long globalDepth;
@@ -38,9 +42,9 @@ public class Dialog {
         root = this;
     }
 
-    public Dialog(final String requestStr, final String responseStr) {
-        this.requestStr = requestStr;
-        this.responseStr = responseStr;
+    public Dialog(final String requestTxt, final String responseTxt) {
+        this.requestTxt = requestTxt;
+        this.responseTxt = responseTxt;
     }
 
     public Dialog(final Phrase requestPhr, final Phrase responsePhr) {
@@ -48,14 +52,26 @@ public class Dialog {
         this.responsePhr = responsePhr;
     }
 
-    public Dialog(final String requestStr, final Phrase responsePhr) {
-        this.requestStr = requestStr;
+    public Dialog(final String requestTxt, final Phrase responsePhr) {
+        this.requestTxt = requestTxt;
         this.responsePhr = responsePhr;
     }
 
-    public Dialog(final Phrase requestPhr, final String responseStr) {
+    public Dialog(final Phrase requestPhr, final String responseTxt) {
         this.requestPhr = requestPhr;
-        this.responseStr = responseStr;
+        this.responseTxt = responseTxt;
+    }
+
+    public boolean isStop() {
+        return isStop;
+    }
+
+    public void setStop(final boolean stop) {
+        isStop = stop;
+    }
+
+    public void stop() {
+        isStop = true;
     }
 
     public Dialog addContinues(final Dialog cont) {
@@ -68,6 +84,30 @@ public class Dialog {
         cont.setNumber(String.valueOf(num));
         continues.add(cont);
         return cont;
+    }
+
+    private String request(
+            final Room room,
+            final Inventory inventory
+    ) {
+        if (requestPhr == null) {
+            return requestTxt;
+        } else {
+            requestPhr.apply(room, inventory);
+            return Format.EMPTY;
+        }
+    }
+
+    private String response(
+            final Room room,
+            final Inventory inventory
+    ) {
+        if (responsePhr == null) {
+            return responseTxt;
+        } else {
+            responsePhr.apply(room, inventory);
+            return Format.EMPTY;
+        }
     }
 
     public String getTitle() {
@@ -86,20 +126,20 @@ public class Dialog {
         this.number = number;
     }
 
-    public String getRequestStr() {
-        return requestStr;
+    public String getRequestTxt() {
+        return requestTxt;
     }
 
-    public void setRequestStr(final String requestStr) {
-        this.requestStr = requestStr;
+    public void setRequestTxt(final String requestTxt) {
+        this.requestTxt = requestTxt;
     }
 
-    public String getResponseStr() {
-        return responseStr;
+    public String getResponseTxt() {
+        return responseTxt;
     }
 
-    public void setResponseStr(final String responseStr) {
-        this.responseStr = responseStr;
+    public void setResponseTxt(final String responseTxt) {
+        this.responseTxt = responseTxt;
     }
 
     public Phrase getRequestPhr() {
@@ -189,6 +229,8 @@ public class Dialog {
     }
 
     public void start() throws IOException {
+        monitor.setDialogCurrent(this);
+
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String word;
 
@@ -200,21 +242,20 @@ public class Dialog {
             pl(title);
             currentDialogs.forEach(d -> {
                 if (d.isActive) {
-                    pl(d.requestStr + d.number);
+                    pl(d.request(monitor.getRoomCurrent(), monitor.getInventoryCurrent()) + d.number);
                 }
             });
         }
 
         final AtomicBoolean isToDown = new AtomicBoolean(false);
-        final AtomicBoolean isToUp = new AtomicBoolean(false);
-        while (this.isActive && !currentDialogs.isEmpty()) {
+        while (this.isActive && !currentDialogs.isEmpty() && !this.isStop) {
             p(format.getConsoleHead());
             word = reader.readLine();
             final String finalWord = word;
 
             currentDialogs.forEach(d -> {
                 if (d.number.equals(finalWord) && d.isActive) {
-                    pl(d.responseStr);
+                    pl(d.response(monitor.getRoomCurrent(), monitor.getInventoryCurrent()));
                     d.isActive = false;
 
                     if (!d.continues.isEmpty()) {
@@ -235,10 +276,6 @@ public class Dialog {
                 while (!isUpActive && this.isActive) {
                     if (currentDialogs.get(0).parent == null || currentDialogs.get(0).parent.parent == null) {
                         this.isActive = false;
-//                        pl("разговор завершен");
-//                        pl("---");
-//                        pl(monitor.toStrRoomCurrent());
-//                        return;
                     }
                     if (this.isActive) {
                         upDialogs.removeAll(upDialogs);
@@ -257,7 +294,7 @@ public class Dialog {
 
             currentDialogs.forEach(d -> {
                 if (d.isActive) {
-                    pl(d.requestStr + d.number);
+                    pl(d.request(monitor.getRoomCurrent(), monitor.getInventoryCurrent()) + d.number);
                 }
             });
         }

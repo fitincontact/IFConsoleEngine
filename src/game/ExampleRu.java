@@ -4,6 +4,7 @@ import com.fitincontact.engine.api.Act;
 import com.fitincontact.engine.api.Generator;
 import com.fitincontact.engine.api.Phrase;
 import com.fitincontact.engine.api.Use;
+import com.fitincontact.engine.main.core.Monitor;
 import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
 import com.fitincontact.engine.main.variable.L;
@@ -23,6 +24,7 @@ public final class ExampleRu {
 
     public static void main(final String[] args) throws Exception {
         final Generator generator = new Generator();
+        final Monitor monitor = Monitor.getInstance();
 
         final L l1 = generator.newLong(111111111);
         //p(l1.toString());
@@ -42,7 +44,8 @@ public final class ExampleRu {
         };
 
         final Phrase ph2 = (Phrase & Serializable) (room, inventory) -> {
-            pl("где волшебник");
+            pl("Входите пожалуйста, здесь вам искренне рады!");
+            monitor.getDialogCurrent().stop();
             return true;
         };
 
@@ -72,7 +75,7 @@ public final class ExampleRu {
                 {
                     final Dialog dlg1_1_2_1 = dlg1_1_2.addContinues(new Dialog(
                             "И что дальше?",
-                            "Входите пожалуйста, здесь вам искренне рады!"
+                            ph2
                     ));
                 }
             }
