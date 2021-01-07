@@ -30,6 +30,9 @@ public class PreFormat {
     private Pair<String, String> flagItems = new Pair<>("it.", "Items:");
     private Pair<String, String> flagInventory = new Pair<>("i.", "Inventory:");
     private Pair<String, String> flagRoom = new Pair<>("r.", "Room:");
+    private String flagSave = "s.";
+    private String flagLoad = "l.";
+    private String flagSaveList = "sl.";
 
     protected PreFormat() {
     }
@@ -248,5 +251,29 @@ public class PreFormat {
 
     public void setFlagRoom(final Pair<String, String> flagRoom) {
         this.flagRoom = flagRoom;
+    }
+
+    public String getFlagSave() {
+        return flagSave;
+    }
+
+    public void setFlagSave(String flagSave) {
+        this.flagSave = flagSave;
+    }
+
+    public String getFlagLoad() {
+        return flagLoad;
+    }
+
+    public void setFlagLoad(String flagLoad) {
+        this.flagLoad = flagLoad;
+    }
+
+    public String getFlagSaveList() {
+        return flagSaveList;
+    }
+
+    public void setFlagSaveList(String flagSaveList) {
+        this.flagSaveList = flagSaveList;
     }
 }

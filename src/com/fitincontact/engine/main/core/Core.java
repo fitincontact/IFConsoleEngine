@@ -5,8 +5,7 @@ import com.fitincontact.engine.main.format.Format;
 import com.fitincontact.engine.main.object.Inventory;
 import com.fitincontact.engine.main.object.Item;
 import com.fitincontact.engine.main.object.Room;
-import com.fitincontact.engine.main.save.GameDeserialisation;
-import com.fitincontact.engine.main.save.GameSerialisation;
+import com.fitincontact.engine.main.utils.SaveLoad;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,8 +15,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-import static com.fitincontact.engine.main.utils.Utils.p;
-import static com.fitincontact.engine.main.utils.Utils.pl;
+import static com.fitincontact.engine.main.utils.Print.p;
+import static com.fitincontact.engine.main.utils.Print.pl;
 
 public class Core {
 
@@ -69,13 +68,13 @@ public class Core {
             pl(monitor.toStrRoomCurrent());
             return true;
         }
-        final String[] splited = word.split("\\s+");
-        if (splited[0].equals("s.")) {
-            GameSerialisation.main(splited);
+        final String[] splitWords = word.split(Format.SPLIT_SPACE);
+        if (splitWords[0].equals(format.getFlagSave())) {
+            SaveLoad.save(splitWords);
             return true;
         }
-        if (splited[0].equals("l.")) {
-            GameDeserialisation.main(splited);
+        if (splitWords[0].equals(format.getFlagLoad())) {
+            SaveLoad.load(splitWords);
             return true;
         }
         return false;
@@ -114,19 +113,19 @@ public class Core {
                 });
 
                 if (monitor.getItemsUse()
-                           .stream()
-                           .anyMatch(i ->
-                                   splitWords
-                                           .stream()
-                                           .noneMatch(s -> i.getWord().equals(s))) &&
-                    monitor.getWayUse() == null
+                        .stream()
+                        .anyMatch(i ->
+                                splitWords
+                                        .stream()
+                                        .noneMatch(s -> i.getWord().equals(s))) &&
+                        monitor.getWayUse() == null
                 ) {
                     unDefininedWord(splitUnSpaceWord);
                     monitor.cleanGoActUse();
                 }
             }
             if (monitor.getActType() == EffectType.USE_ITEM &&
-                monitor.getItemsUse().size() < 2) {
+                    monitor.getItemsUse().size() < 2) {
                 unDefininedWord2(word);
                 monitor.cleanGoActUse();
             }
@@ -158,8 +157,8 @@ public class Core {
         });
 
         if (!isInWay.get() &&
-            !isInItems.get() &&
-            !isInInventory.get()
+                !isInItems.get() &&
+                !isInInventory.get()
         ) {
             unDefininedWord(word);
             monitor.cleanGoActUse();

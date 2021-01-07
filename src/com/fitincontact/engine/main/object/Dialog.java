@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.fitincontact.engine.main.utils.Utils.p;
-import static com.fitincontact.engine.main.utils.Utils.pl;
+import static com.fitincontact.engine.main.utils.Print.p;
+import static com.fitincontact.engine.main.utils.Print.pl;
 
 public class Dialog implements Serializable {
 

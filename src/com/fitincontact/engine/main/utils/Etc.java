@@ -6,22 +6,7 @@ import com.fitincontact.engine.main.object.Item;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Utils {
-    public static void p(final String s) {
-        System.out.print(s);
-    }
-
-    public static void p(final List<String> list) {
-        list.forEach(i -> System.out.print(i));
-    }
-
-    public static void pl(final String s) {
-        System.out.println(s);
-    }
-
-    public static void pl(final List<String> list) {
-        list.forEach(i -> System.out.println(i));
-    }
+public class Etc {
 
     public static int countSubString(final String subString, final String string) {
         return (string.length() - string.replace(subString, Format.EMPTY).length()) / subString.length();

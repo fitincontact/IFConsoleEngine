@@ -9,7 +9,7 @@ import com.fitincontact.engine.main.history.ItemHistory;
 import com.fitincontact.engine.main.history.RoomHistory;
 import com.fitincontact.engine.main.history.WayHistory;
 import com.fitincontact.engine.main.object.*;
-import com.fitincontact.engine.main.utils.Utils;
+import com.fitincontact.engine.main.utils.Print;
 import com.fitincontact.engine.main.variable.*;
 
 public class Generator {
@@ -23,11 +23,11 @@ public class Generator {
     private final Variable variable = new GeneratorValuable().getVariable();
 
     public static void pl(final String s) {
-        Utils.pl(s);
+        Print.pl(s);
     }
 
     public static void p(final String s) {
-        Utils.p(s);
+        Print.p(s);
     }
 
     //todo delete ? or stay for debug?

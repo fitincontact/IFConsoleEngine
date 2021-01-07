@@ -5,16 +5,19 @@ import javafx.util.Pair;
 import java.io.Serializable;
 
 public class Format implements Serializable {
-    public static final String EMPTY = "";
-    public static final String SPACE = " ";
     private static final long serialVersionUID = 7009343869686846026L;
+
     private static Format instance;
 
-    private String gameName;
+    public static final String EMPTY = "";
+    public static final String SPACE = " ";
+    public static final String SPLIT_SPACE = "\\s+";
+
     private final String saveName;
     private final String gameSaveMsg;
     private final String gameLoadMsg;
     private final String filenameExtension;
+    private String gameName;
     private String roomTitleHead;
     private String roomDescriptionHead;
     private String roomItemsHead;
@@ -37,6 +40,9 @@ public class Format implements Serializable {
     private Pair<String, String> flagItems;
     private Pair<String, String> flagInventory;
     private Pair<String, String> flagRoom;
+    private String flagSave;
+    private String flagLoad;
+    private String flagSaveList;
 
     protected Format(
             final String gameName,
@@ -65,7 +71,10 @@ public class Format implements Serializable {
             final Pair<String, String> flagFinish,
             final Pair<String, String> flagItems,
             final Pair<String, String> flagInventory,
-            final Pair<String, String> flagRoom
+            final Pair<String, String> flagRoom,
+            final String flagSave,
+            final String flagLoad,
+            final String flagSaveList
     ) {
         this.gameName = gameName;
         this.saveName = saveName;
@@ -94,6 +103,9 @@ public class Format implements Serializable {
         this.flagItems = flagItems;
         this.flagInventory = flagInventory;
         this.flagRoom = flagRoom;
+        this.flagSave = flagSave;
+        this.flagLoad = flagLoad;
+        this.flagSaveList = flagSaveList;
     }
 
     protected static int setInstance(final PreFormat preFormat) {
@@ -125,7 +137,10 @@ public class Format implements Serializable {
                     preFormat.getFlagFinish(),
                     preFormat.getFlagItems(),
                     preFormat.getFlagInventory(),
-                    preFormat.getFlagRoom()
+                    preFormat.getFlagRoom(),
+                    preFormat.getFlagSave(),
+                    preFormat.getFlagLoad(),
+                    preFormat.getFlagSaveList()
             );
             return 1;
         } else {
@@ -249,6 +264,18 @@ public class Format implements Serializable {
         return flagRoom;
     }
 
+    public String getFlagSave() {
+        return flagSave;
+    }
+
+    public String getFlagLoad() {
+        return flagLoad;
+    }
+
+    public String getFlagSaveList() {
+        return flagSaveList;
+    }
+
     public void set(final Format f) {
         this.gameName = f.gameName;
         this.roomTitleHead = f.roomTitleHead;
@@ -273,5 +300,8 @@ public class Format implements Serializable {
         this.flagItems = f.flagItems;
         this.flagInventory = f.flagInventory;
         this.flagRoom = f.flagRoom;
+        this.flagSave = f.flagSave;
+        this.flagLoad = f.flagLoad;
+        this.flagSaveList = f.flagSaveList;
     }
 }
