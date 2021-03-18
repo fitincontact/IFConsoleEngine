@@ -1,24 +1,27 @@
 package com.fitincontact.engine.main.format;
 
-import javafx.util.Pair;
+//import javafx.util.Pair;
+//import jdk.javadoc.internal.doclets.toolkit.util.Utils;
+
+import com.fitincontact.engine.main.variable.Pair;
 
 public class PreFormat {
-    private String gameName = "game";
+    private String gameName = "examples";
     private String saveName = "save";
     private String gameSaveMsg = "game save";
     private String gameLoadMsg = "game load";
     private String filenameExtension = ".ser";
-    private String roomTitleHead = "RTH:";
-    private String roomDescriptionHead = "RDH:";
-    private String roomItemsHead = "ItH:";
+    private String roomTitleHead = ":";//RTH
+    private String roomDescriptionHead = ":";//RDH
+    private String roomItemsHead = ":";//ItH
     private String roomItemSplit = " ";
     private String roomWaySplit = " | ";
     private String itemRoomDescription = " ";
     private String itemInvName = ", ";
-    private String inventoryHead = "InH:";
+    private String inventoryHead = ":";//InH
     private String inventoryItemSplit = ", ";
-    private String wayHead = "Wh:";
-    private String consoleHead = ">";
+    private String wayHead = ":";//Wh
+    private String consoleHead = "> ";
     private String useSplitSymbol = "-";
     private String goTxt = "transition to the ";
     private String enterTxt = "I can't enter here";

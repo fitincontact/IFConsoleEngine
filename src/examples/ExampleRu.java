@@ -1,4 +1,4 @@
-package game;
+package examples;
 
 import com.fitincontact.engine.api.Act;
 import com.fitincontact.engine.api.Generator;
@@ -7,8 +7,6 @@ import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.core.Monitor;
 import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
-import com.fitincontact.engine.main.variable.L;
-import com.fitincontact.engine.main.variable.S;
 
 import java.io.Serializable;
 
@@ -26,32 +24,6 @@ public final class ExampleRu {
         final Generator generator = new Generator();
         final Monitor monitor = Monitor.getInstance();
 
-        final L l1 = generator.newLong(111111111);
-        //p(l1.toString());
-        //System.out.println(l1.hashCode());
-        l1.set(222222222);
-        //p(l1.toString());
-        //System.out.println(l1.hashCode());
-        l1.set(222222222);
-        //p(l1.toString());
-        //System.out.println(l1.hashCode());
-        final S sss = generator.newString("asdfg dghhhhhhh  uuuuuu t5y6u7i8 jjjjjjjj");
-
-
-        final Phrase ph1 = (Phrase & Serializable) (room, inventory) -> {
-            pl("где волшебник?");
-            return true;
-        };
-
-        final Phrase ph2 = (Phrase & Serializable) (room, inventory) -> {
-            pl("Входите пожалуйста, здесь вам искренне рады!");
-            monitor.getDialogCurrent().stop();
-            return true;
-        };
-
-        System.out.println(ph1);
-        System.out.println(ph2);
-        System.out.println(ph2);
 
         final Dialog dlg1 = generator.newDialog(
                 "я начал разговор c дворецким"
@@ -75,35 +47,14 @@ public final class ExampleRu {
                 {
                     final Dialog dlg1_1_2_1 = dlg1_1_2.addContinues(new Dialog(
                             "И что дальше?",
-                            ph2
+                            (Phrase & Serializable) (room, inventory) -> {
+                                p("Входите пожалуйста, здесь вам искренне рады!");
+                                monitor.getDialogCurrent().stop();
+                            }
                     ));
                 }
             }
         }
-
-//RR jjj= {"sss","xxxxx",new Object[]{"",ph1}};
-        final Object[] rwww = {
-                new Object[]{"sss", "xxxxx"},
-                new Object[]{
-                        "tttt", ph1,
-                        new Object[]{ph2, "kjhgfdsa"}
-                }
-        };
-
-//        final Object[] rwww2 = {
-//                r.newRR({"sss", ph1}),
-//                new Object[]{
-//                        "tttt", ph1,
-//                        new Object[]{ph2, "kjhgfdsa"}
-//                }
-//        };
-
-        //final Object[] sdsd = {"sss","xxxxx",r.newRR((Object[]){"",ph1}),};
-
-
-        final String[][][] threeD_arr = new String[10][20][20];
-        final int[] cats = {2, 5, 7, 8, 3, 0};
-
 
         final PreFormat preFormat = generator.newPreFormat();
         preFormat.setGameName("БОЯРКА СПИРТ И МАГИЯ или ПО СЛЕДАМ ВОЛШЕБСТВА");
@@ -122,12 +73,12 @@ public final class ExampleRu {
                 "menu",
                 "БОЯРКА СПИРТ И МАГИЯ или ПО СЛЕДАМ ВОЛШЕБСТВА",
                 "Волшебник Зазул жаден, так считает мой король, пославший меня, своего верного " +
-                "придворного, за средством от золотожорного дракона - \"Друг мой Аруй, многие столетия " +
-                "наши земли не знали такого напастья, ненасытный змей разоряет Наше царство," +
-                "только колдовская настойка багульника и благородного боярышника избавит нас от него\". Цена " +
-                "её велика и было принято решение экспроприировать зелье, вот только прознав про это, Зазул сбежал " +
-                "как только ему доложили о моем приезде. Что ж, как ищейка мне придется идти по его следам, " +
-                "смекалкой и чутьем отыскать его, где бы этот скряга не спрятался."
+                        "придворного, за средством от золотожорного дракона - \"Друг мой Аруй, многие столетия " +
+                        "наши земли не знали такого напастья, ненасытный змей разоряет Наше царство," +
+                        "только колдовская настойка багульника и благородного боярышника избавит нас от него\". Цена " +
+                        "её велика и было принято решение экспроприировать зелье, вот только прознав про это, Зазул сбежал " +
+                        "как только ему доложили о моем приезде. Что ж, как ищейка мне придется идти по его следам, " +
+                        "смекалкой и чутьем отыскать его, где бы этот скряга не спрятался."
         );
 
         final Act butlerAct = (Act & Serializable) (room, inv) -> {
@@ -227,11 +178,11 @@ public final class ExampleRu {
                 "лаборатория",
                 "ЛАБОРАТОРИЯ",
                 "Реторты и склянки, бадьи с водорослями, корзина живых лягушек, " +
-                "клетки на полу и на стенах с чудными тварями, стеклоглазы, рыгуны, покашливают и сопят, " +
-                "но все это плохо видно, едкая дымка нависает надо всем, " +
-                "ядовито-синим горят комфорки под колбами, это из колб с кипящим варевом " +
-                "поднимается этот туман, колдун явно только-что был здесь, пока не поймаю он так и продолжит " +
-                "пакостничать и расствалять ловушки."
+                        "клетки на полу и на стенах с чудными тварями, стеклоглазы, рыгуны, покашливают и сопят, " +
+                        "но все это плохо видно, едкая дымка нависает надо всем, " +
+                        "ядовито-синим горят комфорки под колбами, это из колб с кипящим варевом " +
+                        "поднимается этот туман, колдун явно только-что был здесь, пока не поймаю он так и продолжит " +
+                        "пакостничать и расствалять ловушки."
         );
 
         hall.add(generator.newWay(labor, "дверь"));
@@ -279,13 +230,13 @@ public final class ExampleRu {
         final Use useWindow = (Use & Serializable) (room, items) -> {
             if (items.size() == 2 && items.contains(hammer)) {
                 pl("разнес окно в дребезги, в душное пространство лаборатории ворвался лесной ветер, ветер хвои, " +
-                   "душицы и смородины, ветер странствий, едкий дым развеяло");
+                        "душицы и смородины, ветер странствий, едкий дым развеяло");
                 labor.add(key);
                 labor.add(magnifier);
                 labor.remove(window);
                 labor.setDescription(
                         "Реторты и склянки, бадьи с водорослями, корзина живых лягушек, " +
-                        "клетки на полу и на стенах с чудными тварями, стеклоглазы. "
+                                "клетки на полу и на стенах с чудными тварями, стеклоглазы. "
                 );
                 if (!inventory.isHave(hammer)) {
                     hammer.move(labor, inventory);
@@ -304,7 +255,7 @@ public final class ExampleRu {
                 "кладовка",
                 "КЛАДОВКА",
                 "Множество ящиков и шкафов, все они заполнены сушеными травами и прочими алхимическими " +
-                "реагентами"
+                        "реагентами"
         );
         final Way wayPanty = generator.newWay(
                 panty, "ржавая дверь"

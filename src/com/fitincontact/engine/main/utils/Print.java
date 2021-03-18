@@ -15,6 +15,10 @@ public class Print {
         System.out.println(s);
     }
 
+    public static void pl() {
+        System.out.println("");
+    }
+
     public static void pl(final List<String> list) {
         list.forEach(i -> System.out.println(i));
     }

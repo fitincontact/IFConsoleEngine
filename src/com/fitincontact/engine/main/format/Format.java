@@ -1,6 +1,8 @@
 package com.fitincontact.engine.main.format;
 
-import javafx.util.Pair;
+import com.fitincontact.engine.main.variable.Pair;
+//import com.sun.tools.javac.util.Pair;
+//import jdk.javadoc.internal.doclets.toolkit.util.Utils;
 
 import java.io.Serializable;
 

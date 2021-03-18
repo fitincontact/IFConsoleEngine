@@ -242,7 +242,7 @@ public class Dialog implements Serializable {
             pl(title);
             currentDialogs.forEach(d -> {
                 if (d.isActive) {
-                    pl(d.request(monitor.getRoomCurrent(), monitor.getInventoryCurrent()) + d.number);
+                    printChoice(d);
                 }
             });
         }
@@ -255,6 +255,9 @@ public class Dialog implements Serializable {
 
             currentDialogs.forEach(d -> {
                 if (d.number.equals(finalWord) && d.isActive) {
+                    p("- ");
+                    pl(d.request(monitor.getRoomCurrent(), monitor.getInventoryCurrent()));
+                    p("- ");
                     pl(d.response(monitor.getRoomCurrent(), monitor.getInventoryCurrent()));
                     d.isActive = false;
 
@@ -284,7 +287,6 @@ public class Dialog implements Serializable {
                         currentDialogs.addAll(upDialogs);
                         isUpActive = upDialogs.stream().anyMatch(Dialog::isActive);
                     }
-
                 }
                 if (isUpActive && !this.isActive) {
                     currentDialogs.removeAll(currentDialogs);
@@ -293,13 +295,16 @@ public class Dialog implements Serializable {
             }
 
             currentDialogs.forEach(d -> {
-                if (d.isActive) {
-                    pl(d.request(monitor.getRoomCurrent(), monitor.getInventoryCurrent()) + d.number);
+                if (d.isActive && !this.isStop) {
+                    printChoice(d);
                 }
             });
         }
         pl("разговор завершен");
-        pl("---");
         pl(monitor.toStrRoomCurrent());
+    }
+
+    private void printChoice(Dialog d) {
+        pl(d.request(monitor.getRoomCurrent(), monitor.getInventoryCurrent()) + " (" + d.number + ")");
     }
 }

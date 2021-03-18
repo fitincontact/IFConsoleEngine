@@ -32,7 +32,7 @@ public class Core {
         this.monitor.setVictory(false);
     }
 
-    public String start() throws IOException, ClassNotFoundException {
+    public void start() throws IOException, ClassNotFoundException {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String word;
         pl(monitor.toStrRoomCurrent());
@@ -45,7 +45,6 @@ public class Core {
                 produceEffect(monitor);
             }
         }
-        return Format.EMPTY;
     }
 
     private boolean defineShotWord(final String word) throws IOException, ClassNotFoundException {

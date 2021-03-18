@@ -9,6 +9,7 @@ import java.io.*;
 import static com.fitincontact.engine.main.utils.Print.pl;
 
 public class SaveLoad {
+
     public static void save(final String[] args) throws IOException {
         final Format format = Format.getInstance();
 

@@ -33,6 +33,9 @@ public class Inventory implements Serializable {
             return printList;
         }
         items.forEach(i -> printList.add(i.getInvName() + format.getInventoryItemSplit()));
+        String lastItem = printList.get(printList.size() - 1);
+        lastItem = lastItem.substring(0, lastItem.length() - format.getInventoryItemSplit().length());
+        printList.set(printList.size() - 1, lastItem);
         return printList;
     }
 

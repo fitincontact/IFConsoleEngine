@@ -15,6 +15,7 @@ public class Room implements Serializable {
     private static final long serialVersionUID = -8988988578369997739L;
 
     private final Format format = Format.getInstance();
+    private boolean isFirst = true;
 
     private final String name;
     private final String title;
@@ -105,11 +106,14 @@ public class Room implements Serializable {
 
     public List<String> toStrRoom(final Inventory inventory) {
         final List<String> print = new ArrayList<>();
-        print.add(format.getRoomTitleHead() + title);
+        if (isFirst) {
+            print.add(format.getRoomTitleHead() + title);
+        }
+        isFirst = false;
         print.add(format.getRoomDescriptionHead() + description);
         print.add(riString());
-        print.addAll(inventory.toStr());
         print.add(rwString());
+        print.addAll(inventory.toStr());
         return print;
     }
 
@@ -129,10 +133,10 @@ public class Room implements Serializable {
 
     public String roomAndInventoryString(final Inventory inventory) {
         final String print = format.getRoomTitleHead() + title +
-                             format.getRoomDescriptionHead() + description +
-                             riString() +
-                             inventory +
-                             rwString();
+                format.getRoomDescriptionHead() + description +
+                riString() +
+                inventory +
+                rwString();
         return print;
     }
 
@@ -157,9 +161,9 @@ public class Room implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result
-                 + ((name == null) ? 0 : name.hashCode())
-                 + ((title == null) ? 0 : title.hashCode())
-                 + ((description == null) ? 0 : description.hashCode())
+                + ((name == null) ? 0 : name.hashCode())
+                + ((title == null) ? 0 : title.hashCode())
+                + ((description == null) ? 0 : description.hashCode())
         ;
         return result;
     }
@@ -177,7 +181,7 @@ public class Room implements Serializable {
         }
         final Room other = (Room) obj;
         return other.name.equals(name) &&
-               other.title.equals(title) &&
-               other.description.equals(description);
+                other.title.equals(title) &&
+                other.description.equals(description);
     }
 }
