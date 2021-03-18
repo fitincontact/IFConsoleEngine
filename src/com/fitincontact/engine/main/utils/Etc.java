@@ -16,7 +16,7 @@ public class Etc {
         if (l1.size() != l2.size()) {
             return false;
         }
-        final AtomicBoolean isEquals = new AtomicBoolean(true);
+        final var isEquals = new AtomicBoolean(true);
         l1.forEach(item1 -> {
             if (!l2.contains(item1)) {
                 isEquals.set(false);

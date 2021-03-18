@@ -214,7 +214,7 @@ public class Dialog implements Serializable {
             return false;
         }
 
-        final Dialog d = (Dialog) o;
+        final var d = (Dialog) o;
 
         return d.uniqueLong == ((Dialog) o).uniqueLong;
     }
@@ -231,12 +231,12 @@ public class Dialog implements Serializable {
     public void start() throws IOException {
         monitor.setDialogCurrent(this);
 
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        final var reader = new BufferedReader(new InputStreamReader(System.in));
         String word;
 
-        final List<Dialog> currentDialogs = new ArrayList<>();
-        final List<Dialog> downDialogs = new ArrayList<>();
-        final List<Dialog> upDialogs = new ArrayList<>();
+        final var currentDialogs = new ArrayList<Dialog>();
+        final var downDialogs = new ArrayList<Dialog>();
+        final var upDialogs = new ArrayList<Dialog>();
         if (!continues.isEmpty()) {
             currentDialogs.addAll(continues);
             pl(title);
@@ -247,7 +247,7 @@ public class Dialog implements Serializable {
             });
         }
 
-        final AtomicBoolean isToDown = new AtomicBoolean(false);
+        final var isToDown = new AtomicBoolean(false);
         while (this.isActive && !currentDialogs.isEmpty() && !this.isStop) {
             p(format.getConsoleHead());
             word = reader.readLine();

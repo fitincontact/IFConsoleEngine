@@ -27,7 +27,7 @@ public class Inventory implements Serializable {
     }
 
     public List<String> toStr() {
-        final List<String> printList = new ArrayList<>();
+        final var printList = new ArrayList<String>();
         printList.add(format.getInventoryHead());
         if (items.isEmpty()) {
             return printList;

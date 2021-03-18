@@ -33,7 +33,7 @@ public class Core {
     }
 
     public void start() throws IOException, ClassNotFoundException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        final var reader = new BufferedReader(new InputStreamReader(System.in));
         String word;
         pl(monitor.toStrRoomCurrent());
         while (!monitor.isVictory()) {
@@ -48,22 +48,22 @@ public class Core {
     }
 
     private boolean defineShotWord(final String word) throws IOException, ClassNotFoundException {
-        if (word.equals(format.getFlagFinish().getKey())) {
-            p(format.getFlagFinish().getValue());
+        if (word.equals(format.getFlagFinish().cmd())) {
+            p(format.getFlagFinish().print());
             monitor.setVictory(true);
             return true;
         }
-        if (word.equals(format.getFlagItems().getKey())) {
-            p(format.getFlagItems().getValue());
+        if (word.equals(format.getFlagItems().cmd())) {
+            p(format.getFlagItems().print());
             pl(monitor.getRoomCurrent().riString());
             return true;
         }
-        if (word.equals(format.getFlagInventory().getKey())) {
-            p(format.getFlagInventory().getValue());
+        if (word.equals(format.getFlagInventory().cmd())) {
+            p(format.getFlagInventory().print());
             pl(monitor.getInventoryCurrent().toStr());
             return true;
         }
-        if (word.equals(format.getFlagRoom().getKey())) {
+        if (word.equals(format.getFlagRoom().cmd())) {
             pl(monitor.toStrRoomCurrent());
             return true;
         }
@@ -81,12 +81,12 @@ public class Core {
 
     private void defineEffect(final String word) {
 
-        final AtomicBoolean isInItems = new AtomicBoolean(false);
-        final AtomicBoolean isInInventory = new AtomicBoolean(false);
-        final AtomicBoolean isInWay = new AtomicBoolean(false);
+        final var isInItems = new AtomicBoolean(false);
+        final var isInInventory = new AtomicBoolean(false);
+        final var isInWay = new AtomicBoolean(false);
 
         if (word.indexOf(format.getUseSplitSymbol()) > 0) {
-            final List<String> splitWords = new ArrayList<>();
+            final var splitWords = new ArrayList<String>();
             for (final String splitWord : word.split(format.getUseSplitSymbol())) {
 
                 final String splitUnSpaceWord = splitWord.trim();

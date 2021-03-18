@@ -141,7 +141,7 @@ public class Monitor implements Serializable {
     }
 
     List<Room> getRooms() {
-        final Set<Room> roomSet = new HashSet<Room>();
+        final var roomSet = new HashSet<Room>();
         roomSet.add(roomCurrent);
         addRoomFromWays(roomSet, roomCurrent);
         return new ArrayList<>(roomSet);

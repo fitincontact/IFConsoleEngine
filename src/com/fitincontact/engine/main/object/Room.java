@@ -105,7 +105,7 @@ public class Room implements Serializable {
     }
 
     public List<String> toStrRoom(final Inventory inventory) {
-        final List<String> print = new ArrayList<>();
+        final var print = new ArrayList<String>();
         if (isFirst) {
             print.add(format.getRoomTitleHead() + title);
         }
@@ -118,14 +118,14 @@ public class Room implements Serializable {
     }
 
     public String riString() {
-        final AtomicReference<String> print = new AtomicReference<>(Format.EMPTY);
+        final var print = new AtomicReference<String>(Format.EMPTY);
         items.forEach(i -> print.set(print + i.getRoomDescription() + format.getRoomItemSplit()));
         final String body = print.get().isEmpty() ? Format.EMPTY : print.get().substring(0, print.get().length() - 1);
         return format.getRoomItemsHead() + body;
     }
 
     public String rwString() {
-        final AtomicReference<String> print = new AtomicReference<>(Format.EMPTY);
+        final var print = new AtomicReference<String>(Format.EMPTY);
         ways.forEach(i -> print.set(print + i.getWayTitle() + format.getRoomWaySplit()));
         final String body = print.get().isEmpty() ? Format.EMPTY : print.get().substring(0, print.get().length() - 2);
         return format.getWayHead() + body;
@@ -179,7 +179,7 @@ public class Room implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Room other = (Room) obj;
+        final var other = (Room) obj;
         return other.name.equals(name) &&
                 other.title.equals(title) &&
                 other.description.equals(description);

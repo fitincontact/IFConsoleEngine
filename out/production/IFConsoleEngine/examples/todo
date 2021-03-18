@@ -22,3 +22,8 @@ https://stackoverflow.com/questions/2695214/convert-jar-to-an-osx-executable
 Serializable Java Lambdas
 https://lankydan.dev/serializable-java-lambdas
 
+
+/Library/Java/JavaVirtualMachines/jdk-16.jdk/Contents/Home/bin/java -Dfile.encoding=UTF-8 -jar /Users/vsevolodfitin/repo/my/IFConsoleEngine/out/artifacts/IFConsoleEngine_jar/IFConsoleEngine.jar
+jpackage --name bouncer --input libs --main-jar bouncer.jar --type exe
+
+jpackage --name IFCEExample --input /Users/vsevolodfitin/repo/my/IFConsoleEngine/out/artifacts/IFConsoleEngine_jar --main-jar IFConsoleEngine.jar --type dmg

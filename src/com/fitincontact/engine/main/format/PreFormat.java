@@ -3,7 +3,7 @@ package com.fitincontact.engine.main.format;
 //import javafx.util.Pair;
 //import jdk.javadoc.internal.doclets.toolkit.util.Utils;
 
-import com.fitincontact.engine.main.variable.Pair;
+import com.fitincontact.engine.main.variable.Command;
 
 public class PreFormat {
     private String gameName = "examples";
@@ -29,10 +29,10 @@ public class PreFormat {
     private String unDefininedWordIfContains = " - it cannot be used";
     private String unDefininedWordIfNotContains = " - I do not see anything similar here";
     private String unDefininedWordUse = " - need to try something different";
-    private Pair<String, String> flagFinish = new Pair<>("f.", "Finish");
-    private Pair<String, String> flagItems = new Pair<>("it.", "Items:");
-    private Pair<String, String> flagInventory = new Pair<>("i.", "Inventory:");
-    private Pair<String, String> flagRoom = new Pair<>("r.", "Room:");
+    private Command flagFinish = new Command("f.", "Finish");
+    private Command flagItems = new Command("it.", "Items:");
+    private Command flagInventory = new Command("i.", "Inventory:");
+    private Command flagRoom = new Command("r.", "Room:");
     private String flagSave = "s.";
     private String flagLoad = "l.";
     private String flagSaveList = "sl.";
@@ -224,35 +224,35 @@ public class PreFormat {
         this.unDefininedWordUse = unDefininedWordUse;
     }
 
-    public Pair<String, String> getFlagFinish() {
+    public Command getFlagFinish() {
         return flagFinish;
     }
 
-    public void setFlagFinish(final Pair<String, String> flagFinish) {
+    public void setFlagFinish(final Command flagFinish) {
         this.flagFinish = flagFinish;
     }
 
-    public Pair<String, String> getFlagItems() {
+    public Command getFlagItems() {
         return flagItems;
     }
 
-    public void setFlagItems(final Pair<String, String> flagItems) {
+    public void setFlagItems(final Command flagItems) {
         this.flagItems = flagItems;
     }
 
-    public Pair<String, String> getFlagInventory() {
+    public Command getFlagInventory() {
         return flagInventory;
     }
 
-    public void setFlagInventory(final Pair<String, String> flagInventory) {
+    public void setFlagInventory(final Command flagInventory) {
         this.flagInventory = flagInventory;
     }
 
-    public Pair<String, String> getFlagRoom() {
+    public Command getFlagRoom() {
         return flagRoom;
     }
 
-    public void setFlagRoom(final Pair<String, String> flagRoom) {
+    public void setFlagRoom(final Command flagRoom) {
         this.flagRoom = flagRoom;
     }
 

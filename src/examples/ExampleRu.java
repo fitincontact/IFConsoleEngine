@@ -5,7 +5,6 @@ import com.fitincontact.engine.api.Generator;
 import com.fitincontact.engine.api.Phrase;
 import com.fitincontact.engine.api.Use;
 import com.fitincontact.engine.main.core.Monitor;
-import com.fitincontact.engine.main.format.PreFormat;
 import com.fitincontact.engine.main.object.*;
 
 import java.io.Serializable;
@@ -21,31 +20,30 @@ public final class ExampleRu {
     }
 
     public static void main(final String[] args) throws Exception {
-        final Generator generator = new Generator();
-        final Monitor monitor = Monitor.getInstance();
+        final var create = new Generator();
+        final var monitor = Monitor.getInstance();
 
-
-        final Dialog dlg1 = generator.newDialog(
+        final var dlg1 = create.Dialog(
                 "я начал разговор c дворецким"
         );
         {
-            final Dialog dlg1_1 = dlg1.addContinues(new Dialog(
+            final var dlg1_1 = dlg1.addContinues(new Dialog(
                     "Доложите о моем приезде.",
                     "Господин просил не мешать."
             ));
-            final Dialog dlg1_2 = dlg1.addContinues(new Dialog("Впустите меня!", "И не подумаю!"));
-            final Dialog dlg1_3 = dlg1.addContinues(new Dialog(
+            final var dlg1_2 = dlg1.addContinues(new Dialog("Впустите меня!", "И не подумаю!"));
+            final var dlg1_3 = dlg1.addContinues(new Dialog(
                     "Где ваш хозяин?",
                     "Боюсь вам сегодня не назначено. Ступайте, сударь."
             ));
             {
-                final Dialog dlg1_1_1 = dlg1_3.addContinues(new Dialog("Именем короля, впустите!", "Я плохо слышу."));
-                final Dialog dlg1_1_2 = dlg1_3.addContinues(new Dialog(
+                final var dlg1_1_1 = dlg1_3.addContinues(new Dialog("Именем короля, впустите!", "Я плохо слышу."));
+                final var dlg1_1_2 = dlg1_3.addContinues(new Dialog(
                         "Ну, смерд, отведаешь ты у меня плетей!",
                         "Кажется я начинаю вас понимать..."
                 ));
                 {
-                    final Dialog dlg1_1_2_1 = dlg1_1_2.addContinues(new Dialog(
+                    final var dlg1_1_2_1 = dlg1_1_2.addContinues(new Dialog(
                             "И что дальше?",
                             (Phrase & Serializable) (room, inventory) -> {
                                 p("Входите пожалуйста, здесь вам искренне рады!");
@@ -56,20 +54,20 @@ public final class ExampleRu {
             }
         }
 
-        final PreFormat preFormat = generator.newPreFormat();
+        final var preFormat = create.PreFormat();
         preFormat.setGameName("БОЯРКА СПИРТ И МАГИЯ или ПО СЛЕДАМ ВОЛШЕБСТВА");
         preFormat.setSaveName("save");
         preFormat.setUnDefininedWordIfNotContains(" - не вижу здесь чего-то похожего");
         preFormat.setUnDefininedWordIfContains(" - это невозможно использовать");
         preFormat.setUnDefininedWordUse(" - нужно попробовать что-то другое");
-        generator.setInstance(preFormat);
+        create.setInstance(preFormat);
 
-        final Person person = generator.newPerson("Аруй");
-        final Game game = generator.newGame();
+        final var person = create.Person("Аруй");
+        final var game = create.Game();
         game.add(person);
-        final Inventory inventory = generator.newInventory();
+        final var inventory = create.Inventory();
 
-        final Room main_room = generator.newRoom(
+        final var main_room = create.Room(
                 "menu",
                 "БОЯРКА СПИРТ И МАГИЯ или ПО СЛЕДАМ ВОЛШЕБСТВА",
                 "Волшебник Зазул жаден, так считает мой король, пославший меня, своего верного " +
@@ -86,7 +84,7 @@ public final class ExampleRu {
             return true;
         };
 
-        final Item butler = generator.newItem(
+        final var butler = create.Item(
                 "дворецкий",
                 false,
                 "",
@@ -101,16 +99,16 @@ public final class ExampleRu {
 
         //---//
 
-        final Room hall = generator.newRoom(
+        final var hall = create.Room(
                 "Зал",
                 "ЗАЛ",
                 "Этот огромный зал является приемной волшебника, и по совместительству видимо складом рухляди."
         );
 
-        final Way wayHall = generator.newWay(hall, "в зал");
+        final var wayHall = create.Way(hall, "в зал");
         main_room.add(wayHall);
 
-        final Item cabinet = generator.newItem(
+        final var cabinet = create.Item(
                 "шкаф",
                 false,
                 "",
@@ -120,7 +118,7 @@ public final class ExampleRu {
                 ""
         );
 
-        final Item table = generator.newItem(
+        final var table = create.Item(
                 "стол",
                 false,
                 "",
@@ -131,7 +129,7 @@ public final class ExampleRu {
 
         );
 
-        final Item trash = generator.newItem(
+        final var trash = create.Item(
                 "хлам",
                 false,
                 "",
@@ -141,7 +139,7 @@ public final class ExampleRu {
                 ""
         );
 
-        final Item magnifier = generator.newItem(
+        final var magnifier = create.Item(
                 "лупа",
                 true,
                 "лупа",
@@ -151,7 +149,7 @@ public final class ExampleRu {
                 "я использовал лупу"
         );
 
-        final Item note = generator.newItem(
+        final var note = create.Item(
                 "записка",
                 true,
                 "записка",
@@ -174,7 +172,7 @@ public final class ExampleRu {
 
         //---//
 
-        final Room labor = generator.newRoom(
+        final var labor = create.Room(
                 "лаборатория",
                 "ЛАБОРАТОРИЯ",
                 "Реторты и склянки, бадьи с водорослями, корзина живых лягушек, " +
@@ -185,10 +183,10 @@ public final class ExampleRu {
                         "пакостничать и расствалять ловушки."
         );
 
-        hall.add(generator.newWay(labor, "дверь"));
-        labor.add(generator.newWay(hall, "обратно в зал"));
+        hall.add(create.Way(labor, "дверь"));
+        labor.add(create.Way(hall, "обратно в зал"));
 
-        final Item hammer = generator.newItem(
+        final var hammer = create.Item(
                 "молоток",
                 true,
                 "молоток",
@@ -198,7 +196,7 @@ public final class ExampleRu {
                 "я ударил молотком"
         );
 
-        final Item alcohol = generator.newItem(
+        final var alcohol = create.Item(
                 "бутыль",
                 false,
                 "",
@@ -208,7 +206,7 @@ public final class ExampleRu {
                 ""
         );
 
-        final Item key = generator.newItem(
+        final var key = create.Item(
                 "ключ",
                 true,
                 "ключ",
@@ -218,7 +216,7 @@ public final class ExampleRu {
                 "ключ подошел к двери, я открыл её"
         );
 
-        final Item window = generator.newItem(
+        final var window = create.Item(
                 "окно",
                 false,
                 "",
@@ -251,13 +249,13 @@ public final class ExampleRu {
         labor.add(hammer, alcohol, window);
         //---//
 
-        final Room panty = generator.newRoom(
+        final var panty = create.Room(
                 "кладовка",
                 "КЛАДОВКА",
                 "Множество ящиков и шкафов, все они заполнены сушеными травами и прочими алхимическими " +
                         "реагентами"
         );
-        final Way wayPanty = generator.newWay(
+        final var wayPanty = create.Way(
                 panty, "ржавая дверь"
         );
         wayPanty.setLock(true);
@@ -274,6 +272,6 @@ public final class ExampleRu {
         wayPanty.add(useWayPanty);
         labor.add(wayPanty);
 
-        generator.newCore(main_room, inventory).start();
+        create.Core(main_room, inventory).start();
     }
 }

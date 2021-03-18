@@ -37,25 +37,25 @@ public class Variable implements Serializable {
     }
 
     public B newBoolean(final boolean v) {
-        final B i = new B(v);
+        final var i = new B(v);
         add(i);
         return i;
     }
 
     public L newLong(final long v) {
-        final L i = new L(v);
+        final var i = new L(v);
         add(i);
         return i;
     }
 
     public D newDouble(final double v) {
-        final D i = new D(v);
+        final var i = new D(v);
         add(i);
         return i;
     }
 
     public S newString(final String v) {
-        final S i = new S(v);
+        final var i = new S(v);
         add(i);
         return i;
     }

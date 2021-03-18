@@ -31,20 +31,20 @@ public class Generator {
     }
 
     //todo delete ? or stay for debug?
-    public Game newGame() {
+    public Game Game() {
         return generatorObject.newGame();
     }
 
-    public Person newPerson(final String name) {
+    public Person Person(final String name) {
         return generatorObject.newPerson(name);
     }
 
-    public Room newRoom(
+    public Room Room(
             final String name,
             final String title,
             final String description
     ) throws Exception {
-        final Room room = generatorObject.newRoom(
+        final var room = generatorObject.newRoom(
                 name,
                 title,
                 description
@@ -53,7 +53,7 @@ public class Generator {
         return room;
     }
 
-    public Item newItem(
+    public Item Item(
             final String word,
             final boolean isForInventory,
             final String invName,
@@ -62,7 +62,7 @@ public class Generator {
             final String actInventoryTxt,
             final String useTxt
     ) throws Exception {
-        final Item item = generatorObject.newItem(
+        final var item = generatorObject.newItem(
                 word,
                 isForInventory,
                 invName,
@@ -75,11 +75,11 @@ public class Generator {
         return item;
     }
 
-    public Way newWay(
+    public Way Way(
             final Room room,
             final String wayTitle
     ) throws Exception {
-        final Way way = generatorObject.newWay(
+        final var way = generatorObject.newWay(
                 room,
                 wayTitle
         );
@@ -87,15 +87,15 @@ public class Generator {
         return way;
     }
 
-    public Inventory newInventory() {
+    public Inventory Inventory() {
         return generatorObject.newInventory();
     }
 
-    public Dialog newDialog(final String title) {
+    public Dialog Dialog(final String title) {
         return generatorObject.newDialog(title);
     }
 
-    public Core newCore(
+    public Core Core(
             final Room room,
             final Inventory inventory
     ) {
@@ -105,7 +105,7 @@ public class Generator {
         );
     }
 
-    public PreFormat newPreFormat() {
+    public PreFormat PreFormat() {
         return generatorFormat.newPreFormat();
     }
 
@@ -117,19 +117,19 @@ public class Generator {
         return generatorFormat.getInstance();
     }
 
-    public B newBoolean(final boolean v) {
+    public B Boolean(final boolean v) {
         return variable.newBoolean(v);
     }
 
-    public L newLong(final long v) {
+    public L Long(final long v) {
         return variable.newLong(v);
     }
 
-    public D newDouble(final double v) {
+    public D Double(final double v) {
         return variable.newDouble(v);
     }
 
-    public S newString(final String v) {
+    public S String(final String v) {
         return variable.newString(v);
     }
 

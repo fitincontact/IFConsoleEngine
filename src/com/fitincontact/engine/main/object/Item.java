@@ -114,7 +114,7 @@ public class Item implements Serializable {
             final Room room,
             final Inventory inventory
     ) throws IOException, ClassNotFoundException {
-        final List<String> print = new ArrayList<>();
+        final var print = new ArrayList<String>();
         if (act == null) {
             if (isForInventory && !isInInventory) {
                 move(room, inventory);

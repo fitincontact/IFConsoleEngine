@@ -61,7 +61,7 @@ public class GeneratorObject {
     }
 
     public Dialog newDialog(final String title) {
-        final Dialog dialog = new Dialog(title);
+        final var dialog = new Dialog(title);
         dialog.setUniqueLong(dialogHistory.getDialogs().size());
         return dialog;
     }

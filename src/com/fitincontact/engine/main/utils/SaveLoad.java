@@ -16,8 +16,8 @@ public class SaveLoad {
         final Game savedGame = Game.getInstance();
         final String consoleSuffix = args.length > 1 ? args[1] : Format.EMPTY;
         final String fileNameFull = format.getSaveName() + consoleSuffix + format.getFilenameExtension();
-        final FileOutputStream outputStream = new FileOutputStream(fileNameFull);
-        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+        final var outputStream = new FileOutputStream(fileNameFull);
+        final var objectOutputStream = new ObjectOutputStream(outputStream);
         objectOutputStream.writeObject(savedGame);
         objectOutputStream.close();
         pl(format.getGameSaveMsg() + Format.SPACE + fileNameFull);
@@ -38,7 +38,7 @@ public class SaveLoad {
         }
 
         if (fileInputStream != null) {
-            final ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            final var objectInputStream = new ObjectInputStream(fileInputStream);
 
             game.set((Game) objectInputStream.readObject());
 

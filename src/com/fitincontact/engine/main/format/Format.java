@@ -1,6 +1,6 @@
 package com.fitincontact.engine.main.format;
 
-import com.fitincontact.engine.main.variable.Pair;
+import com.fitincontact.engine.main.variable.Command;
 //import com.sun.tools.javac.util.Pair;
 //import jdk.javadoc.internal.doclets.toolkit.util.Utils;
 
@@ -38,10 +38,10 @@ public class Format implements Serializable {
     private String unDefininedWordIfContains;
     private String unDefininedWordIfNotContains;
     private String unDefininedWordUse;
-    private Pair<String, String> flagFinish;
-    private Pair<String, String> flagItems;
-    private Pair<String, String> flagInventory;
-    private Pair<String, String> flagRoom;
+    private Command flagFinish;
+    private Command flagItems;
+    private Command flagInventory;
+    private Command flagRoom;
     private String flagSave;
     private String flagLoad;
     private String flagSaveList;
@@ -70,10 +70,10 @@ public class Format implements Serializable {
             final String unDefininedWordIfContains,
             final String unDefininedWordIfNotContains,
             final String unDefininedWordUse,
-            final Pair<String, String> flagFinish,
-            final Pair<String, String> flagItems,
-            final Pair<String, String> flagInventory,
-            final Pair<String, String> flagRoom,
+            final Command flagFinish,
+            final Command flagItems,
+            final Command flagInventory,
+            final Command flagRoom,
             final String flagSave,
             final String flagLoad,
             final String flagSaveList
@@ -152,7 +152,7 @@ public class Format implements Serializable {
 
     public static Format getInstance() {
         if (instance == null) {
-            final PreFormat preFormat = new PreFormat();
+            final var preFormat = new PreFormat();
             setInstance(preFormat);
         }
         return instance;
@@ -250,19 +250,19 @@ public class Format implements Serializable {
         return exitTxt;
     }
 
-    public Pair<String, String> getFlagFinish() {
+    public Command getFlagFinish() {
         return flagFinish;
     }
 
-    public Pair<String, String> getFlagItems() {
+    public Command getFlagItems() {
         return flagItems;
     }
 
-    public Pair<String, String> getFlagInventory() {
+    public Command getFlagInventory() {
         return flagInventory;
     }
 
-    public Pair<String, String> getFlagRoom() {
+    public Command getFlagRoom() {
         return flagRoom;
     }
 
