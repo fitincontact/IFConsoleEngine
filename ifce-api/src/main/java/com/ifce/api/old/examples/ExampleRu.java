@@ -38,15 +38,17 @@ public final class ExampleRu {
                     "Доложите о моем приезде.",
                     "Господин просил не мешать."
             ));
-            final var dlg1_2 = dlg1.addContinues(
-                    new Dialog1("Впустите меня!", "И не подумаю!"));
+            final var dlg1_2 = dlg1.addContinues(new Dialog1(
+                    "Впустите меня!",
+                    "И не подумаю!"));
             final var dlg1_3 = dlg1.addContinues(new Dialog1(
                     "Где ваш хозяин?",
                     "Боюсь вам сегодня не назначено. Ступайте, сударь."
             ));
             {
-                final var dlg1_1_1 = dlg1_3.addContinues(
-                        new Dialog1("Именем короля, впустите!", "Я плохо слышу."));
+                final var dlg1_1_1 = dlg1_3.addContinues(new Dialog1(
+                        "Именем короля, впустите!",
+                        "Я плохо слышу."));
                 final var dlg1_1_2 = dlg1_3.addContinues(new Dialog1(
                         "Ну, смерд, отведаешь ты у меня плетей!",
                         "Кажется я начинаю вас понимать..."
@@ -54,7 +56,7 @@ public final class ExampleRu {
                 {
                     final var dlg1_1_2_1 = dlg1_1_2.addContinues(new Dialog1(
                             "И что дальше?",
-                            (Phrase1 & Serializable) (room, inventory) -> {
+                            (Phrase1 & Serializable) (room111, inventory111) -> {
                                 p("Входите пожалуйста, здесь вам искренне рады!");
                                 monitor.getDialogCurrent().stop();
                             }
@@ -62,6 +64,8 @@ public final class ExampleRu {
                 }
             }
         }
+
+
 
         final var person = create.Person("Аруй");
         final var game = create.Game();

@@ -17,6 +17,10 @@
         <module>ifce-format</module>
         <module>ifce-dialog</module>
         <module>ifce-saver</module>
+        <module>ifce-model</module>
+        <module>ifce-assembler</module>
+        <module>ifce-util</module>
+        <module>ifce-service</module>
     </modules>
 
     <properties>
@@ -43,6 +47,15 @@
             <artifactId>spring-context</artifactId>
             <version>5.3.9</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>
+
+
     </dependencies>
 
 </project>

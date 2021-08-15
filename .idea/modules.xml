@@ -4,11 +4,15 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IFConsoleEngine.iml" filepath="$PROJECT_DIR$/IFConsoleEngine.iml" />
       <module fileurl="file://$PROJECT_DIR$/ifce-api/ifce-api.iml" filepath="$PROJECT_DIR$/ifce-api/ifce-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ifce-assembler/ifce-assembler.iml" filepath="$PROJECT_DIR$/ifce-assembler/ifce-assembler.iml" />
       <module fileurl="file://$PROJECT_DIR$/ifce-dialog/ifce-dialog.iml" filepath="$PROJECT_DIR$/ifce-dialog/ifce-dialog.iml" />
       <module fileurl="file://$PROJECT_DIR$/ifce-engine/ifce-engine.iml" filepath="$PROJECT_DIR$/ifce-engine/ifce-engine.iml" />
       <module fileurl="file://$PROJECT_DIR$/ifce-format/ifce-format.iml" filepath="$PROJECT_DIR$/ifce-format/ifce-format.iml" />
       <module fileurl="file://$PROJECT_DIR$/ifce-impl/ifce-impl.iml" filepath="$PROJECT_DIR$/ifce-impl/ifce-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ifce-model/ifce-model.iml" filepath="$PROJECT_DIR$/ifce-model/ifce-model.iml" />
       <module fileurl="file://$PROJECT_DIR$/ifce-saver/ifce-saver.iml" filepath="$PROJECT_DIR$/ifce-saver/ifce-saver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ifce-service/ifce-service.iml" filepath="$PROJECT_DIR$/ifce-service/ifce-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ifce-util/ifce-util.iml" filepath="$PROJECT_DIR$/ifce-util/ifce-util.iml" />
     </modules>
   </component>
 </project>

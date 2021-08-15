@@ -99,6 +99,14 @@ public class Core {
                         monitor.getItemsUse().add(i);
                     }
                 });
+                monitor.getRoomCurrent().getItems().forEach(i -> {
+                    if (i.getWord().equals(word)) {
+                        monitor.setActType(EffectType.ACT_ROOM_ITEM);
+                        monitor.setRoomItemAct(i);
+                        isInItems.set(true);
+                        return;
+                    }
+                });
                 monitor.getInventoryCurrent().getItems().forEach(i -> {
                     if (i.getWord().equals(splitUnSpaceWord)) {
                         monitor.setActType(EffectType.USE_ITEM);
@@ -237,5 +245,17 @@ public class Core {
             return useItem1s.get(0);
         }
         return useItemsWithNonDefaultUse.get(0);
+    }
+
+    public static void main(String[] args) {
+        var l = new ArrayList<List<Double>>();
+        var f =  List.of(1.);
+        l.add(f);
+
+        for (int i = 0; i<1000; i++){
+
+        }
+
+
     }
 }

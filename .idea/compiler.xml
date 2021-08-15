@@ -6,27 +6,35 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ifce-impl" />
+        <module name="ifce-model" />
         <module name="ifce-format" />
         <module name="ifce-dialog" />
+        <module name="ifce-api" />
+        <module name="ifce-impl" />
+        <module name="ifce-util" />
+        <module name="ifce-service" />
         <module name="ifce-engine" />
         <module name="ifce-saver" />
-        <module name="ifce-api" />
+        <module name="ifce-assembler" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ifce-api" target="16" />
+      <module name="ifce-assembler" target="16" />
       <module name="ifce-dialog" target="16" />
       <module name="ifce-engine" target="16" />
       <module name="ifce-format" target="16" />
       <module name="ifce-impl" target="16" />
+      <module name="ifce-model" target="16" />
       <module name="ifce-saver" target="16" />
+      <module name="ifce-service" target="16" />
+      <module name="ifce-util" target="16" />
       <module name="IFConsoleEngine" target="16" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ifce-api" options="--add-modules java.base" />
+      <module name="ifce-api" options="" />
     </option>
   </component>
 </project>
