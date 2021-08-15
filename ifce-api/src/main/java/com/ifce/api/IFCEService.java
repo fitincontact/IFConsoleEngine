@@ -54,7 +54,7 @@ public interface IFCEService {
     void setAnnotation(String annotation);
 
     /**
-     * Start assemble game and start console job
+     * Start game
      */
     void start();
 }
