@@ -8,10 +8,10 @@ import com.ifce.model.Room;
 import com.ifce.model.asm.DoorAsm;
 import com.ifce.model.asm.ItemAsm;
 import com.ifce.model.asm.RoomAsm;
-import com.ifce.model.asm.singletons.DialogsAsm;
-import com.ifce.model.asm.singletons.DoorsAsm;
-import com.ifce.model.asm.singletons.ItemsAsm;
-import com.ifce.model.asm.singletons.RoomsAsm;
+import com.ifce.model.asm.singletons.DialogAsmList;
+import com.ifce.model.asm.singletons.DoorAsmList;
+import com.ifce.model.asm.singletons.ItemAsmList;
+import com.ifce.model.asm.singletons.RoomAsmList;
 import com.ifce.model.etc.Game;
 import com.ifce.service.Assembler;
 import com.ifce.service.EngineService;
@@ -22,10 +22,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class IFCEServiceImpl implements IFCEService {
-    private final DialogsAsm dialogsAsm;
-    private final DoorsAsm doorsAsm;
-    private final ItemsAsm itemsAsm;
-    private final RoomsAsm roomsAsm;
+    private final DialogAsmList dialogAsmList;
+    private final DoorAsmList doorAsmList;
+    private final ItemAsmList itemAsmList;
+    private final RoomAsmList roomAsmList;
     private final Game game;
     private final Assembler assembler;
     private final EngineService engineService;
@@ -36,7 +36,7 @@ public class IFCEServiceImpl implements IFCEService {
             Dialog[]... dialogs
     ) {
         val dialog = new Dialog(title, dialogs);
-        dialogsAsm.add(dialog);
+        dialogAsmList.add(dialog);
         return dialog;
     }
 
@@ -59,7 +59,7 @@ public class IFCEServiceImpl implements IFCEService {
     ) {
         val asm = new DoorAsm(name, roomStrFirst, doorStrFirst, roomStrSecond, doorStrSecond);
         val door = new Door(asm);
-        doorsAsm.add(door);
+        doorAsmList.add(door);
         return door;
     }
 
@@ -70,7 +70,7 @@ public class IFCEServiceImpl implements IFCEService {
     ) {
         val asm = new ItemAsm(name, place);
         val item = new Item(asm);
-        itemsAsm.add(item);
+        itemAsmList.add(item);
         return item;
     }
 
@@ -78,7 +78,7 @@ public class IFCEServiceImpl implements IFCEService {
     public Room room(String name) {
         val asm = new RoomAsm(name);
         val room = new Room(asm);
-        roomsAsm.add(room);
+        roomAsmList.add(room);
         return room;
     }
 

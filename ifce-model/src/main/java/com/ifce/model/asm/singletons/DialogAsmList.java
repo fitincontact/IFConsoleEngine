@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Component
-public class DialogsAsm {
+public class DialogAsmList {
     private List<Dialog> dialogs = new ArrayList<>();
 
     public void add(Dialog dialog) {

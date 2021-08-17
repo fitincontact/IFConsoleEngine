@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Component
-public class RoomsAsm {
+public class RoomAsmList {
     private List<Room> rooms = new ArrayList<>();
 
     public void add(final Room room) {
