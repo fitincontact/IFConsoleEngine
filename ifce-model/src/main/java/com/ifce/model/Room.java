@@ -1,5 +1,6 @@
 package com.ifce.model;
 
+import com.ifce.model.asm.RoomAsm;
 import com.ifce.model.etc.Word;
 import lombok.Data;
 
@@ -8,12 +9,14 @@ import java.util.List;
 
 @Data
 public class Room {
-    private final Word word;
-    private final List<Item> items = new ArrayList<>();
-    private final List<Door> doors = new ArrayList<>();
+    private final RoomAsm asm;
+
+    private Word name;
+    private List<Item> items = new ArrayList<>();
+    private List<Door> doors = new ArrayList<>();
 
     public Room add(final String word) {
-        this.word.add(word);
+        this.name.add(word);
         return this;
     }
 

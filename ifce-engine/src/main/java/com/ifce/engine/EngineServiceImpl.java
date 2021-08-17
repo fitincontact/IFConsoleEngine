@@ -1,5 +1,6 @@
 package com.ifce.engine;
 
+import com.ifce.engine.wordhandler.WordHandlerService;
 import com.ifce.format.Format;
 import com.ifce.model.etc.Game;
 import com.ifce.service.EngineService;
@@ -15,19 +16,29 @@ import java.io.InputStreamReader;
 @RequiredArgsConstructor
 @Service
 public class EngineServiceImpl implements EngineService {
-    private final Print print;
+
     private final Format format;
     private final Game game;
+    private final WordHandlerService wordHandlerService;
 
     @Override
-    public void start() throws IOException {
+    public void start() {
         val reader = new BufferedReader(new InputStreamReader(System.in));
-        print.pl(game.getAnnotation());
+        Print.pl(game.getAnnotation());
         while (!game.isWin()) {
-            print.p(format.getConsoleHead());
-            game.setWord(reader.readLine());
+            Print.p(format.getConsoleHead());
+            game.getWord().add(read(reader));
+            wordHandlerService.handle();
+        }
+    }
 
+    private String read(final BufferedReader reader) {
+        try {
+            return reader.readLine();
+        } catch (IOException e) {
 
+            game.end(e.getMessage());
+            return null;
         }
     }
 }

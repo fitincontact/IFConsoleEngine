@@ -4,6 +4,7 @@ import com.ifce.dialog.Dialog;
 import com.ifce.model.Door;
 import com.ifce.model.Item;
 import com.ifce.model.Room;
+import com.ifce.model.etc.Game;
 
 /**
  * Main Service for game
@@ -32,6 +33,7 @@ public interface IFCEService {
     /**
      * Main Door constructor
      *
+     * @param name
      * @param roomStrFirst
      * @param doorStrFirst
      * @param roomStrSecond
@@ -39,6 +41,7 @@ public interface IFCEService {
      * @return Door
      */
     Door door(
+            String name,
             String roomStrFirst,
             String doorStrFirst,
             String roomStrSecond,
@@ -49,9 +52,19 @@ public interface IFCEService {
 
     Room room(String name);
 
-    void setPlayer(Item player);
+    //Game block
 
-    void setAnnotation(String annotation);
+    /**
+     * Return Game singleton
+     *
+     * @param playerName playerName
+     * @param annotation annotation
+     * @return game
+     */
+    Game game(
+            String playerName,
+            String annotation
+    );
 
     /**
      * Start game

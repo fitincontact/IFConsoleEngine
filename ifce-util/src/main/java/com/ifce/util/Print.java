@@ -1,10 +1,7 @@
 package com.ifce.util;
 
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 
-@Component
 public class Print {
     public static void p(final String s) {
         System.out.print(s);
@@ -19,7 +16,7 @@ public class Print {
     }
 
     public static void pl() {
-        System.out.println("");
+        System.out.println();
     }
 
     public static void pl(final List<String> list) {

@@ -16,6 +16,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="ifce-util" />
     <orderEntry type="module" module-name="ifce-format" />
+    <orderEntry type="module" module-name="ifce-dialog" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.9" level="project" />
