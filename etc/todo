@@ -27,3 +27,14 @@ https://lankydan.dev/serializable-java-lambdas
 jpackage --name bouncer --input libs --main-jar bouncer.jar --type exe
 
 jpackage --name IFCEExample --input /Users/vsevolodfitin/repo/my/IFConsoleEngine/out/artifacts/IFConsoleEngine_jar --main-jar IFConsoleEngine.jar --type dmg
+
+
+
+
+https://ru.stackoverflow.com/questions/701784/%D0%9A%D0%B0%D0%BA-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D1%82%D1%8C-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D1%83
+
+Compile and build applications with IntelliJ IDEA
+https://www.jetbrains.com/help/idea/compiling-applications.html#run_packaged_jar
+
+Correct way to add external jars (lib/*.jar) to an IntelliJ IDEA project
+https://stackoverflow.com/questions/1051640/correct-way-to-add-external-jars-lib-jar-to-an-intellij-idea-project

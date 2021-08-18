@@ -65,8 +65,6 @@ public final class ExampleRu {
             }
         }
 
-
-
         final var person = create.Person("Аруй");
         final var game = create.Game();
         game.add(person);

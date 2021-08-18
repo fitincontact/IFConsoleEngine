@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class Game {
-    private final Print print;
     private final Format format;
     private final Rooms rooms;
 
