@@ -1,7 +1,7 @@
 package com.ifce.impl;
 
 import com.ifce.api.IFCEService;
-import com.ifce.dialog.Dialog;
+import com.ifce.model.Dialog;
 import com.ifce.model.Door;
 import com.ifce.model.Item;
 import com.ifce.model.Room;

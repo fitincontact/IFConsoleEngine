@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Component
 public class ItemAsmList {
-    private List<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     public void add(final Item item) {
         items.add(item);

@@ -24,8 +24,9 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
+        <source>16</source>
+        <target>16</target>
+        <ifce.version>2</ifce.version>
     </properties>
 
     <dependencies>

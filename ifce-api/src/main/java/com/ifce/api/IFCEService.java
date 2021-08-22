@@ -1,6 +1,6 @@
 package com.ifce.api;
 
-import com.ifce.dialog.Dialog;
+import com.ifce.model.Dialog;
 import com.ifce.model.Door;
 import com.ifce.model.Item;
 import com.ifce.model.Room;
@@ -22,6 +22,7 @@ public interface IFCEService {
 
     /**
      * Nested dialog
+     * !Use only as parameter into {@link IFCEService#dialog(String, Dialog[]...)}!
      *
      * @param request  request
      * @param response response

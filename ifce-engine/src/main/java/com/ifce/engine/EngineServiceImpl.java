@@ -23,9 +23,13 @@ public class EngineServiceImpl implements EngineService {
 
     @Override
     public void start() {
+        //assembler service may produce error and finish game
+        if (game.isEnd()) {
+            return;
+        }
         val reader = new BufferedReader(new InputStreamReader(System.in));
         Print.pl(game.getAnnotation());
-        while (!game.isWin()) {
+        while (!game.isEnd()) {
             Print.p(format.getConsoleHead());
             game.getWord().add(read(reader));
             wordHandlerService.handle();
