@@ -18,9 +18,10 @@ public class Game {
     private final Objects objects;
 
     private Item player;
+    private String annotation = "";
+
     private Room currentRoom;
     private Word word;
-    private String annotation;
 
     private boolean isEnd;
 

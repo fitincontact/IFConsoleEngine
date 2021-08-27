@@ -8,11 +8,7 @@ import com.ifce.model.Room;
 import com.ifce.model.asm.DoorAsm;
 import com.ifce.model.asm.ItemAsm;
 import com.ifce.model.asm.RoomAsm;
-import com.ifce.model.asm.singletons.DialogAsmList;
-import com.ifce.model.asm.singletons.DoorAsmList;
-import com.ifce.model.asm.singletons.ItemAsmList;
-import com.ifce.model.asm.singletons.RoomAsmList;
-import com.ifce.model.etc.Game;
+import com.ifce.model.asm.singletons.*;
 import com.ifce.service.Assembler;
 import com.ifce.service.EngineService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +22,7 @@ public class IFCEServiceImpl implements IFCEService {
     private final DoorAsmList doorAsmList;
     private final ItemAsmList itemAsmList;
     private final RoomAsmList roomAsmList;
-    private final Game game;
+    private final GameAsm gameAsm;
     private final Assembler assembler;
     private final EngineService engineService;
 
@@ -36,6 +32,7 @@ public class IFCEServiceImpl implements IFCEService {
             Dialog[]... dialogs
     ) {
         val dialog = new Dialog(title, dialogs);
+        dialog.add(title);
         dialogAsmList.add(dialog);
         return dialog;
     }
@@ -52,13 +49,11 @@ public class IFCEServiceImpl implements IFCEService {
     @Override
     public Door door(
             String name,
-            String roomStrFirst,
-            String doorStrFirst,
-            String roomStrSecond,
-            String doorStrSecond
+            String room
     ) {
-        val asm = new DoorAsm(name, roomStrFirst, doorStrFirst, roomStrSecond, doorStrSecond);
+        val asm = new DoorAsm(name, room);
         val door = new Door(asm);
+        door.add(name);
         doorAsmList.add(door);
         return door;
     }
@@ -70,6 +65,7 @@ public class IFCEServiceImpl implements IFCEService {
     ) {
         val asm = new ItemAsm(name, place);
         val item = new Item(asm);
+        item.add(name);
         itemAsmList.add(item);
         return item;
     }
@@ -78,13 +74,15 @@ public class IFCEServiceImpl implements IFCEService {
     public Room room(String name) {
         val asm = new RoomAsm(name);
         val room = new Room(asm);
+        room.add(name);
         roomAsmList.add(room);
         return room;
     }
 
     @Override
-    public Game game(String playerName, String annotation) {
-        return game;
+    public void story(String playerName, String annotation) {
+        gameAsm.setPlayerName(playerName);
+        gameAsm.setAnnotation(annotation);
     }
 
     @Override

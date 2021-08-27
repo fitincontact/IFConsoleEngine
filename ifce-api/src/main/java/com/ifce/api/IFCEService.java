@@ -4,12 +4,13 @@ import com.ifce.model.Dialog;
 import com.ifce.model.Door;
 import com.ifce.model.Item;
 import com.ifce.model.Room;
-import com.ifce.model.etc.Game;
+import org.springframework.lang.NonNull;
 
 /**
  * Main Service for game
  */
 public interface IFCEService {
+    //Model block
 
     /**
      * Main Dialog constructor
@@ -18,7 +19,9 @@ public interface IFCEService {
      * @param dialogs nested dialogs
      * @return Dialog
      */
-    Dialog dialog(String title, Dialog[]... dialogs);
+    Dialog dialog(
+            @NonNull String title,
+            @NonNull Dialog[]... dialogs);
 
     /**
      * Nested dialog
@@ -29,42 +32,42 @@ public interface IFCEService {
      * @param dialogs  nested dialogs
      * @return Dialog
      */
-    Dialog dialog(String request, String response, Dialog[]... dialogs);
+    Dialog dialog(
+            @NonNull String request,
+            @NonNull String response,
+            @NonNull Dialog[]... dialogs
+    );
 
     /**
      * Main Door constructor
      *
      * @param name
-     * @param roomStrFirst
-     * @param doorStrFirst
-     * @param roomStrSecond
-     * @param doorStrSecond
+     * @param roomStr
      * @return Door
      */
     Door door(
-            String name,
-            String roomStrFirst,
-            String doorStrFirst,
-            String roomStrSecond,
-            String doorStrSecond
+            @NonNull String name,
+            @NonNull String roomStr
     );
 
-    Item item(String name, String place);
+    Item item(
+            @NonNull String name,
+            @NonNull String place);
 
-    Room room(String name);
+    Room room(@NonNull String name);
 
     //Game block
 
     /**
-     * Return Game singleton
+     * Init Game singleton
+     * Required info for assembler
      *
      * @param playerName playerName
      * @param annotation annotation
-     * @return game
      */
-    Game game(
-            String playerName,
-            String annotation
+    void story(
+            @NonNull String playerName,
+            @NonNull String annotation
     );
 
     /**

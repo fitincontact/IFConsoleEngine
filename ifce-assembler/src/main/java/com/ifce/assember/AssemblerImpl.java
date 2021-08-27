@@ -1,9 +1,6 @@
 package com.ifce.assember;
 
-import com.ifce.model.asm.singletons.DialogAsmList;
-import com.ifce.model.asm.singletons.DoorAsmList;
-import com.ifce.model.asm.singletons.ItemAsmList;
-import com.ifce.model.asm.singletons.RoomAsmList;
+import com.ifce.model.asm.singletons.*;
 import com.ifce.model.etc.Game;
 import com.ifce.model.singletons.Objects;
 import com.ifce.service.Assembler;
@@ -19,6 +16,7 @@ public class AssemblerImpl implements Assembler {
     private final ItemAsmList itemAsmList;
     private final RoomAsmList roomAsmList;
     private final Objects objects;
+    private final GameAsm gameAsm;
     private final Game game;
 
     public void assemble() {
@@ -40,7 +38,7 @@ public class AssemblerImpl implements Assembler {
         roomAsmList.getRooms().forEach(room -> {
             val asmName = room.getAsm().getName();
             if (objects.isExistsRoom(asmName)) {
-                error(String.format("Assembler.roomsProcess: There is duplicate room name %s ", asmName));
+                error(String.format("Assembler.addRooms: There is duplicate room name [%s]", asmName));
             } else {
                 objects.add(room);
             }
@@ -54,7 +52,7 @@ public class AssemblerImpl implements Assembler {
         itemAsmList.getItems().forEach(item -> {
             val asmName = item.getAsm().getName();
             if (objects.isExistsItem(asmName)) {
-                error(String.format("Assembler.itemsProcess: There is duplicate item name %s ", asmName));
+                error(String.format("Assembler.addItems: There is duplicate item name [%s]", asmName));
             } else {
                 objects.add(item);
             }
@@ -65,24 +63,67 @@ public class AssemblerImpl implements Assembler {
      * Add object to pool see {@link Objects}
      */
     private void addDoors() {
+        doorAsmList.getDoors().forEach(door -> {
+            val asmName = door.getAsm().getName();
+            if (objects.isExistsDoor(asmName)) {
+                error(String.format("Assembler.addDoors: There is duplicate door name [%s]", asmName));
+            } else {
+                objects.add(door);
+            }
+        });
     }
 
     /**
      * Add object to pool see {@link Objects}
      */
     private void addDialogs() {
+        dialogAsmList.getDialogs().forEach(dialog -> {
+            val asmName = dialog.getAsm().getName();
+            if (objects.isExistsDialog(asmName)) {
+                error(String.format("Assembler.addDialogs: There is duplicate dialog name [%s]", asmName));
+            } else {
+                objects.add(dialog);
+            }
+        });
     }
 
     /**
      * Arrange items in rooms
      */
     private void bindingItems() {
+        itemAsmList.getItems().forEach(item -> {
+            val asmPlaceName = item.getAsm().getPlace();
+            val room = objects.getRoom(asmPlaceName);
+            if (room == null) {
+                error(String.format(
+                        "Assembler.bindingItems: For item name [%s] not found room name [%s]",
+                        item.getAsm().getName(),
+                        asmPlaceName
+                ));
+            } else {
+                room.add(item);
+            }
+        });
     }
 
     /**
      * Arrange doors in rooms
      */
     private void bindingDoors() {
+        doorAsmList.getDoors().forEach(door -> {
+            val asmDoorName = door.getAsm().getName();
+            val asmRoomName = door.getAsm().getRoom();
+            val room = objects.getRoom(asmRoomName);
+            if (room == null) {
+                error(String.format(
+                        "Assembler.bindingDoors: For door name [%s] not found room name [%s]",
+                        asmDoorName,
+                        asmRoomName
+                ));
+            } else {
+                room.add(door);
+            }
+        });
     }
 
     /**
@@ -92,13 +133,19 @@ public class AssemblerImpl implements Assembler {
     }
 
     /**
-     * Building game state see {@link Game}
+     * Building game state see {@link Game
      */
     private void gameProcess() {
-        //current room is room where item player placed
+        val player = objects.getItem(gameAsm.getPlayerName());
+        if (player == null) {
+            error("Assembler.gameProcess: Player is not created");
+        } else {
+            game.setPlayer(player);
+            game.setAnnotation(gameAsm.getAnnotation());
+        }
     }
 
     private void error(final String message) {
-        game.end(message);
+        throw new RuntimeException(String.format("Assembler RuntimeException: %s", message));
     }
 }

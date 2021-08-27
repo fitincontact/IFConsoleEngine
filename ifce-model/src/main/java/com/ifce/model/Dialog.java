@@ -4,7 +4,7 @@ import com.ifce.model.asm.DialogAsm;
 import lombok.Data;
 
 @Data
-public class Dialog {
+public class Dialog extends ObjectAbstract {
     private DialogAsm asm;
 
     public Dialog(
