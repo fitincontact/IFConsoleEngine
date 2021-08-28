@@ -92,17 +92,39 @@ public class AssemblerImpl implements Assembler {
      */
     private void bindingItems() {
         itemAsmList.getItems().forEach(item -> {
+            val itemName = item.getAsm().getName();
             val asmPlaceName = item.getAsm().getPlace();
+            var msgRoom = "";
+
             val room = objects.getRoom(asmPlaceName);
             if (room == null) {
-                error(String.format(
+                msgRoom = String.format(
                         "Assembler.bindingItems: For item name [%s] not found room name [%s]",
-                        item.getAsm().getName(),
+                        itemName,
                         asmPlaceName
-                ));
+                );
             } else {
                 room.add(item);
             }
+
+            var msgItem = "";
+            if (!msgRoom.equals("")) {
+                val itemPlace = objects.getItem(asmPlaceName);
+                if (itemPlace == null) {
+                    msgItem = String.format(
+                            "Assembler.bindingItems: For item name [%s] not found item name [%s]",
+                            itemName,
+                            asmPlaceName
+                    );
+                } else {
+                    itemPlace.add(item);
+                }
+            }
+
+            if (!msgRoom.equals("") && !msgItem.equals("")) {
+                error(msgRoom + "\n" + msgItem);
+            }
+
         });
     }
 
@@ -112,16 +134,27 @@ public class AssemblerImpl implements Assembler {
     private void bindingDoors() {
         doorAsmList.getDoors().forEach(door -> {
             val asmDoorName = door.getAsm().getName();
-            val asmRoomName = door.getAsm().getRoom();
-            val room = objects.getRoom(asmRoomName);
-            if (room == null) {
+            val asmRoomFrom = door.getAsm().getRoomFrom();
+            val asmRoomTo = door.getAsm().getRoomTo();
+
+            val roomTo = objects.getRoom(asmRoomTo);
+            if (roomTo == null) {
                 error(String.format(
-                        "Assembler.bindingDoors: For door name [%s] not found room name [%s]",
+                        "Assembler.bindingDoors: For door name [%s] not found roomTo name [%s]",
                         asmDoorName,
-                        asmRoomName
+                        asmRoomTo
+                ));
+            }
+
+            val roomFrom = objects.getRoom(asmRoomFrom);
+            if (roomFrom == null) {
+                error(String.format(
+                        "Assembler.bindingDoors: For door name [%s] not found roomFrom name [%s]",
+                        asmDoorName,
+                        asmRoomFrom
                 ));
             } else {
-                room.add(door);
+                roomFrom.add(door);
             }
         });
     }
@@ -142,6 +175,7 @@ public class AssemblerImpl implements Assembler {
         } else {
             game.setPlayer(player);
             game.setAnnotation(gameAsm.getAnnotation());
+            game.setCurrentRoom(game.getItemRoom(player));
         }
     }
 

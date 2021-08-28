@@ -16,10 +16,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class IFCEServiceTest {
-    private final static String ITEM = "John";
-    private final static String ROOM = "yard";
-    private final static String DOOR = "door";
+public class AssebmlerFailTest {
+    private final static String ITEM = "ITEM";
+    private final static String ROOM_1 = "ROOM_1";
+    private final static String ROOM_2 = "ROOM_2";
+    private final static String DOOR = "DOOR";
     private final static String ERROR_HEAD = "Assembler RuntimeException: ";
 
     private IFCEService ifceService;
@@ -49,7 +50,15 @@ public class IFCEServiceTest {
         gameAsm = new GameAsm();
         game = new Game(format, objects);
 
-        assembler = new AssemblerImpl(dialogAsmList, doorAsmList, itemAsmList, roomAsmList, objects, gameAsm, game);
+        assembler = new AssemblerImpl(
+                dialogAsmList,
+                doorAsmList,
+                itemAsmList,
+                roomAsmList,
+                objects,
+                gameAsm,
+                game
+        );
 
         ifceService = new IFCEServiceImpl(
                 dialogAsmList,
@@ -64,8 +73,8 @@ public class IFCEServiceTest {
 
     @Test
     public void doubleRoomTest() {
-        ifceService.room(ROOM);
-        ifceService.room(ROOM);
+        ifceService.room(ROOM_1);
+        ifceService.room(ROOM_1);
         var msg = "";
         try {
             ifceService.start();
@@ -73,15 +82,15 @@ public class IFCEServiceTest {
             msg = e.getMessage();
         }
         Assertions.assertEquals(
-                String.format(ERROR_HEAD + "Assembler.addRooms: There is duplicate room name [%s]", ROOM),
+                String.format(ERROR_HEAD + "Assembler.addRooms: There is duplicate room name [%s]", ROOM_1),
                 msg
         );
     }
 
     @Test
     public void doubleItemTest() {
-        ifceService.item(ITEM, "yard");
-        ifceService.item(ITEM, "yard2");
+        ifceService.item(ITEM, ROOM_1);
+        ifceService.item(ITEM, ROOM_2);
         var msg = "";
         try {
             ifceService.start();
@@ -96,8 +105,8 @@ public class IFCEServiceTest {
 
     @Test
     public void doubleDoorTest() {
-        ifceService.door(DOOR, "yard");
-        ifceService.door(DOOR, "yard2");
+        ifceService.door(DOOR, ROOM_1, ROOM_2);
+        ifceService.door(DOOR, ROOM_1, ROOM_2);
         var msg = "";
         try {
             ifceService.start();
@@ -112,7 +121,7 @@ public class IFCEServiceTest {
 
     @Test
     public void bindingItemsTest() {
-        ifceService.item(ITEM, ROOM);
+        ifceService.item(ITEM, ROOM_1);
         var msg = "";
         try {
             ifceService.start();
@@ -120,14 +129,20 @@ public class IFCEServiceTest {
             msg = e.getMessage();
         }
         Assertions.assertEquals(
-                String.format(ERROR_HEAD + "Assembler.bindingItems: For item name [%s] not found room name [%s]", ITEM, ROOM),
+                String.format(ERROR_HEAD + "Assembler.bindingItems: For item name [%s] not found room name [%s]\n" +
+                                "Assembler.bindingItems: For item name [%s] not found item name [%s]",
+                        ITEM,
+                        ROOM_1,
+                        ITEM,
+                        ROOM_1
+                ),
                 msg
         );
     }
 
     @Test
-    public void bindingDoorsTest() {
-        ifceService.door(DOOR, ROOM);
+    public void bindingDoorsTest1() {
+        ifceService.door(DOOR, ROOM_1, ROOM_2);
         var msg = "";
         try {
             ifceService.start();
@@ -135,7 +150,23 @@ public class IFCEServiceTest {
             msg = e.getMessage();
         }
         Assertions.assertEquals(
-                String.format(ERROR_HEAD + "Assembler.bindingDoors: For door name [%s] not found room name [%s]", DOOR, ROOM),
+                String.format(ERROR_HEAD + "Assembler.bindingDoors: For door name [%s] not found roomTo name [%s]", DOOR, ROOM_2),
+                msg
+        );
+    }
+
+    @Test
+    public void bindingDoorsTest2() {
+        ifceService.room(ROOM_2);
+        ifceService.door(DOOR, ROOM_1, ROOM_2);
+        var msg = "";
+        try {
+            ifceService.start();
+        } catch (RuntimeException e) {
+            msg = e.getMessage();
+        }
+        Assertions.assertEquals(
+                String.format(ERROR_HEAD + "Assembler.bindingDoors: For door name [%s] not found roomFrom name [%s]", DOOR, ROOM_1),
                 msg
         );
     }

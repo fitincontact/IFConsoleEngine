@@ -49,9 +49,10 @@ public class IFCEServiceImpl implements IFCEService {
     @Override
     public Door door(
             String name,
-            String room
+            String roomFrom,
+            String roomTo
     ) {
-        val asm = new DoorAsm(name, room);
+        val asm = new DoorAsm(name, roomFrom, roomTo);
         val door = new Door(asm);
         door.add(name);
         doorAsmList.add(door);

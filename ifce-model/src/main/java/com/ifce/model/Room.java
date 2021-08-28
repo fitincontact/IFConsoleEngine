@@ -22,4 +22,8 @@ public class Room extends ObjectAbstract {
         doors.add(door);
         return this;
     }
+
+    public boolean contains(final Item item) {
+        return items.contains(item);
+    }
 }

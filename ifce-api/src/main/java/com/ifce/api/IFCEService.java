@@ -47,7 +47,8 @@ public interface IFCEService {
      */
     Door door(
             @NonNull String name,
-            @NonNull String roomStr
+            @NonNull String roomFrom,
+            String roomTo
     );
 
     Item item(
