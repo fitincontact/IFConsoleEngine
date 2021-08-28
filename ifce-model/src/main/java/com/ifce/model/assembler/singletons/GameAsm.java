@@ -1,4 +1,4 @@
-package com.ifce.model.asm.singletons;
+package com.ifce.model.assembler.singletons;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

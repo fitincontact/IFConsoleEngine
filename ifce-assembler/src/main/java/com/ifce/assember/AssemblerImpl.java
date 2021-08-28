@@ -1,7 +1,7 @@
 package com.ifce.assember;
 
-import com.ifce.model.asm.singletons.*;
-import com.ifce.model.etc.Game;
+import com.ifce.model.assembler.singletons.*;
+import com.ifce.model.singletons.Game;
 import com.ifce.model.singletons.Objects;
 import com.ifce.service.Assembler;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,6 @@ public class AssemblerImpl implements Assembler {
     private final Game game;
 
     public void assemble() {
-        //Print.pl("assemble");
         addRooms();
         addItems();
         addDoors();

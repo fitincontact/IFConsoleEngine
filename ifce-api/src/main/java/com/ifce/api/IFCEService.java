@@ -1,9 +1,9 @@
 package com.ifce.api;
 
-import com.ifce.model.Dialog;
-import com.ifce.model.Door;
-import com.ifce.model.Item;
-import com.ifce.model.Room;
+import com.ifce.model.main.Dialog;
+import com.ifce.model.main.Door;
+import com.ifce.model.main.Item;
+import com.ifce.model.main.Room;
 import org.springframework.lang.NonNull;
 
 /**
@@ -41,8 +41,9 @@ public interface IFCEService {
     /**
      * Main Door constructor
      *
-     * @param name
-     * @param roomStr
+     * @param name name
+     * @param roomFrom roomFrom (room where this door will be placed)
+     * @param roomTo roomTo
      * @return Door
      */
     Door door(
@@ -51,10 +52,21 @@ public interface IFCEService {
             String roomTo
     );
 
+    /**
+     * Main Item constructor
+     * @param name name
+     * @param place room/item here this item must place
+     * @return Item
+     */
     Item item(
             @NonNull String name,
             @NonNull String place);
 
+    /**
+     * Main Room constructor
+     * @param name name
+     * @return Room
+     */
     Room room(@NonNull String name);
 
     //Game block

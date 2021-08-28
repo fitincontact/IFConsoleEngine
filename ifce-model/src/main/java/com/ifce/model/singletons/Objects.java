@@ -1,9 +1,9 @@
 package com.ifce.model.singletons;
 
-import com.ifce.model.Dialog;
-import com.ifce.model.Door;
-import com.ifce.model.Item;
-import com.ifce.model.Room;
+import com.ifce.model.main.Dialog;
+import com.ifce.model.main.Door;
+import com.ifce.model.main.Item;
+import com.ifce.model.main.Room;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

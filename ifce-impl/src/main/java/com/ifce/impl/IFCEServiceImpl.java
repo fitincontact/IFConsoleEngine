@@ -1,14 +1,14 @@
 package com.ifce.impl;
 
 import com.ifce.api.IFCEService;
-import com.ifce.model.Dialog;
-import com.ifce.model.Door;
-import com.ifce.model.Item;
-import com.ifce.model.Room;
-import com.ifce.model.asm.DoorAsm;
-import com.ifce.model.asm.ItemAsm;
-import com.ifce.model.asm.RoomAsm;
-import com.ifce.model.asm.singletons.*;
+import com.ifce.model.main.Dialog;
+import com.ifce.model.main.Door;
+import com.ifce.model.main.Item;
+import com.ifce.model.main.Room;
+import com.ifce.model.assembler.DoorAsm;
+import com.ifce.model.assembler.ItemAsm;
+import com.ifce.model.assembler.RoomAsm;
+import com.ifce.model.assembler.singletons.*;
 import com.ifce.service.Assembler;
 import com.ifce.service.EngineService;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.ifce.engine.wordhandler;
 
 import com.ifce.engine.wordhandler.handlers.Handler;
-import com.ifce.model.etc.Game;
+import com.ifce.model.singletons.Game;
 
 //@RequiredArgsConstructor
 public class WordHandler {

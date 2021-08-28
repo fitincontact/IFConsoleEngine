@@ -1,6 +1,6 @@
-package com.ifce.model;
+package com.ifce.model.main;
 
-import com.ifce.model.asm.RoomAsm;
+import com.ifce.model.assembler.RoomAsm;
 import lombok.Data;
 
 import java.util.ArrayList;

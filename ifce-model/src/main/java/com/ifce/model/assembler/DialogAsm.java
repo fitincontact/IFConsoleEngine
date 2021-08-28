@@ -1,4 +1,4 @@
-package com.ifce.model.asm;
+package com.ifce.model.assembler;
 
 import lombok.Data;
 

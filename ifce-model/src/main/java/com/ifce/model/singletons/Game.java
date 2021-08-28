@@ -1,8 +1,9 @@
-package com.ifce.model.etc;
+package com.ifce.model.singletons;
 
 import com.ifce.format.Format;
-import com.ifce.model.Item;
-import com.ifce.model.Room;
+import com.ifce.model.main.Item;
+import com.ifce.model.main.Room;
+import com.ifce.model.main.Word;
 import com.ifce.model.singletons.Objects;
 import com.ifce.util.Print;
 import lombok.Data;
@@ -35,7 +36,7 @@ public class Game {
 
     /**
      * Return room where the item is placed
-     *
+     * @param item item
      * @return room
      */
     public Room getItemRoom(final Item item) {

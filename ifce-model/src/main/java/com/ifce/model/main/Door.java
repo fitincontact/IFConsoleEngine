@@ -1,6 +1,6 @@
-package com.ifce.model;
+package com.ifce.model.main;
 
-import com.ifce.model.asm.DoorAsm;
+import com.ifce.model.assembler.DoorAsm;
 import lombok.Data;
 
 @Data
