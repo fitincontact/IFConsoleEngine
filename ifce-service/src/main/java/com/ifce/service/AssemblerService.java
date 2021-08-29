@@ -29,7 +29,7 @@ package com.ifce.service;
  * var yard = new Room("yard");//string name = "yard"
  * place name = string name = "yard"
  */
-public interface Assembler {
+public interface AssemblerService {
     /**
      * Assembling developer code and building {@link com.ifce.model.Game} state
      */

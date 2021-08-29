@@ -1,12 +1,14 @@
 package com.ifce.impl;
 
 import com.ifce.api.IFCEService;
-import com.ifce.assember.AssemblerImpl;
+import com.ifce.assember.AssemblerServiceImpl;
+import com.ifce.assember.assemblerHandler.AssemblerHandlerService;
+import com.ifce.assember.assemblerHandler.handlers.*;
 import com.ifce.format.Format;
 import com.ifce.model.assembler.singletons.*;
 import com.ifce.model.singletons.Game;
 import com.ifce.model.singletons.Objects;
-import com.ifce.service.Assembler;
+import com.ifce.service.AssemblerService;
 import com.ifce.service.EngineService;
 import lombok.val;
 import org.junit.jupiter.api.Assertions;
@@ -38,7 +40,18 @@ public class AssemblerSuccessTest {
     @Mock
     private Format format;
 
-    private Assembler assembler;
+    private AssemblerService assemblerService;
+    private AssemblerHandlerService assemblerHandlerService;
+
+    private AddingRoomsHandler addingRoomsHandler;
+    private AddingItemsHandler addingItemsHandler;
+    private AddingDoorsHandler addingDoorsHandler;
+    private AddingDialogsHandler addingDialogsHandler;
+    private BindingItemsHandler bindingItemsHandler;
+    private BindingDoorsHandler bindingDoorsHandler;
+    private BindingDialogsHandler bindingDialogsHandler;
+    private GameProcessHandler gameProcessHandler;
+
     //todo initUseCase
     @Mock
     private EngineService engineService;
@@ -53,15 +66,26 @@ public class AssemblerSuccessTest {
         gameAsm = new GameAsm();
         game = new Game(format, objects);
 
-        assembler = new AssemblerImpl(
-                dialogAsmList,
-                doorAsmList,
-                itemAsmList,
-                roomAsmList,
-                objects,
-                gameAsm,
-                game
+        addingRoomsHandler = new AddingRoomsHandler(objects, roomAsmList);
+        addingItemsHandler = new AddingItemsHandler(objects, itemAsmList);
+        addingDoorsHandler = new AddingDoorsHandler(objects, doorAsmList);
+        addingDialogsHandler = new AddingDialogsHandler(objects, dialogAsmList);
+        bindingItemsHandler = new BindingItemsHandler(objects, itemAsmList);
+        bindingDoorsHandler = new BindingDoorsHandler(objects, doorAsmList);
+        bindingDialogsHandler = new BindingDialogsHandler();
+        gameProcessHandler = new GameProcessHandler(objects, gameAsm, game);
+
+        assemblerHandlerService = new AssemblerHandlerService(
+                addingRoomsHandler,
+                addingItemsHandler,
+                addingDoorsHandler,
+                addingDialogsHandler,
+                bindingItemsHandler,
+                bindingDoorsHandler,
+                bindingDialogsHandler,
+                gameProcessHandler
         );
+        assemblerService = new AssemblerServiceImpl(assemblerHandlerService);
 
         ifceService = new IFCEServiceImpl(
                 dialogAsmList,
@@ -69,7 +93,7 @@ public class AssemblerSuccessTest {
                 itemAsmList,
                 roomAsmList,
                 gameAsm,
-                assembler,
+                assemblerService,
                 engineService
         );
     }
@@ -102,9 +126,5 @@ public class AssemblerSuccessTest {
         );
         Assertions.assertTrue(game.getPlayer().getInventory().contains(item2));
         Assertions.assertTrue(game.getObjects().getRoom(ROOM_1).getDoors().contains(door));
-
-
-        int k = 1;
-
     }
 }

@@ -1,15 +1,15 @@
 package com.ifce.impl;
 
 import com.ifce.api.IFCEService;
-import com.ifce.model.main.Dialog;
-import com.ifce.model.main.Door;
-import com.ifce.model.main.Item;
-import com.ifce.model.main.Room;
 import com.ifce.model.assembler.DoorAsm;
 import com.ifce.model.assembler.ItemAsm;
 import com.ifce.model.assembler.RoomAsm;
 import com.ifce.model.assembler.singletons.*;
-import com.ifce.service.Assembler;
+import com.ifce.model.main.Dialog;
+import com.ifce.model.main.Door;
+import com.ifce.model.main.Item;
+import com.ifce.model.main.Room;
+import com.ifce.service.AssemblerService;
 import com.ifce.service.EngineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -23,7 +23,7 @@ public class IFCEServiceImpl implements IFCEService {
     private final ItemAsmList itemAsmList;
     private final RoomAsmList roomAsmList;
     private final GameAsm gameAsm;
-    private final Assembler assembler;
+    private final AssemblerService assemblerService;
     private final EngineService engineService;
 
     @Override
@@ -88,7 +88,7 @@ public class IFCEServiceImpl implements IFCEService {
 
     @Override
     public void start() {
-        assembler.assemble();
+        assemblerService.assemble();
         engineService.start();
     }
 }
