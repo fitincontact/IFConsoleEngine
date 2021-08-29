@@ -6,10 +6,11 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class ItemActHandler implements Handler{
+public class ItemActWordHandler implements WordHandler {
+    private final Game game;
 
     @Override
-    public Game exec(Game game) {
-        return game;
+    public void exec() {
     }
+
 }

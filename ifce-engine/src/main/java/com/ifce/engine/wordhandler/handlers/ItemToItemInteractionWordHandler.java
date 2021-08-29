@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class ItemToItemInteractionHandler implements Handler {
-    private final Game state;
+public class ItemToItemInteractionWordHandler implements WordHandler {
+    private final Game game;
 
     @Override
-    public Game exec(Game game) {
-        return game;
+    public void exec() {
     }
+
 }

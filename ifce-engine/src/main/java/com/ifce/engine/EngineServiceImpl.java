@@ -31,8 +31,7 @@ public class EngineServiceImpl implements EngineService {
         Print.pl(game.getAnnotation());
         while (!game.isEnd()) {
             Print.p(format.getConsoleHead());
-            game.getWord().add(read(reader));
-            wordHandlerService.handle();
+            wordHandlerService.handle(read(reader));
         }
     }
 

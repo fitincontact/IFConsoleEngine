@@ -1,28 +1,23 @@
 package com.ifce.engine.wordhandler;
 
-import com.ifce.engine.wordhandler.handlers.Handler;
-import com.ifce.model.singletons.Game;
-
-//@RequiredArgsConstructor
 public class WordHandler {
-    private final Game state;
-    private final Handler currentHandler;
+    private com.ifce.engine.wordhandler.handlers.WordHandler currentWordHandler;
 
-    public WordHandler(Game state, Handler currentHandler) {
-        this.state = state;
-        this.currentHandler = currentHandler;
+    public WordHandler(final com.ifce.engine.wordhandler.handlers.WordHandler wordHandler) {
+        currentWordHandler = wordHandler;
     }
 
-    public WordHandler addHandler(final Handler handler) {
+    public WordHandler() {
+    }
+
+    public WordHandler addHandler(final com.ifce.engine.wordhandler.handlers.WordHandler wordHandler) {
+        currentWordHandler.exec();
         return new WordHandler(
-                state,
-                (st) -> {
-                    return handler.exec(st);
-                }
+                wordHandler
         );
     }
 
     public void exec() {
-        currentHandler.exec(state);
+        currentWordHandler.exec();
     }
 }
