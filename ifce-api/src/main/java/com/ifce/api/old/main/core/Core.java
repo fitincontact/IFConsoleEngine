@@ -249,10 +249,10 @@ public class Core {
 
     public static void main(String[] args) {
         var l = new ArrayList<List<Double>>();
-        var f =  List.of(1.);
+        var f = List.of(1.);
         l.add(f);
 
-        for (int i = 0; i<1000; i++){
+        for (int i = 0; i < 1000; i++) {
 
         }
 

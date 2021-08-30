@@ -1,6 +1,6 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
-import com.ifce.model.assembler.singletons.DialogAsmList;
+import com.ifce.assember.model.singletons.DialogAsmList;
 import com.ifce.model.singletons.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -17,12 +17,13 @@ public class AddingDialogsHandler implements AssemblerHandler {
 
     @Override
     public void exec() {
-        dialogAsmList.getDialogs().forEach(dialog -> {
-            val asmName = dialog.getAsm().getName();
+        dialogAsmList.getDialogAsms().forEach(dialogAsm -> {
+            val asmName = dialogAsm.getName();
             if (objects.isExistsDialog(asmName)) {
                 error(String.format("Assembler.addDialogs: There is duplicate dialog name [%s]", asmName));
             } else {
-                objects.add(dialog);
+                //TODO
+                objects.add(dialogAsm.getDialogs().get(0));
             }
         });
     }

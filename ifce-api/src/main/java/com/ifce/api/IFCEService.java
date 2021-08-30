@@ -21,11 +21,11 @@ public interface IFCEService {
      */
     Dialog dialog(
             @NonNull String title,
-            @NonNull Dialog[]... dialogs);
+            @NonNull Dialog... dialogs);
 
     /**
      * Nested dialog
-     * !Use only as parameter into {@link IFCEService#dialog(String, Dialog[]...)}!
+     * !Use only as parameter into {@link IFCEService#dialog(String, Dialog...)}!
      *
      * @param request  request
      * @param response response
@@ -35,15 +35,15 @@ public interface IFCEService {
     Dialog dialog(
             @NonNull String request,
             @NonNull String response,
-            @NonNull Dialog[]... dialogs
+            @NonNull Dialog... dialogs
     );
 
     /**
      * Main Door constructor
      *
-     * @param name name
+     * @param name     name
      * @param roomFrom roomFrom (room where this door will be placed)
-     * @param roomTo roomTo
+     * @param roomTo   roomTo
      * @return Door
      */
     Door door(
@@ -54,7 +54,8 @@ public interface IFCEService {
 
     /**
      * Main Item constructor
-     * @param name name
+     *
+     * @param name  name
      * @param place room/item here this item must place
      * @return Item
      */
@@ -64,6 +65,7 @@ public interface IFCEService {
 
     /**
      * Main Room constructor
+     *
      * @param name name
      * @return Room
      */

@@ -1,6 +1,5 @@
 package com.ifce.model.main;
 
-import com.ifce.model.assembler.RoomAsm;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -8,10 +7,12 @@ import java.util.List;
 
 @Data
 public class Room extends ObjectAbstract {
-    private final RoomAsm asm;
-
     private List<Item> items = new ArrayList<>();
     private List<Door> doors = new ArrayList<>();
+
+    public Room(final String name) {
+        super.add(name);
+    }
 
     public Room add(final Item item) {
         items.add(item);

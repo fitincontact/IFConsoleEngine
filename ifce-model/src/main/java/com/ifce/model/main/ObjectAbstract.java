@@ -15,4 +15,8 @@ public abstract class ObjectAbstract {
     public void add(final String name) {
         this.name.add(name);
     }
+
+    public String getName() {
+        return name.getWord();
+    }
 }

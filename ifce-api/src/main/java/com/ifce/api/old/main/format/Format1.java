@@ -1,8 +1,6 @@
 package com.ifce.api.old.main.format;
 
 import com.ifce.api.old.main.variable.Command;
-//import com.sun.tools.javac.util.Pair;
-//import jdk.javadoc.internal.doclets.toolkit.util.Utils;
 
 import java.io.Serializable;
 

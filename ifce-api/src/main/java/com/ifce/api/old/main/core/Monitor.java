@@ -1,8 +1,8 @@
 package com.ifce.api.old.main.core;
 
 import com.ifce.api.old.main.enums.EffectType;
-import com.ifce.api.old.main.object.*;
 import com.ifce.api.old.main.history.RoomHistory1;
+import com.ifce.api.old.main.object.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;

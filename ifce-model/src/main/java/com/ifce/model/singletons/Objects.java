@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * All game objects for assembling {@link com.ifce.service.Assembler}
+ * All game objects for assembling com.ifce.service.AssemblerService
  */
 @Data
 @Component
@@ -50,19 +50,19 @@ public class Objects {
     }
 
     public void add(Room room) {
-        rooms.put(room.getAsm().getName(), room);
+        rooms.put(room.getName(), room);
     }
 
     public void add(Item item) {
-        items.put(item.getAsm().getName(), item);
+        items.put(item.getName(), item);
     }
 
     public void add(Door door) {
-        doors.put(door.getAsm().getName(), door);
+        doors.put(door.getName(), door);
     }
 
     public void add(Dialog dialog) {
-        dialogs.put(dialog.getAsm().getName(), dialog);
+        dialogs.put(dialog.getName(), dialog);
     }
 
     public Room getRoom(final String name) {

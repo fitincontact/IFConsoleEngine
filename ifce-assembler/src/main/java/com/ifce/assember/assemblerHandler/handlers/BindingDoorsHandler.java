@@ -1,6 +1,6 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
-import com.ifce.model.assembler.singletons.DoorAsmList;
+import com.ifce.assember.model.singletons.DoorAsmList;
 import com.ifce.model.singletons.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -17,11 +17,10 @@ public class BindingDoorsHandler implements AssemblerHandler {
 
     @Override
     public void exec() {
-        doorAsmList.getDoors().forEach(door -> {
-            val asmDoorName = door.getAsm().getName();
-            val asmRoomFrom = door.getAsm().getRoomFrom();
-            val asmRoomTo = door.getAsm().getRoomTo();
-
+        doorAsmList.getDoorAsms().forEach(doorAsm -> {
+            val asmDoorName = doorAsm.getName();
+            val asmRoomFrom = doorAsm.getRoomFrom();
+            val asmRoomTo = doorAsm.getRoomTo();
             val roomTo = objects.getRoom(asmRoomTo);
             if (roomTo == null) {
                 error(String.format(
@@ -39,7 +38,7 @@ public class BindingDoorsHandler implements AssemblerHandler {
                         asmRoomFrom
                 ));
             } else {
-                roomFrom.add(door);
+                roomFrom.add(doorAsm.getDoor());
             }
         });
     }

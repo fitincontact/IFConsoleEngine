@@ -1,10 +1,11 @@
 package com.ifce.impl;
 
 import com.ifce.api.IFCEService;
-import com.ifce.model.assembler.DoorAsm;
-import com.ifce.model.assembler.ItemAsm;
-import com.ifce.model.assembler.RoomAsm;
-import com.ifce.model.assembler.singletons.*;
+import com.ifce.assember.model.DialogAsm;
+import com.ifce.assember.model.DoorAsm;
+import com.ifce.assember.model.ItemAsm;
+import com.ifce.assember.model.RoomAsm;
+import com.ifce.assember.model.singletons.*;
 import com.ifce.model.main.Dialog;
 import com.ifce.model.main.Door;
 import com.ifce.model.main.Item;
@@ -29,19 +30,18 @@ public class IFCEServiceImpl implements IFCEService {
     @Override
     public Dialog dialog(
             String title,
-            Dialog[]... dialogs
+            Dialog... dialogs
     ) {
-        val dialog = new Dialog(title, dialogs);
-        dialog.add(title);
-        dialogAsmList.add(dialog);
-        return dialog;
+        val dialogAsm = new DialogAsm(title, dialogs);
+        dialogAsmList.add(dialogAsm);
+        return dialogAsm.getDialogs().get(0);
     }
 
     @Override
     public Dialog dialog(
             String request,
             String response,
-            Dialog[]... dialogs
+            Dialog... dialogs
     ) {
         return new Dialog(request, response, dialogs);
     }
@@ -53,10 +53,8 @@ public class IFCEServiceImpl implements IFCEService {
             String roomTo
     ) {
         val asm = new DoorAsm(name, roomFrom, roomTo);
-        val door = new Door(asm);
-        door.add(name);
-        doorAsmList.add(door);
-        return door;
+        doorAsmList.add(asm);
+        return asm.getDoor();
     }
 
     @Override
@@ -65,19 +63,15 @@ public class IFCEServiceImpl implements IFCEService {
             String place
     ) {
         val asm = new ItemAsm(name, place);
-        val item = new Item(asm);
-        item.add(name);
-        itemAsmList.add(item);
-        return item;
+        itemAsmList.add(asm);
+        return asm.getItem();
     }
 
     @Override
     public Room room(String name) {
         val asm = new RoomAsm(name);
-        val room = new Room(asm);
-        room.add(name);
-        roomAsmList.add(room);
-        return room;
+        roomAsmList.add(asm);
+        return asm.getRoom();
     }
 
     @Override

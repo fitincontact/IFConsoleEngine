@@ -1,6 +1,6 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
-import com.ifce.model.assembler.singletons.RoomAsmList;
+import com.ifce.assember.model.singletons.RoomAsmList;
 import com.ifce.model.singletons.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -17,12 +17,12 @@ public class AddingRoomsHandler implements AssemblerHandler {
 
     @Override
     public void exec() {
-        roomAsmList.getRooms().forEach(room -> {
-            val asmName = room.getAsm().getName();
+        roomAsmList.getRoomAsms().forEach(roomAsm -> {
+            val asmName = roomAsm.getName();
             if (objects.isExistsRoom(asmName)) {
                 error(String.format("Assembler.addRooms: There is duplicate room name [%s]", asmName));
             } else {
-                objects.add(room);
+                objects.add(roomAsm.getRoom());
             }
         });
     }

@@ -1,13 +1,13 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
-import com.ifce.model.assembler.singletons.ItemAsmList;
+import com.ifce.assember.model.singletons.ItemAsmList;
 import com.ifce.model.singletons.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Component;
 
 /**
- * Arrange items in rooms
+ * Arrange items in rooms and in items
  */
 @RequiredArgsConstructor
 @Component
@@ -17,9 +17,9 @@ public class BindingItemsHandler implements AssemblerHandler {
 
     @Override
     public void exec() {
-        itemAsmList.getItems().forEach(item -> {
-            val itemName = item.getAsm().getName();
-            val asmPlaceName = item.getAsm().getPlace();
+        itemAsmList.getItemAsms().forEach(itemAsm -> {
+            val itemName = itemAsm.getName();
+            val asmPlaceName = itemAsm.getPlace();
             var msgRoom = "";
 
             val room = objects.getRoom(asmPlaceName);
@@ -30,7 +30,7 @@ public class BindingItemsHandler implements AssemblerHandler {
                         asmPlaceName
                 );
             } else {
-                room.add(item);
+                room.add(itemAsm.getItem());
             }
 
             var msgItem = "";
@@ -43,14 +43,13 @@ public class BindingItemsHandler implements AssemblerHandler {
                             asmPlaceName
                     );
                 } else {
-                    itemPlace.add(item);
+                    itemPlace.add(itemAsm.getItem());
                 }
             }
 
             if (!msgRoom.equals("") && !msgItem.equals("")) {
                 error(msgRoom + "\n" + msgItem);
             }
-
         });
     }
 }

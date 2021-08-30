@@ -1,7 +1,10 @@
 package com.ifce.api.old.examples;
 
 
-import com.ifce.api.old.*;
+import com.ifce.api.old.Act1;
+import com.ifce.api.old.Generator;
+import com.ifce.api.old.Phrase1;
+import com.ifce.api.old.Use1;
 import com.ifce.api.old.main.core.Monitor;
 import com.ifce.api.old.main.format.PreFormat1;
 import com.ifce.api.old.main.object.Dialog1;

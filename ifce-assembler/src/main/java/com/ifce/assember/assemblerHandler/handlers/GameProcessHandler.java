@@ -1,6 +1,6 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
-import com.ifce.model.assembler.singletons.GameAsm;
+import com.ifce.assember.model.singletons.GameAsm;
 import com.ifce.model.singletons.Game;
 import com.ifce.model.singletons.Objects;
 import lombok.RequiredArgsConstructor;

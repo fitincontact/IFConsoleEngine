@@ -4,8 +4,8 @@ import com.ifce.api.IFCEService;
 import com.ifce.assember.AssemblerServiceImpl;
 import com.ifce.assember.assemblerHandler.AssemblerHandlerService;
 import com.ifce.assember.assemblerHandler.handlers.*;
+import com.ifce.assember.model.singletons.*;
 import com.ifce.format.Format;
-import com.ifce.model.assembler.singletons.*;
 import com.ifce.model.singletons.Game;
 import com.ifce.model.singletons.Objects;
 import com.ifce.service.AssemblerService;
@@ -117,11 +117,11 @@ public class AssemblerSuccessTest {
         Assertions.assertTrue(game.getObjects().isExistsRoom(ROOM_1));
         Assertions.assertTrue(game.getObjects().isExistsRoom(ROOM_2));
         Assertions.assertEquals(
-                game.getCurrentRoom().getName().getWord(),
+                game.getCurrentRoom().getName(),
                 ROOM_1
         );
         Assertions.assertEquals(
-                game.getPlayer().getName().getWord(),
+                game.getPlayer().getName(),
                 ITEM_1
         );
         Assertions.assertTrue(game.getPlayer().getInventory().contains(item2));

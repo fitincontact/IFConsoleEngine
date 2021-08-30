@@ -1,6 +1,6 @@
 # IFConsoleEngine
-IFCE
-Interactive Fiction Console Engine on Java
+
+IFCE Interactive Fiction Console Engine on Java
 
 ![screen ru 1](etc/img/ru/1.png)
 ![screen ru 2](etc/img/ru/2.png)

@@ -1,7 +1,7 @@
 package com.ifce.api.old.examples;
 
 public class Tclass {
-    private Tenum en =  Tenum.a;
+    private Tenum en = Tenum.a;
 
     public Tenum getEn() {
         return en;

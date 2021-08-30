@@ -1,6 +1,6 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
-import com.ifce.model.assembler.singletons.DoorAsmList;
+import com.ifce.assember.model.singletons.DoorAsmList;
 import com.ifce.model.singletons.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -17,12 +17,12 @@ public class AddingDoorsHandler implements AssemblerHandler {
 
     @Override
     public void exec() {
-        doorAsmList.getDoors().forEach(door -> {
-            val asmName = door.getAsm().getName();
+        doorAsmList.getDoorAsms().forEach(doorAsm -> {
+            val asmName = doorAsm.getName();
             if (objects.isExistsDoor(asmName)) {
                 error(String.format("Assembler.addDoors: There is duplicate door name [%s]", asmName));
             } else {
-                objects.add(door);
+                objects.add(doorAsm.getDoor());
             }
         });
     }
