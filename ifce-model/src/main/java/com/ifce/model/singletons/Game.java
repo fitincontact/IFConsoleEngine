@@ -27,6 +27,10 @@ public class Game {
     private Word word;
 
     private boolean isEnd;
+    /**
+     * For engine step handler
+     */
+    private boolean isOmit;
 
     public void end(String message) {
         isEnd = true;
