@@ -21,7 +21,10 @@ public class AddingRoomsHandler implements AssemblerHandler {
             val asmName = roomAsm.getName();
             if (objects.isExistsRoom(asmName)) {
                 error(String.format("Assembler.addRooms: There is duplicate room name [%s]", asmName));
+            } else if (objects.isExists(asmName)) {
+                error(String.format("Assembler.addRooms: There is duplicate object name [%s]", asmName));
             } else {
+                //todo check Objects.objectTypes in all handlers
                 objects.add(roomAsm.getRoom());
             }
         });

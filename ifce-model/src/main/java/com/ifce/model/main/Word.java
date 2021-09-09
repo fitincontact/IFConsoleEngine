@@ -5,6 +5,11 @@ import lombok.val;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Processing word
+ * <p>
+ * word is name of items, rooms, doors.
+ */
 public class Word {
     private final List<String> words = new ArrayList<>();
 

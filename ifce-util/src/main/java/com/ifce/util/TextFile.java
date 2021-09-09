@@ -1,5 +1,7 @@
 package com.ifce.util;
 
+import lombok.val;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -28,7 +30,7 @@ public class TextFile {
 
     public static String read(final String filePath) {
         try {
-            final var stringBuilder = new StringBuilder();
+            val stringBuilder = new StringBuilder();
             Files.lines(Paths.get(filePath)).forEach(i -> stringBuilder.append(i).append("\n"));
             return stringBuilder.toString();
         } catch (IOException e) {

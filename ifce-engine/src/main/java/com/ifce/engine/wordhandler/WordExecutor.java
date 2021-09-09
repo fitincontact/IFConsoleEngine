@@ -2,6 +2,9 @@ package com.ifce.engine.wordhandler;
 
 import com.ifce.engine.wordhandler.handlers.WordHandler;
 
+/**
+ * Executor for word handlers
+ */
 public class WordExecutor {
     private WordHandler currentWordHandler;
 

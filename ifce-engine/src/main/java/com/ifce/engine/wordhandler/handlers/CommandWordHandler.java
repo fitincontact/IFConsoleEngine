@@ -5,15 +5,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * Handle word for item
+ * Handle command like - show inventory, finish game, save, load and etc {@link com.ifce.format.Format}
  */
 @RequiredArgsConstructor
 @Component
-public class ItemActWordHandler implements WordHandler {
+public class CommandWordHandler implements WordHandler {
     private final State state;
 
     @Override
     public void exec() {
-    }
 
+    }
 }

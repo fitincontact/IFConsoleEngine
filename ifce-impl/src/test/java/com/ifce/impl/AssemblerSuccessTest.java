@@ -8,6 +8,7 @@ import com.ifce.assember.model.singletons.*;
 import com.ifce.format.Format;
 import com.ifce.model.singletons.Game;
 import com.ifce.model.singletons.Objects;
+import com.ifce.model.singletons.State;
 import com.ifce.service.AssemblerService;
 import com.ifce.service.EngineService;
 import lombok.val;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+//todo check Objects.objectTypes in all handlers
 @ExtendWith(MockitoExtension.class)
 public class AssemblerSuccessTest {
     private final static String ANNOTATION = "ANNOTATION";
@@ -52,6 +54,8 @@ public class AssemblerSuccessTest {
     private BindingDialogsHandler bindingDialogsHandler;
     private GameProcessHandler gameProcessHandler;
 
+    private State state;
+
     //todo initUseCase
     @Mock
     private EngineService engineService;
@@ -70,7 +74,7 @@ public class AssemblerSuccessTest {
         addingItemsHandler = new AddingItemsHandler(objects, itemAsmList);
         addingDoorsHandler = new AddingDoorsHandler(objects, doorAsmList);
         addingDialogsHandler = new AddingDialogsHandler(objects, dialogAsmList);
-        bindingItemsHandler = new BindingItemsHandler(objects, itemAsmList);
+        bindingItemsHandler = new BindingItemsHandler(objects, itemAsmList, gameAsm);
         bindingDoorsHandler = new BindingDoorsHandler(objects, doorAsmList);
         bindingDialogsHandler = new BindingDialogsHandler();
         gameProcessHandler = new GameProcessHandler(objects, gameAsm, game);
@@ -86,6 +90,7 @@ public class AssemblerSuccessTest {
                 gameProcessHandler
         );
         assemblerService = new AssemblerServiceImpl(assemblerHandlerService);
+        state = new State(game);
 
         ifceService = new IFCEServiceImpl(
                 dialogAsmList,
@@ -94,7 +99,9 @@ public class AssemblerSuccessTest {
                 roomAsmList,
                 gameAsm,
                 assemblerService,
-                engineService
+                engineService,
+                state,
+                objects
         );
     }
 

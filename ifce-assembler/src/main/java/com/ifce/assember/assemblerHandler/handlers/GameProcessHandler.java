@@ -20,12 +20,8 @@ public class GameProcessHandler implements AssemblerHandler {
     @Override
     public void exec() {
         val player = objects.getItem(gameAsm.getPlayerName());
-        if (player == null) {
-            error("Assembler.gameProcess: Player is not created");
-        } else {
-            game.setPlayer(player);
-            game.setAnnotation(gameAsm.getAnnotation());
-            game.setCurrentRoom(game.getItemRoom(player));
-        }
+        game.setPlayer(player);
+        game.setAnnotation(gameAsm.getAnnotation());
+        game.setCurrentRoom(objects.getItemRoom(player));
     }
 }

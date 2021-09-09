@@ -21,6 +21,8 @@ public class AddingDialogsHandler implements AssemblerHandler {
             val asmName = dialogAsm.getName();
             if (objects.isExistsDialog(asmName)) {
                 error(String.format("Assembler.addDialogs: There is duplicate dialog name [%s]", asmName));
+            } else if (objects.isExists(asmName)) {
+                error(String.format("Assembler.addDialogs: There is duplicate object name [%s]", asmName));
             } else {
                 //TODO
                 objects.add(dialogAsm.getDialogs().get(0));

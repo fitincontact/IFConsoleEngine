@@ -6,5 +6,10 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class Format {
-    private String consoleHead;
+    //Console
+    private String consoleHead = "> ";
+
+
+    //Command
+    private String showInventoryCommand = "i.";
 }

@@ -10,6 +10,8 @@ import com.ifce.model.main.Dialog;
 import com.ifce.model.main.Door;
 import com.ifce.model.main.Item;
 import com.ifce.model.main.Room;
+import com.ifce.model.singletons.Objects;
+import com.ifce.model.singletons.State;
 import com.ifce.service.AssemblerService;
 import com.ifce.service.EngineService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,8 @@ public class IFCEServiceImpl implements IFCEService {
     private final GameAsm gameAsm;
     private final AssemblerService assemblerService;
     private final EngineService engineService;
+    private final State state;
+    private final Objects objects;
 
     @Override
     public Dialog dialog(
@@ -62,7 +66,7 @@ public class IFCEServiceImpl implements IFCEService {
             String name,
             String place
     ) {
-        val asm = new ItemAsm(name, place);
+        val asm = new ItemAsm(name, place, objects);
         itemAsmList.add(asm);
         return asm.getItem();
     }
@@ -83,6 +87,7 @@ public class IFCEServiceImpl implements IFCEService {
     @Override
     public void start() {
         assemblerService.assemble();
+        state.init();
         engineService.start();
     }
 }

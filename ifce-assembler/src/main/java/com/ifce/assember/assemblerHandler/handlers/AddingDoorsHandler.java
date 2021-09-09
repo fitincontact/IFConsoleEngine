@@ -21,6 +21,8 @@ public class AddingDoorsHandler implements AssemblerHandler {
             val asmName = doorAsm.getName();
             if (objects.isExistsDoor(asmName)) {
                 error(String.format("Assembler.addDoors: There is duplicate door name [%s]", asmName));
+            } else if (objects.isExists(asmName)) {
+                error(String.format("Assembler.addDoors: There is duplicate object name [%s]", asmName));
             } else {
                 objects.add(doorAsm.getDoor());
             }

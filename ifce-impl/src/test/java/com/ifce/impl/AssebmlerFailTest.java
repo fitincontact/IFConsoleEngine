@@ -8,6 +8,7 @@ import com.ifce.assember.model.singletons.*;
 import com.ifce.format.Format;
 import com.ifce.model.singletons.Game;
 import com.ifce.model.singletons.Objects;
+import com.ifce.model.singletons.State;
 import com.ifce.service.AssemblerService;
 import com.ifce.service.EngineService;
 import org.junit.jupiter.api.Assertions;
@@ -17,9 +18,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+//todo check Objects.objectTypes in all handlers
 @ExtendWith(MockitoExtension.class)
 public class AssebmlerFailTest {
-    private final static String ITEM = "ITEM";
+    private final static String ANNOTATION = "ANNOTATION";
+    private final static String ITEM_1 = "ITEM_1";
+    private final static String ITEM_2 = "ITEM_2";
     private final static String ROOM_1 = "ROOM_1";
     private final static String ROOM_2 = "ROOM_2";
     private final static String DOOR = "DOOR";
@@ -54,6 +58,8 @@ public class AssebmlerFailTest {
     @Mock
     private EngineService engineService;
 
+    private State state;
+
     @BeforeEach
     void initUseCase() {
         dialogAsmList = new DialogAsmList();
@@ -69,7 +75,7 @@ public class AssebmlerFailTest {
         addingItemsHandler = new AddingItemsHandler(objects, itemAsmList);
         addingDoorsHandler = new AddingDoorsHandler(objects, doorAsmList);
         addingDialogsHandler = new AddingDialogsHandler(objects, dialogAsmList);
-        bindingItemsHandler = new BindingItemsHandler(objects, itemAsmList);
+        bindingItemsHandler = new BindingItemsHandler(objects, itemAsmList, gameAsm);
         bindingDoorsHandler = new BindingDoorsHandler(objects, doorAsmList);
         bindingDialogsHandler = new BindingDialogsHandler();
         gameProcessHandler = new GameProcessHandler(objects, gameAsm, game);
@@ -85,6 +91,7 @@ public class AssebmlerFailTest {
                 gameProcessHandler
         );
         assemblerService = new AssemblerServiceImpl(assemblerHandlerService);
+        state = new State(game);
 
         ifceService = new IFCEServiceImpl(
                 dialogAsmList,
@@ -93,7 +100,9 @@ public class AssebmlerFailTest {
                 roomAsmList,
                 gameAsm,
                 assemblerService,
-                engineService
+                engineService,
+                state,
+                objects
         );
     }
 
@@ -115,8 +124,8 @@ public class AssebmlerFailTest {
 
     @Test
     public void doubleItemTest() {
-        ifceService.item(ITEM, ROOM_1);
-        ifceService.item(ITEM, ROOM_2);
+        ifceService.item(ITEM_1, ROOM_1);
+        ifceService.item(ITEM_1, ROOM_2);
         var msg = "";
         try {
             ifceService.start();
@@ -124,7 +133,7 @@ public class AssebmlerFailTest {
             msg = e.getMessage();
         }
         Assertions.assertEquals(
-                String.format(ERROR_HEAD + "Assembler.addItems: There is duplicate item name [%s]", ITEM),
+                String.format(ERROR_HEAD + "Assembler.addItems: There is duplicate item name [%s]", ITEM_1),
                 msg
         );
     }
@@ -147,9 +156,10 @@ public class AssebmlerFailTest {
 
     @Test
     public void bindingItemsTest() {
-        ifceService.item(ITEM, ROOM_1);
+        ifceService.item(ITEM_1, ROOM_1);
         var msg = "";
         try {
+            ifceService.story(ITEM_1, ANNOTATION);
             ifceService.start();
         } catch (RuntimeException e) {
             msg = e.getMessage();
@@ -157,9 +167,28 @@ public class AssebmlerFailTest {
         Assertions.assertEquals(
                 String.format(ERROR_HEAD + "Assembler.bindingItems: For item name [%s] not found room name [%s]\n" +
                                 "Assembler.bindingItems: For item name [%s] not found item name [%s]",
-                        ITEM,
+                        ITEM_1,
                         ROOM_1,
-                        ITEM,
+                        ITEM_1,
+                        ROOM_1
+                ),
+                msg
+        );
+    }
+
+    @Test
+    public void bindingItemsTest2() {
+        ifceService.item(ITEM_1, ROOM_1);
+        ifceService.room(ROOM_1);
+        ifceService.item(ROOM_1, ROOM_2);
+        var msg = "";
+        try {
+            ifceService.start();
+        } catch (RuntimeException e) {
+            msg = e.getMessage();
+        }
+        Assertions.assertEquals(
+                String.format(ERROR_HEAD + "Assembler.addItems: There is duplicate object name [%s]",
                         ROOM_1
                 ),
                 msg
@@ -171,6 +200,9 @@ public class AssebmlerFailTest {
         ifceService.door(DOOR, ROOM_1, ROOM_2);
         var msg = "";
         try {
+            ifceService.story(ITEM_1, ANNOTATION);
+            ifceService.item(ITEM_1, ROOM_1);
+            ifceService.room(ROOM_1);
             ifceService.start();
         } catch (RuntimeException e) {
             msg = e.getMessage();
@@ -183,6 +215,9 @@ public class AssebmlerFailTest {
 
     @Test
     public void bindingDoorsTest2() {
+        ifceService.story(ITEM_1, ANNOTATION);
+        ifceService.item(ITEM_1, ROOM_2);
+
         ifceService.room(ROOM_2);
         ifceService.door(DOOR, ROOM_1, ROOM_2);
         var msg = "";
@@ -198,7 +233,24 @@ public class AssebmlerFailTest {
     }
 
     @Test
-    public void gameProcessTest() {
+    public void bindingItemsTest3() {
+        var msg = "";
+        try {
+            ifceService.story(ITEM_1, ITEM_1);
+            ifceService.start();
+        } catch (RuntimeException e) {
+            msg = e.getMessage();
+        }
+        Assertions.assertEquals(
+                ERROR_HEAD + "Assembler.BindingItems: Player is not created",
+                msg
+        );
+    }
+
+    @Test
+    public void doubleNameItemRoomTest() {
+        ifceService.item(ITEM_1, ROOM_1);
+        ifceService.room(ITEM_1);
         var msg = "";
         try {
             ifceService.start();
@@ -206,7 +258,55 @@ public class AssebmlerFailTest {
             msg = e.getMessage();
         }
         Assertions.assertEquals(
-                ERROR_HEAD + "Assembler.gameProcess: Player is not created",
+                String.format(ERROR_HEAD + "Assembler.addItems: There is duplicate object name [%s]", ITEM_1),
+                msg
+        );
+    }
+
+    @Test
+    public void doubleNameItemDoorTest() {
+        ifceService.item(ITEM_1, ROOM_1);
+        ifceService.door(ITEM_1, ROOM_1, ROOM_2);
+        var msg = "";
+        try {
+            ifceService.start();
+        } catch (RuntimeException e) {
+            msg = e.getMessage();
+        }
+        Assertions.assertEquals(
+                String.format(ERROR_HEAD + "Assembler.addDoors: There is duplicate object name [%s]", ITEM_1),
+                msg
+        );
+    }
+
+    //todo
+    public void doubleNameItemDialogTest() {
+        ifceService.item(ITEM_1, ROOM_1);
+        //ifceService.dialog(ITEM,);
+        var msg = "";
+        try {
+            ifceService.start();
+        } catch (RuntimeException e) {
+            msg = e.getMessage();
+        }
+        Assertions.assertEquals(
+                String.format(ERROR_HEAD + "Assembler.addDoors: There is duplicate object name [%s]", ITEM_1),
+                msg
+        );
+    }
+
+    @Test
+    public void doubleNameRoomDoorTest() {
+        ifceService.room(ITEM_1);
+        ifceService.door(ITEM_1, ROOM_1, ROOM_2);
+        var msg = "";
+        try {
+            ifceService.start();
+        } catch (RuntimeException e) {
+            msg = e.getMessage();
+        }
+        Assertions.assertEquals(
+                String.format(ERROR_HEAD + "Assembler.addDoors: There is duplicate object name [%s]", ITEM_1),
                 msg
         );
     }

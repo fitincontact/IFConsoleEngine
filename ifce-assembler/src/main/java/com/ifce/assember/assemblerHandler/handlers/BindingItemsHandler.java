@@ -1,6 +1,11 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
+import com.ifce.assember.model.ItemAsm;
+import com.ifce.assember.model.singletons.GameAsm;
 import com.ifce.assember.model.singletons.ItemAsmList;
+import com.ifce.model.main.Item;
+import com.ifce.model.main.Room;
+import com.ifce.model.main.enums.PlaceType;
 import com.ifce.model.singletons.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -14,42 +19,74 @@ import org.springframework.stereotype.Component;
 public class BindingItemsHandler implements AssemblerHandler {
     private final Objects objects;
     private final ItemAsmList itemAsmList;
+    private final GameAsm gameAsm;
 
     @Override
     public void exec() {
+        val player = getPlayer();
         itemAsmList.getItemAsms().forEach(itemAsm -> {
+            val asmPlaceName = itemAsm.getPlace();
+            val room = objects.getRoom(asmPlaceName);
+            val item = objects.getItem(asmPlaceName);
+            checkError(room, item, itemAsm);
+            place(room, itemAsm);
+            place(item, itemAsm, player);
+        });
+    }
+
+    private void checkError(
+            final Room room,
+            final Item item,
+            final ItemAsm itemAsm
+    ) {
+        if (room == null && item == null) {
             val itemName = itemAsm.getName();
             val asmPlaceName = itemAsm.getPlace();
-            var msgRoom = "";
+            val msgRoom = String.format(
+                    "Assembler.bindingItems: For item name [%s] not found room name [%s]",
+                    itemName,
+                    asmPlaceName
+            );
+            val msgItem = String.format(
+                    "Assembler.bindingItems: For item name [%s] not found item name [%s]",
+                    itemName,
+                    asmPlaceName
+            );
+            error(msgRoom + "\n" + msgItem);
+        }
+    }
 
-            val room = objects.getRoom(asmPlaceName);
-            if (room == null) {
-                msgRoom = String.format(
-                        "Assembler.bindingItems: For item name [%s] not found room name [%s]",
-                        itemName,
-                        asmPlaceName
-                );
-            } else {
-                room.add(itemAsm.getItem());
-            }
+    private void place(Room room, ItemAsm itemAsm) {
+        if (room != null) {
+            val item = itemAsm.getItem();
+            item.setPlace(room.getName());
+            item.setPlaceType(PlaceType.ROOM);
+            room.add(item);
+        }
+    }
 
-            var msgItem = "";
-            if (!msgRoom.equals("")) {
-                val itemPlace = objects.getItem(asmPlaceName);
-                if (itemPlace == null) {
-                    msgItem = String.format(
-                            "Assembler.bindingItems: For item name [%s] not found item name [%s]",
-                            itemName,
-                            asmPlaceName
-                    );
-                } else {
-                    itemPlace.add(itemAsm.getItem());
-                }
-            }
+    private void place(Item itemPlace, ItemAsm itemAsm, Item player) {
+        if (itemPlace != null) {
+            val item = itemAsm.getItem();
+            val placeType = definePlaceType(itemPlace, player);
+            item.setPlace(itemPlace.getName());
+            item.setPlaceType(placeType);
+            itemPlace.add(item);
+        }
+    }
 
-            if (!msgRoom.equals("") && !msgItem.equals("")) {
-                error(msgRoom + "\n" + msgItem);
-            }
-        });
+    private PlaceType definePlaceType(Item itemPlace, Item player) {
+        if (itemPlace.getName().equals(player.getName())) {
+            return PlaceType.INVENTORY;
+        }
+        return PlaceType.ITEM;
+    }
+
+    private Item getPlayer() {
+        val player = itemAsmList.getItem(gameAsm.getPlayerName());
+        if (player == null) {
+            error("Assembler.BindingItems: Player is not created");
+        }
+        return player;
     }
 }

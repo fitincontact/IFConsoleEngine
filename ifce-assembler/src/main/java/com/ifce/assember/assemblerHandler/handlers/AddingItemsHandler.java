@@ -21,6 +21,8 @@ public class AddingItemsHandler implements AssemblerHandler {
             val asmName = itemAsm.getName();
             if (objects.isExistsItem(asmName)) {
                 error(String.format("Assembler.addItems: There is duplicate item name [%s]", asmName));
+            } else if (objects.isExists(asmName)) {
+                error(String.format("Assembler.addItems: There is duplicate object name [%s]", asmName));
             } else {
                 objects.add(itemAsm.getItem());
             }
