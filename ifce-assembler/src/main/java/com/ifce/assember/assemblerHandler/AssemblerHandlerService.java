@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class AssemblerHandlerService {
+    private final ValidateHandler validateHandler;
     private final AddingRoomsHandler addingRoomsHandler;
     private final AddingItemsHandler addingItemsHandler;
     private final AddingDoorsHandler addingDoorsHandler;
@@ -24,6 +25,7 @@ public class AssemblerHandlerService {
      */
     public void handler() {
         new AssemblerExecutor()
+                .addHandler(validateHandler)
                 .addHandler(addingRoomsHandler)
                 .addHandler(addingItemsHandler)
                 .addHandler(addingDoorsHandler)

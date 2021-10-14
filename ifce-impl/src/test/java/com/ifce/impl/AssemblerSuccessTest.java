@@ -25,6 +25,7 @@ public class AssemblerSuccessTest {
     private final static String ANNOTATION = "ANNOTATION";
     private final static String ITEM_1 = "ITEM_1";
     private final static String ITEM_2 = "ITEM_2";
+    private final static String ITEM_3 = "ITEM_3";
     private final static String ROOM_1 = "ROOM_1";
     private final static String ROOM_2 = "ROOM_2";
     private final static String DOOR = "DOOR";
@@ -45,6 +46,7 @@ public class AssemblerSuccessTest {
     private AssemblerService assemblerService;
     private AssemblerHandlerService assemblerHandlerService;
 
+    private ValidateHandler validateHandler;
     private AddingRoomsHandler addingRoomsHandler;
     private AddingItemsHandler addingItemsHandler;
     private AddingDoorsHandler addingDoorsHandler;
@@ -70,6 +72,7 @@ public class AssemblerSuccessTest {
         gameAsm = new GameAsm();
         game = new Game(format, objects);
 
+        validateHandler = new ValidateHandler(itemAsmList, gameAsm);
         addingRoomsHandler = new AddingRoomsHandler(objects, roomAsmList);
         addingItemsHandler = new AddingItemsHandler(objects, itemAsmList);
         addingDoorsHandler = new AddingDoorsHandler(objects, doorAsmList);
@@ -80,6 +83,7 @@ public class AssemblerSuccessTest {
         gameProcessHandler = new GameProcessHandler(objects, gameAsm, game);
 
         assemblerHandlerService = new AssemblerHandlerService(
+                validateHandler,
                 addingRoomsHandler,
                 addingItemsHandler,
                 addingDoorsHandler,
@@ -103,6 +107,36 @@ public class AssemblerSuccessTest {
                 state,
                 objects
         );
+    }
+
+    @Test
+    public void itemPlaceTest() {
+        ifceService.story(ITEM_1, ANNOTATION);
+        ifceService.item(ITEM_1, ROOM_1);
+        ifceService.item(ITEM_2, ROOM_1);
+        ifceService.item(ITEM_3, ROOM_2);
+        var room1 = ifceService.room(ROOM_1);
+        var room2 = ifceService.room(ROOM_2);
+        ifceService.start();
+
+        Assertions.assertEquals(
+                game.getAnnotation(),
+                ANNOTATION
+        );
+        Assertions.assertTrue(game.getObjects().isExistsItem(ITEM_1));
+        Assertions.assertTrue(game.getObjects().isExistsItem(ITEM_2));
+        Assertions.assertTrue(game.getObjects().isExistsItem(ITEM_3));
+        Assertions.assertTrue(game.getObjects().isExistsRoom(ROOM_1));
+        Assertions.assertTrue(game.getObjects().isExistsRoom(ROOM_2));
+        Assertions.assertEquals(
+                game.getCurrentRoom().getName(),
+                ROOM_1
+        );
+        Assertions.assertEquals(
+                game.getPlayer().getName(),
+                ITEM_1
+        );
+        //Assertions.assertTrue(game.getPlayer().getInventory().contains(item2));
     }
 
     @Test

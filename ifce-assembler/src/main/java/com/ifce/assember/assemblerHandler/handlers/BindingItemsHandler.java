@@ -23,14 +23,13 @@ public class BindingItemsHandler implements AssemblerHandler {
 
     @Override
     public void exec() {
-        val player = getPlayer();
         itemAsmList.getItemAsms().forEach(itemAsm -> {
             val asmPlaceName = itemAsm.getPlace();
             val room = objects.getRoom(asmPlaceName);
             val item = objects.getItem(asmPlaceName);
             checkError(room, item, itemAsm);
             place(room, itemAsm);
-            place(item, itemAsm, player);
+            place(item, itemAsm);
         });
     }
 
@@ -65,17 +64,27 @@ public class BindingItemsHandler implements AssemblerHandler {
         }
     }
 
-    private void place(Item itemPlace, ItemAsm itemAsm, Item player) {
+    private void place(Item itemPlace, ItemAsm itemAsm) {
         if (itemPlace != null) {
             val item = itemAsm.getItem();
-            val placeType = definePlaceType(itemPlace, player);
+            val player = getPlayer();
+            if (player == item) {
+                error(
+                        String.format("Assembler.BindingItems: Player [%s] cant place in item [%s] (only to room)",
+                                item.getName(),
+                                itemPlace.getName()
+                        )
+                );
+            }
+            val placeType = definePlaceType(itemPlace);
             item.setPlace(itemPlace.getName());
             item.setPlaceType(placeType);
             itemPlace.add(item);
         }
     }
 
-    private PlaceType definePlaceType(Item itemPlace, Item player) {
+    private PlaceType definePlaceType(Item itemPlace) {
+        val player = getPlayer();
         if (itemPlace.getName().equals(player.getName())) {
             return PlaceType.INVENTORY;
         }
@@ -83,10 +92,6 @@ public class BindingItemsHandler implements AssemblerHandler {
     }
 
     private Item getPlayer() {
-        val player = itemAsmList.getItem(gameAsm.getPlayerName());
-        if (player == null) {
-            error("Assembler.BindingItems: Player is not created");
-        }
-        return player;
+        return itemAsmList.getItem(gameAsm.getPlayerName());
     }
 }
