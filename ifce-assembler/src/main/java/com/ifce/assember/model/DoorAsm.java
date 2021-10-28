@@ -20,11 +20,13 @@ public class DoorAsm {
      * Connect to room where this door is placed
      * {@link Objects#rooms}
      */
+    @SuppressWarnings("JavadocReference")
     private final String roomFrom;
     /**
      * Connect to room which this door opens
      * {@link Objects#rooms}
      */
+    @SuppressWarnings("JavadocReference")
     private final String roomTo;
     /**
      * General game object for game engine

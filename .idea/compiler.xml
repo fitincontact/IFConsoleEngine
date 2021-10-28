@@ -20,16 +20,16 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ifce-api" target="16" />
-      <module name="ifce-assembler" target="16" />
-      <module name="ifce-dialog" target="16" />
-      <module name="ifce-engine" target="16" />
-      <module name="ifce-format" target="16" />
-      <module name="ifce-impl" target="16" />
-      <module name="ifce-model" target="16" />
-      <module name="ifce-saver" target="16" />
-      <module name="ifce-service" target="16" />
-      <module name="ifce-util" target="16" />
+      <module name="ifce-api" target="17" />
+      <module name="ifce-assembler" target="17" />
+      <module name="ifce-dialog" target="17" />
+      <module name="ifce-engine" target="17" />
+      <module name="ifce-format" target="17" />
+      <module name="ifce-impl" target="17" />
+      <module name="ifce-model" target="17" />
+      <module name="ifce-saver" target="17" />
+      <module name="ifce-service" target="17" />
+      <module name="ifce-util" target="17" />
       <module name="IFConsoleEngine" target="1.5" />
     </bytecodeTargetLevel>
   </component>
