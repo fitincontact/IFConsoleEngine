@@ -1,8 +1,6 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
-import com.ifce.assember.model.singletons.GameAsm;
-import com.ifce.assember.model.singletons.ItemAsmList;
-import com.ifce.model.main.Item;
+import com.ifce.assember.model.singletons.AsmList;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Component;
@@ -13,19 +11,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class ValidateHandler implements AssemblerHandler {
-    private final ItemAsmList itemAsmList;
-    private final GameAsm gameAsm;
+    private final AsmList asmList;
 
     @Override
     public void exec() {
-        getPlayer();
+        validatePlayer();
     }
 
-    private Item getPlayer() {
-        val player = itemAsmList.getItem(gameAsm.getPlayerName());
+    private void validatePlayer() {
+        val player = asmList.getItemAsmList().getItem(asmList.getGameAsm().getPlayerName());
         if (player == null) {
-            error("Assembler.BindingItems: Player is not created");
+            error("Assembler.ValidateHandler: Player is not created");
         }
-        return player;
     }
 }

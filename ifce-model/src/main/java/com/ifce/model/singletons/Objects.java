@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * All game objects for assembling com.ifce.service.AssemblerService
+ * All game objects for assembling {@link com.ifce.service.AssemblerService}
  */
 @Data
 @Component

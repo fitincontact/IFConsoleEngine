@@ -7,9 +7,15 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * List of all DialogAsm for {@AssemblerHandlerService}
+ */
 @Data
 @Component
 public class DialogAsmList {
+    /**
+     * All DialogAsm
+     */
     private final List<DialogAsm> dialogAsms = new ArrayList<>();
 
     public void add(DialogAsm dialogAsm) {

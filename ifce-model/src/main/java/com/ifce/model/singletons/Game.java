@@ -7,12 +7,18 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 /**
- * Class for general info
+ * Class for general info (main state for game engine)
  */
 @Data
 @Component
 public class Game {
+    /**
+     * Format
+     */
     private final Format format;
+    /**
+     * All game objects
+     */
     private final Objects objects;
 
     private Item player;

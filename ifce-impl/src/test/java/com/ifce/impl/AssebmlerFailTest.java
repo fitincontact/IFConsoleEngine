@@ -31,21 +31,23 @@ public class AssebmlerFailTest {
 
     private IFCEService ifceService;
 
+    private AsmList asmList;
+
     private DialogAsmList dialogAsmList;
     private DoorAsmList doorAsmList;
     private ItemAsmList itemAsmList;
     private RoomAsmList roomAsmList;
-    private Objects objects;
     private GameAsm gameAsm;
+    private Objects objects;
+
     private Game game;
     @Mock
     private Format format;
 
-
     private AssemblerService assemblerService;
     private AssemblerHandlerService assemblerHandlerService;
 
-    private  ValidateHandler validateHandler;
+    private ValidateHandler validateHandler;
     private AddingRoomsHandler addingRoomsHandler;
     private AddingItemsHandler addingItemsHandler;
     private AddingDoorsHandler addingDoorsHandler;
@@ -69,17 +71,19 @@ public class AssebmlerFailTest {
         doorAsmList = new DoorAsmList();
         objects = new Objects();
         gameAsm = new GameAsm();
-        game = new Game(format, objects);
 
-        validateHandler = new ValidateHandler(itemAsmList, gameAsm);
-        addingRoomsHandler = new AddingRoomsHandler(objects, roomAsmList);
-        addingItemsHandler = new AddingItemsHandler(objects, itemAsmList);
-        addingDoorsHandler = new AddingDoorsHandler(objects, doorAsmList);
-        addingDialogsHandler = new AddingDialogsHandler(objects, dialogAsmList);
-        bindingItemsHandler = new BindingItemsHandler(objects, itemAsmList, gameAsm);
-        bindingDoorsHandler = new BindingDoorsHandler(objects, doorAsmList);
-        bindingDialogsHandler = new BindingDialogsHandler();
-        gameProcessHandler = new GameProcessHandler(objects, gameAsm, game);
+        asmList = new AsmList(dialogAsmList, doorAsmList, itemAsmList, roomAsmList, gameAsm, objects);
+        game = new Game(format, asmList.getObjects());
+
+        validateHandler = new ValidateHandler(asmList);
+        addingRoomsHandler = new AddingRoomsHandler(asmList);
+        addingItemsHandler = new AddingItemsHandler(asmList);
+        addingDoorsHandler = new AddingDoorsHandler(asmList);
+        addingDialogsHandler = new AddingDialogsHandler(asmList);
+        bindingItemsHandler = new BindingItemsHandler(asmList);
+        bindingDoorsHandler = new BindingDoorsHandler(asmList);
+        bindingDialogsHandler = new BindingDialogsHandler(asmList);
+        gameProcessHandler = new GameProcessHandler(asmList, game);
 
         assemblerHandlerService = new AssemblerHandlerService(
                 validateHandler,
@@ -96,15 +100,10 @@ public class AssebmlerFailTest {
         state = new State(game);
 
         ifceService = new IFCEServiceImpl(
-                dialogAsmList,
-                doorAsmList,
-                itemAsmList,
-                roomAsmList,
-                gameAsm,
+                asmList,
                 assemblerService,
                 engineService,
-                state,
-                objects
+                state
         );
     }
 
@@ -241,7 +240,7 @@ public class AssebmlerFailTest {
     }
 
     @Test
-    public void bindingItemsTest3() {
+    public void validateHandlerTest1() {
         var msg = "";
         try {
             ifceService.story(ITEM_1, ITEM_1);
@@ -250,7 +249,7 @@ public class AssebmlerFailTest {
             msg = e.getMessage();
         }
         Assertions.assertEquals(
-                ERROR_HEAD + "Assembler.BindingItems: Player is not created",
+                ERROR_HEAD + "Assembler.ValidateHandler: Player is not created",
                 msg
         );
     }
@@ -269,52 +268,6 @@ public class AssebmlerFailTest {
         }
         Assertions.assertEquals(
                 String.format(ERROR_HEAD + "Assembler.BindingItems: Player [%s] cant place in item [%s] (only to room)", ITEM_1, ITEM_2),
-                msg
-        );
-    }
-
-    @Test
-    public void PlayerIsNotCreatedTest1() {
-        ifceService.item(ITEM_1, ROOM_2);
-        ifceService.room(ROOM_2);
-        var msg = "";
-        try {
-            ifceService.start();
-        } catch (RuntimeException e) {
-            msg = e.getMessage();
-        }
-        Assertions.assertEquals(
-                "Assembler RuntimeException: Assembler.BindingItems: Player is not created",
-                msg
-        );
-    }
-
-    @Test
-    public void PlayerIsNotCreatedTest2() {
-        ifceService.room(ROOM_2);
-        var msg = "";
-        try {
-            ifceService.start();
-        } catch (RuntimeException e) {
-            msg = e.getMessage();
-        }
-        Assertions.assertEquals(
-                "Assembler RuntimeException: Assembler.BindingItems: Player is not created",
-                msg
-        );
-    }
-
-    @Test
-    public void PlayerIsNotCreatedTest3() {
-        ifceService.door(DOOR, ROOM_1, ROOM_2);
-        var msg = "";
-        try {
-            ifceService.start();
-        } catch (RuntimeException e) {
-            msg = e.getMessage();
-        }
-        Assertions.assertEquals(
-                "Assembler RuntimeException: Assembler.BindingItems: Player is not created",
                 msg
         );
     }

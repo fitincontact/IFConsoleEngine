@@ -1,12 +1,10 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
 import com.ifce.assember.model.ItemAsm;
-import com.ifce.assember.model.singletons.GameAsm;
-import com.ifce.assember.model.singletons.ItemAsmList;
+import com.ifce.assember.model.singletons.AsmList;
 import com.ifce.model.main.Item;
 import com.ifce.model.main.Room;
 import com.ifce.model.main.enums.PlaceType;
-import com.ifce.model.singletons.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Component;
@@ -17,16 +15,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class BindingItemsHandler implements AssemblerHandler {
-    private final Objects objects;
-    private final ItemAsmList itemAsmList;
-    private final GameAsm gameAsm;
+    private final AsmList asmList;
 
     @Override
     public void exec() {
-        itemAsmList.getItemAsms().forEach(itemAsm -> {
+        asmList.getItemAsmList().getItemAsms().forEach(itemAsm -> {
             val asmPlaceName = itemAsm.getPlace();
-            val room = objects.getRoom(asmPlaceName);
-            val item = objects.getItem(asmPlaceName);
+            val room = asmList.getObjects().getRoom(asmPlaceName);
+            val item = asmList.getObjects().getItem(asmPlaceName);
             checkError(room, item, itemAsm);
             place(room, itemAsm);
             place(item, itemAsm);
@@ -92,6 +88,6 @@ public class BindingItemsHandler implements AssemblerHandler {
     }
 
     private Item getPlayer() {
-        return itemAsmList.getItem(gameAsm.getPlayerName());
+        return asmList.getItemAsmList().getItem(asmList.getGameAsm().getPlayerName());
     }
 }

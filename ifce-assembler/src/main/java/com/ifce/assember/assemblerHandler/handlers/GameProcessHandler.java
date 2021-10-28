@@ -1,8 +1,7 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
-import com.ifce.assember.model.singletons.GameAsm;
+import com.ifce.assember.model.singletons.AsmList;
 import com.ifce.model.singletons.Game;
-import com.ifce.model.singletons.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Component;
@@ -13,15 +12,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class GameProcessHandler implements AssemblerHandler {
-    private final Objects objects;
-    private final GameAsm gameAsm;
+    private final AsmList asmList;
     private final Game game;
 
     @Override
     public void exec() {
-        val player = objects.getItem(gameAsm.getPlayerName());
+        val player = asmList.getObjects().getItem(asmList.getGameAsm().getPlayerName());
         game.setPlayer(player);
-        game.setAnnotation(gameAsm.getAnnotation());
-        game.setCurrentRoom(objects.getItemRoom(player));
+        game.setAnnotation(asmList.getGameAsm().getAnnotation());
+        game.setCurrentRoom(asmList.getObjects().getItemRoom(player));
     }
 }

@@ -37,7 +37,15 @@ public class Item extends ObjectAbstract {
                 val item = objects.getItem(word);
                 move(item);
             }
+            case ROOM -> {
+                val room = objects.getRoom(word);
+                move(room);
+            }
         }
+    }
+
+    private void move(Room room) {
+        //todo
     }
 
     public void move(final Item item) {

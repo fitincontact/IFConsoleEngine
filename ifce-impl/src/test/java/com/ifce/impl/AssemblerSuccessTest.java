@@ -33,12 +33,15 @@ public class AssemblerSuccessTest {
 
     private IFCEService ifceService;
 
+    private AsmList asmList;
+
     private DialogAsmList dialogAsmList;
     private DoorAsmList doorAsmList;
     private ItemAsmList itemAsmList;
     private RoomAsmList roomAsmList;
-    private Objects objects;
     private GameAsm gameAsm;
+    private Objects objects;
+
     private Game game;
     @Mock
     private Format format;
@@ -56,11 +59,11 @@ public class AssemblerSuccessTest {
     private BindingDialogsHandler bindingDialogsHandler;
     private GameProcessHandler gameProcessHandler;
 
-    private State state;
-
     //todo initUseCase
     @Mock
     private EngineService engineService;
+
+    private State state;
 
     @BeforeEach
     void initUseCase() {
@@ -70,17 +73,19 @@ public class AssemblerSuccessTest {
         doorAsmList = new DoorAsmList();
         objects = new Objects();
         gameAsm = new GameAsm();
-        game = new Game(format, objects);
 
-        validateHandler = new ValidateHandler(itemAsmList, gameAsm);
-        addingRoomsHandler = new AddingRoomsHandler(objects, roomAsmList);
-        addingItemsHandler = new AddingItemsHandler(objects, itemAsmList);
-        addingDoorsHandler = new AddingDoorsHandler(objects, doorAsmList);
-        addingDialogsHandler = new AddingDialogsHandler(objects, dialogAsmList);
-        bindingItemsHandler = new BindingItemsHandler(objects, itemAsmList, gameAsm);
-        bindingDoorsHandler = new BindingDoorsHandler(objects, doorAsmList);
-        bindingDialogsHandler = new BindingDialogsHandler();
-        gameProcessHandler = new GameProcessHandler(objects, gameAsm, game);
+        asmList = new AsmList(dialogAsmList, doorAsmList, itemAsmList, roomAsmList, gameAsm, objects);
+        game = new Game(format, asmList.getObjects());
+
+        validateHandler = new ValidateHandler(asmList);
+        addingRoomsHandler = new AddingRoomsHandler(asmList);
+        addingItemsHandler = new AddingItemsHandler(asmList);
+        addingDoorsHandler = new AddingDoorsHandler(asmList);
+        addingDialogsHandler = new AddingDialogsHandler(asmList);
+        bindingItemsHandler = new BindingItemsHandler(asmList);
+        bindingDoorsHandler = new BindingDoorsHandler(asmList);
+        bindingDialogsHandler = new BindingDialogsHandler(asmList);
+        gameProcessHandler = new GameProcessHandler(asmList, game);
 
         assemblerHandlerService = new AssemblerHandlerService(
                 validateHandler,
@@ -97,15 +102,10 @@ public class AssemblerSuccessTest {
         state = new State(game);
 
         ifceService = new IFCEServiceImpl(
-                dialogAsmList,
-                doorAsmList,
-                itemAsmList,
-                roomAsmList,
-                gameAsm,
+                asmList,
                 assemblerService,
                 engineService,
-                state,
-                objects
+                state
         );
     }
 
