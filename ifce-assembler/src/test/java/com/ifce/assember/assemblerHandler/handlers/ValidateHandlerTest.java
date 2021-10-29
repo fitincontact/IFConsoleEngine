@@ -3,15 +3,16 @@ package com.ifce.assember.assemblerHandler.handlers;
 import com.ifce.assember.model.singletons.AsmList;
 import com.ifce.assember.model.singletons.GameAsm;
 import com.ifce.assember.model.singletons.ItemAsmList;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ValidateHandlerTest {
@@ -26,14 +27,14 @@ public class ValidateHandlerTest {
 
     @Test
     public void validatePlayer() {
-        Mockito.when(asmList.getGameAsm()).thenReturn(gameAsm);
-        Mockito.when(asmList.getGameAsm().getPlayerName()).thenReturn(null);
-        Mockito.when(asmList.getItemAsmList()).thenReturn(itemAsmList);
-        Mockito.when(asmList.getItemAsmList().getItem(any())).thenReturn(null);
+        when(asmList.getGameAsm()).thenReturn(gameAsm);
+        when(asmList.getGameAsm().getPlayerName()).thenReturn(null);
+        when(asmList.getItemAsmList()).thenReturn(itemAsmList);
+        when(asmList.getItemAsmList().getItem(any())).thenReturn(null);
 
-        Assertions.assertEquals(
+        assertEquals(
                 "Assembler RuntimeException: Assembler.ValidateHandler: Player is not created",
-                Assertions.assertThrowsExactly(RuntimeException.class, () -> service.exec()).getMessage()
+                assertThrowsExactly(RuntimeException.class, () -> service.exec()).getMessage()
         );
     }
 }
