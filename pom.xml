@@ -31,6 +31,9 @@
         <junit-jupiter>5.8.1</junit-jupiter>
         <mockito-junit-jupiter>4.0.0</mockito-junit-jupiter>
         <mockito-core>4.0.0</mockito-core>
+        <org.springframework>5.3.11</org.springframework>
+        <lombok>1.18.22</lombok>
+        <org.jetbrains>22.0.0</org.jetbrains>
     </properties>
 
     <dependencies>
@@ -38,26 +41,31 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.3.9</version>
+            <version>${org.springframework}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>5.3.9</version>
+            <version>${org.springframework}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.3.9</version>
+            <version>${org.springframework}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
+            <version>${lombok}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${org.jetbrains}</version>
         </dependency>
     </dependencies>
 

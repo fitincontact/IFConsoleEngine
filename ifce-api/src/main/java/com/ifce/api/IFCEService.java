@@ -4,7 +4,7 @@ import com.ifce.model.main.Dialog;
 import com.ifce.model.main.Door;
 import com.ifce.model.main.Item;
 import com.ifce.model.main.Room;
-import org.springframework.lang.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Main Service for game
@@ -20,8 +20,8 @@ public interface IFCEService {
      * @return Dialog
      */
     Dialog dialog(
-            @NonNull String title,
-            @NonNull Dialog... dialogs);
+            @NotNull String title,
+            @NotNull Dialog... dialogs);
 
     /**
      * Nested dialog constructor
@@ -33,9 +33,9 @@ public interface IFCEService {
      * @return Dialog
      */
     Dialog dialog(
-            @NonNull String request,
-            @NonNull String response,
-            @NonNull Dialog... dialogs
+            @NotNull String request,
+            @NotNull String response,
+            @NotNull Dialog... dialogs
     );
 
     /**
@@ -47,8 +47,8 @@ public interface IFCEService {
      * @return Door
      */
     Door door(
-            @NonNull String name,
-            @NonNull String roomFrom,
+            @NotNull String name,
+            @NotNull String roomFrom,
             String roomTo
     );
 
@@ -60,8 +60,8 @@ public interface IFCEService {
      * @return Item
      */
     Item item(
-            @NonNull String name,
-            @NonNull String place);
+            @NotNull String name,
+            @NotNull String place);
 
     /**
      * Main Room constructor
@@ -69,7 +69,7 @@ public interface IFCEService {
      * @param name name
      * @return Room
      */
-    Room room(@NonNull String name);
+    Room room(@NotNull String name);
 
     //Game block
 
@@ -81,8 +81,8 @@ public interface IFCEService {
      * @param annotation annotation
      */
     void story(
-            @NonNull String playerName,
-            @NonNull String annotation
+            @NotNull String playerName,
+            @NotNull String annotation
     );
 
     /**

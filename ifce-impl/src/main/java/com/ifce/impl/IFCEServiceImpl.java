@@ -15,6 +15,7 @@ import com.ifce.service.AssemblerService;
 import com.ifce.service.EngineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class IFCEServiceImpl implements IFCEService {
 
     @Override
     public Dialog dialog(
-            String title,
+            @NotNull String title,
             Dialog... dialogs
     ) {
         val dialogAsm = new DialogAsm(title, dialogs);
@@ -37,8 +38,8 @@ public class IFCEServiceImpl implements IFCEService {
 
     @Override
     public Dialog dialog(
-            String request,
-            String response,
+            @NotNull String request,
+            @NotNull String response,
             Dialog... dialogs
     ) {
         return new Dialog(request, response, dialogs);
@@ -46,8 +47,8 @@ public class IFCEServiceImpl implements IFCEService {
 
     @Override
     public Door door(
-            String name,
-            String roomFrom,
+            @NotNull String name,
+            @NotNull String roomFrom,
             String roomTo
     ) {
         val asm = new DoorAsm(name, roomFrom, roomTo);
@@ -57,8 +58,8 @@ public class IFCEServiceImpl implements IFCEService {
 
     @Override
     public Item item(
-            String name,
-            String place
+            @NotNull String name,
+            @NotNull String place
     ) {
         val asm = new ItemAsm(name, place, asmList.getObjects());
         asmList.getItemAsmList().add(asm);
@@ -66,14 +67,17 @@ public class IFCEServiceImpl implements IFCEService {
     }
 
     @Override
-    public Room room(String name) {
+    public Room room(@NotNull String name) {
         val asm = new RoomAsm(name);
         asmList.getRoomAsmList().add(asm);
         return asm.getRoom();
     }
 
     @Override
-    public void story(String playerName, String annotation) {
+    public void story(
+            @NotNull String playerName,
+            @NotNull String annotation
+    ) {
         asmList.getGameAsm().setPlayerName(playerName);
         asmList.getGameAsm().setAnnotation(annotation);
     }

@@ -72,8 +72,8 @@ public class AssebmlerFailTest {
         objects = new Objects();
         gameAsm = new GameAsm();
 
-        asmList = new AsmList(dialogAsmList, doorAsmList, itemAsmList, roomAsmList, gameAsm, objects);
-        game = new Game(format, asmList.getObjects());
+        asmList = new AsmList(dialogAsmList, doorAsmList, itemAsmList, roomAsmList, gameAsm, objects,new Game(format, objects));
+        game = asmList.getGame();
 
         validateHandler = new ValidateHandler(asmList);
         addingRoomsHandler = new AddingRoomsHandler(asmList);
@@ -83,7 +83,7 @@ public class AssebmlerFailTest {
         bindingItemsHandler = new BindingItemsHandler(asmList);
         bindingDoorsHandler = new BindingDoorsHandler(asmList);
         bindingDialogsHandler = new BindingDialogsHandler(asmList);
-        gameProcessHandler = new GameProcessHandler(asmList, game);
+        gameProcessHandler = new GameProcessHandler(asmList);
 
         assemblerHandlerService = new AssemblerHandlerService(
                 validateHandler,

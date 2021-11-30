@@ -9,4 +9,5 @@ public class DataAsm {
     public final static String ROOM_2 = "ROOM_2";
     public final static String DOOR = "DOOR";
     public final static String ERROR_HEAD = "Assembler RuntimeException: ";
+    public final static String DIALOG_NAME = "DIALOG_NAME";
 }

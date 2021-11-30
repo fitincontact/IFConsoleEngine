@@ -1,9 +1,6 @@
 package com.ifce.model.singletons;
 
-import com.ifce.model.main.Dialog;
-import com.ifce.model.main.Door;
-import com.ifce.model.main.Item;
-import com.ifce.model.main.Room;
+import com.ifce.model.main.*;
 import com.ifce.model.main.enums.ObjectType;
 import lombok.Data;
 import lombok.val;
@@ -36,8 +33,9 @@ public class Objects {
      */
     private final Map<String, Dialog> dialogs = new HashMap<>();
     /**
-     * ObjectType
+     * unique asm name on all game types (everyone object has unique name {@see} {@link ObjectAbstract#name})
      */
+    @SuppressWarnings("JavadocReference")
     private final Map<String, ObjectType> objectTypes = new HashMap<>();
 
     public boolean isExistsRoom(String asmName) {

@@ -8,6 +8,7 @@ public class Dialog extends ObjectAbstract {
             String title,
             Dialog[]... dialogs
     ) {
+        super.add(title);
     }
 
     public Dialog(
