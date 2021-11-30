@@ -1,19 +1,29 @@
 package com.ifce.engine.wordhandler.handlers;
 
 import com.ifce.model.singletons.Game;
+import com.ifce.model.singletons.State;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+/**
+ * Init Game {@link Game}
+ */
 @RequiredArgsConstructor
+@Component
 public class InitialWordHandler implements WordHandler {
-    private final Game game;
+    private final State state;
 
     @Override
     public void exec() {
+        defineWordType();
+    }
+
+    private void defineWordType() {
 
     }
 
     public WordHandler init(final String word) {
-        game.getWord().add(word);
+        state.getWord().add(word);
         return this;
     }
 }

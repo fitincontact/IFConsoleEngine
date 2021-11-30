@@ -2,6 +2,9 @@ package com.ifce.assember.assemblerHandler;
 
 import com.ifce.assember.assemblerHandler.handlers.AssemblerHandler;
 
+/**
+ * Chain of Responsibility engine
+ */
 public class AssemblerExecutor {
     private AssemblerHandler currentHandler;
 

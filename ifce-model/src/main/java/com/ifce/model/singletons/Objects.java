@@ -4,14 +4,17 @@ import com.ifce.model.main.Dialog;
 import com.ifce.model.main.Door;
 import com.ifce.model.main.Item;
 import com.ifce.model.main.Room;
+import com.ifce.model.main.enums.ObjectType;
 import lombok.Data;
+import lombok.val;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * All game objects for assembling com.ifce.service.AssemblerService
+ * All game objects for assembling {@link com.ifce.service.AssemblerService}
  */
 @Data
 @Component
@@ -29,9 +32,13 @@ public class Objects {
      */
     private final Map<String, Door> doors = new HashMap<>();
     /**
-     * unique asm name on door
+     * unique asm name on dialog
      */
     private final Map<String, Dialog> dialogs = new HashMap<>();
+    /**
+     * ObjectType
+     */
+    private final Map<String, ObjectType> objectTypes = new HashMap<>();
 
     public boolean isExistsRoom(String asmName) {
         return rooms.get(asmName) != null;
@@ -49,27 +56,61 @@ public class Objects {
         return dialogs.get(asmName) != null;
     }
 
-    public void add(Room room) {
-        rooms.put(room.getName(), room);
+    public boolean isExists(String asmName) {
+        return objectTypes.get(asmName) != null;
+    }
+
+    public void add(final Room room) {
+        val word = room.getName();
+        rooms.put(word, room);
+        objectTypes.put(word, ObjectType.ROOM);
     }
 
     public void add(Item item) {
-        items.put(item.getName(), item);
+        val word = item.getName();
+        items.put(word, item);
+        objectTypes.put(word, ObjectType.ITEM);
     }
 
-    public void add(Door door) {
-        doors.put(door.getName(), door);
+    public void add(final Door door) {
+        val word = door.getName();
+        doors.put(word, door);
+        objectTypes.put(word, ObjectType.DOOR);
     }
 
-    public void add(Dialog dialog) {
-        dialogs.put(dialog.getName(), dialog);
+    public void add(final Dialog dialog) {
+        val word = dialog.getName();
+        dialogs.put(word, dialog);
+        objectTypes.put(word, ObjectType.DIALOG);
     }
 
     public Room getRoom(final String name) {
         return rooms.get(name);
     }
 
-    public Item getItem(String playerName) {
-        return items.get(playerName);
+    public Item getItem(final String name) {
+        return items.get(name);
     }
+
+    /**
+     * Return room where the item is placed
+     *
+     * @param item item
+     * @return room
+     */
+    public Room getItemRoom(final Item item) {
+        Room room = null;
+        val rooms = new ArrayList<>(getRooms().values());
+        for (val r : rooms) {
+            if (r.contains(item)) {
+                room = r;
+            }
+        }
+        return room;
+    }
+
+    public ObjectType defineObjectType(final String word) {
+        return objectTypes.get(word);
+    }
+
 }

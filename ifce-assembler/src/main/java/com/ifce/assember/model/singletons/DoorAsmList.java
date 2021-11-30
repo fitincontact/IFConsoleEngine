@@ -7,9 +7,15 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * List of all DoorAsm for {@AssemblerHandlerService}
+ */
 @Data
 @Component
 public class DoorAsmList {
+    /**
+     * All DoorAsm
+     */
     private final List<DoorAsm> doorAsms = new ArrayList<>();
 
     public void add(DoorAsm doorAsm) {

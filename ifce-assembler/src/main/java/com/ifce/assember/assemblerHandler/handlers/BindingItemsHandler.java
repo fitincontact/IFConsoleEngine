@@ -1,7 +1,10 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
-import com.ifce.assember.model.singletons.ItemAsmList;
-import com.ifce.model.singletons.Objects;
+import com.ifce.assember.model.ItemAsm;
+import com.ifce.assember.model.singletons.AsmList;
+import com.ifce.model.main.Item;
+import com.ifce.model.main.Room;
+import com.ifce.model.main.enums.PlaceType;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Component;
@@ -12,44 +15,79 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class BindingItemsHandler implements AssemblerHandler {
-    private final Objects objects;
-    private final ItemAsmList itemAsmList;
+    private final AsmList asmList;
 
     @Override
     public void exec() {
-        itemAsmList.getItemAsms().forEach(itemAsm -> {
+        asmList.getItemAsmList().getItemAsms().forEach(itemAsm -> {
+            val asmPlaceName = itemAsm.getPlace();
+            val room = asmList.getObjects().getRoom(asmPlaceName);
+            val item = asmList.getObjects().getItem(asmPlaceName);
+            checkError(room, item, itemAsm);
+            place(room, itemAsm);
+            place(item, itemAsm);
+        });
+    }
+
+    private void checkError(
+            final Room room,
+            final Item item,
+            final ItemAsm itemAsm
+    ) {
+        if (room == null && item == null) {
             val itemName = itemAsm.getName();
             val asmPlaceName = itemAsm.getPlace();
-            var msgRoom = "";
+            val msgRoom = String.format(
+                    "Assembler.bindingItems: For item name [%s] not found room name [%s]",
+                    itemName,
+                    asmPlaceName
+            );
+            val msgItem = String.format(
+                    "Assembler.bindingItems: For item name [%s] not found item name [%s]",
+                    itemName,
+                    asmPlaceName
+            );
+            error(msgRoom + "\n" + msgItem);
+        }
+    }
 
-            val room = objects.getRoom(asmPlaceName);
-            if (room == null) {
-                msgRoom = String.format(
-                        "Assembler.bindingItems: For item name [%s] not found room name [%s]",
-                        itemName,
-                        asmPlaceName
+    private void place(Room room, ItemAsm itemAsm) {
+        if (room != null) {
+            val item = itemAsm.getItem();
+            item.setPlace(room.getName());
+            item.setPlaceType(PlaceType.ROOM);
+            room.add(item);
+        }
+    }
+
+    private void place(Item itemPlace, ItemAsm itemAsm) {
+        if (itemPlace != null) {
+            val item = itemAsm.getItem();
+            val player = getPlayer();
+            if (player == item) {
+                error(
+                        String.format("Assembler.BindingItems: Player [%s] cant place in item [%s] (only to room)",
+                                item.getName(),
+                                itemPlace.getName()
+                        )
                 );
-            } else {
-                room.add(itemAsm.getItem());
             }
+            val placeType = definePlaceType(itemPlace);
+            item.setPlace(itemPlace.getName());
+            item.setPlaceType(placeType);
+            itemPlace.add(item);
+        }
+    }
 
-            var msgItem = "";
-            if (!msgRoom.equals("")) {
-                val itemPlace = objects.getItem(asmPlaceName);
-                if (itemPlace == null) {
-                    msgItem = String.format(
-                            "Assembler.bindingItems: For item name [%s] not found item name [%s]",
-                            itemName,
-                            asmPlaceName
-                    );
-                } else {
-                    itemPlace.add(itemAsm.getItem());
-                }
-            }
+    private PlaceType definePlaceType(Item itemPlace) {
+        val player = getPlayer();
+        if (itemPlace.getName().equals(player.getName())) {
+            return PlaceType.INVENTORY;
+        }
+        return PlaceType.ITEM;
+    }
 
-            if (!msgRoom.equals("") && !msgItem.equals("")) {
-                error(msgRoom + "\n" + msgItem);
-            }
-        });
+    private Item getPlayer() {
+        return asmList.getItemAsmList().getItem(asmList.getGameAsm().getPlayerName());
     }
 }

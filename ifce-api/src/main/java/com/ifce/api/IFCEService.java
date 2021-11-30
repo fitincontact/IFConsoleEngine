@@ -24,7 +24,7 @@ public interface IFCEService {
             @NonNull Dialog... dialogs);
 
     /**
-     * Nested dialog
+     * Nested dialog constructor
      * !Use only as parameter into {@link IFCEService#dialog(String, Dialog...)}!
      *
      * @param request  request
