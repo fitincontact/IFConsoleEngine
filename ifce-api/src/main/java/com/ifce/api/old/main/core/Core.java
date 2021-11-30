@@ -96,7 +96,7 @@ public class Core {
                 monitor.getRoomCurrent().getItems().forEach(i -> {
                     if (i.getWord().equals(splitUnSpaceWord)) {
                         monitor.setActType(EffectType.USE_ITEM);
-                        monitor.getItemsUse().add(i);
+                        monitor.add(i);
                     }
                 });
                 monitor.getRoomCurrent().getItems().forEach(i -> {

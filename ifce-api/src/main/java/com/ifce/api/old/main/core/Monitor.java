@@ -74,10 +74,6 @@ public class Monitor implements Serializable {
         return itemsUse;
     }
 
-    public void setItemsUse(final List<Item1> itemsUse) {
-        this.itemsUse = itemsUse;
-    }
-
     public Way1 getWayUse() {
         return way1Use;
     }
