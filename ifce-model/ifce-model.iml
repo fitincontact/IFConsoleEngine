@@ -5,7 +5,7 @@
       <configuration />
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_16">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -17,12 +17,12 @@
     <orderEntry type="module" module-name="ifce-util" />
     <orderEntry type="module" module-name="ifce-format" />
     <orderEntry type="module" module-name="ifce-dialog" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.9" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.9" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.9" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.9" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.9" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.9" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.18.20" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.16" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.16" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.16" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.16" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.16" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.16" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.18.22" level="project" />
   </component>
 </module>
