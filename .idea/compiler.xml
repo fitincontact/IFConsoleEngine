@@ -30,7 +30,7 @@
       <module name="ifce-saver" target="17" />
       <module name="ifce-service" target="17" />
       <module name="ifce-util" target="17" />
-      <module name="IFConsoleEngine" target="1.5" />
+      <module name="IFConsoleEngine" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
