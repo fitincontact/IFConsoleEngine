@@ -1,8 +1,7 @@
 package com.ifce.api.old.main.core;
 
-import com.ifce.api.old.main.enums.EffectType;
-import com.ifce.api.old.main.history.RoomHistory1;
-import com.ifce.api.old.main.object.*;
+import com.ifce.model.common.*;
+import com.ifce.model.common.enums.EffectType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,19 +11,19 @@ import java.util.Set;
 
 public class Monitor implements Serializable {
 
-    private static final long serialVersionUID = -2028574438713832452L;
+    private static final long serialVersionUID = -202857443873832452L;
 
     private static Monitor instance;
-    private final RoomHistory1 roomHistory1 = RoomHistory1.getInstance();
-    private Way1 way1Go;
-    private Item1 roomItem1Act;
-    private Item1 invItem1Act;
-    private List<Item1> itemsUse = new ArrayList<>();
-    private Way1 way1Use;
+    private final RoomHistory roomHistory = RoomHistory.getInstance();
+    private Way wayGo;
+    private Item roomItemAct;
+    private Item invItemAct;
+    private List<Item> itemsUse = new ArrayList<>();
+    private Way wayUse;
     private EffectType effectType;
-    private Room1 room1Current;
-    private Inventory1 inventory1Current;
-    private Dialog1 dialog1Current;
+    private Room roomCurrent;
+    private Inventory inventoryCurrent;
+    private Dialog dialogCurrent;
     private boolean victory;
 
     private Monitor() {
@@ -38,48 +37,48 @@ public class Monitor implements Serializable {
     }
 
     void cleanGoActUse() {
-        way1Go = null;
-        roomItem1Act = null;
-        invItem1Act = null;
+        wayGo = null;
+        roomItemAct = null;
+        invItemAct = null;
         itemsUse = new ArrayList<>();
         effectType = EffectType.EMPTY;
         victory = false;
     }
 
-    public Way1 getWayGo() {
-        return way1Go;
+    public Way getWayGo() {
+        return wayGo;
     }
 
-    public void setWayGo(final Way1 way1Go) {
-        this.way1Go = way1Go;
+    public void setWayGo(final Way wayGo) {
+        this.wayGo = wayGo;
     }
 
-    public Item1 getRoomItemAct() {
-        return roomItem1Act;
+    public Item getRoomItemAct() {
+        return roomItemAct;
     }
 
-    public void setRoomItemAct(final Item1 roomItem1Act) {
-        this.roomItem1Act = roomItem1Act;
+    public void setRoomItemAct(final Item roomItemAct) {
+        this.roomItemAct = roomItemAct;
     }
 
-    public Item1 getInvItemAct() {
-        return invItem1Act;
+    public Item getInvItemAct() {
+        return invItemAct;
     }
 
-    public void setInvItemAct(final Item1 invItem1Act) {
-        this.invItem1Act = invItem1Act;
+    public void setInvItemAct(final Item invItemAct) {
+        this.invItemAct = invItemAct;
     }
 
-    public List<Item1> getItemsUse() {
+    public List<Item> getItemsUse() {
         return itemsUse;
     }
 
-    public Way1 getWayUse() {
-        return way1Use;
+    public Way getWayUse() {
+        return wayUse;
     }
 
-    public void setWayUse(final Way1 way1Use) {
-        this.way1Use = way1Use;
+    public void setWayUse(final Way wayUse) {
+        this.wayUse = wayUse;
     }
 
     public EffectType getActType() {
@@ -90,21 +89,21 @@ public class Monitor implements Serializable {
         this.effectType = effectType;
     }
 
-    public Room1 getRoomCurrent() {
-        return room1Current;
+    public Room getRoomCurrent() {
+        return roomCurrent;
     }
 
-    public void setRoomCurrent(final Room1 room1Current) {
-        roomHistory1.push(room1Current);
-        this.room1Current = room1Current;
+    public void setRoomCurrent(final Room roomCurrent) {
+        roomHistory.push(roomCurrent);
+        this.roomCurrent = roomCurrent;
     }
 
-    public Inventory1 getInventoryCurrent() {
-        return inventory1Current;
+    public Inventory getInventoryCurrent() {
+        return inventoryCurrent;
     }
 
-    public void setInventoryCurrent(final Inventory1 inventory1Current) {
-        this.inventory1Current = inventory1Current;
+    public void setInventoryCurrent(final Inventory inventoryCurrent) {
+        this.inventoryCurrent = inventoryCurrent;
     }
 
     public boolean isVictory() {
@@ -115,50 +114,50 @@ public class Monitor implements Serializable {
         this.victory = victory;
     }
 
-    public Dialog1 getDialogCurrent() {
-        return dialog1Current;
+    public Dialog getDialogCurrent() {
+        return dialogCurrent;
     }
 
-    public void setDialogCurrent(final Dialog1 dialog1Current) {
-        this.dialog1Current = dialog1Current;
+    public void setDialogCurrent(final Dialog dialogCurrent) {
+        this.dialogCurrent = dialogCurrent;
     }
 
     public List<String> toStrRoomCurrent() {
-        return room1Current.toStrRoom(inventory1Current);
+        return roomCurrent.toStrRoom(inventoryCurrent);
     }
 
     @Override
     public String toString() {
-        return room1Current.roomAndInventoryString(inventory1Current);
+        return roomCurrent.roomAndInventoryString(inventoryCurrent);
     }
 
-    public void add(final Item1 item1) {
-        itemsUse.add(item1);
+    public void add(final Item item) {
+        itemsUse.add(item);
     }
 
-    List<Room1> getRooms() {
-        final var roomSet = new HashSet<Room1>();
-        roomSet.add(room1Current);
-        addRoomFromWays(roomSet, room1Current);
+    List<Room> getRooms() {
+        final var roomSet = new HashSet<Room>();
+        roomSet.add(roomCurrent);
+        addRoomFromWays(roomSet, roomCurrent);
         return new ArrayList<>(roomSet);
     }
 
-    void addRoomFromWays(final Set<Room1> room1Set, final Room1 room1) {
-        room1.getWays().forEach(w -> {
-            room1Set.add(w.getRoom());
-            addRoomFromWays(room1Set, w.getRoom());
+    void addRoomFromWays(final Set<Room> roomSet, final Room room) {
+        room.getWays().forEach(w -> {
+            roomSet.add(w.getRoom());
+            addRoomFromWays(roomSet, w.getRoom());
         });
     }
 
     public void set(final Monitor m) {
-        way1Go = m.way1Go;
-        roomItem1Act = m.roomItem1Act;
-        invItem1Act = m.invItem1Act;
+        wayGo = m.wayGo;
+        roomItemAct = m.roomItemAct;
+        invItemAct = m.invItemAct;
         itemsUse = m.itemsUse;
-        way1Use = m.way1Use;
+        wayUse = m.wayUse;
         effectType = m.effectType;
-        room1Current = m.room1Current;
-        inventory1Current = m.inventory1Current;
+        roomCurrent = m.roomCurrent;
+        inventoryCurrent = m.inventoryCurrent;
         victory = m.victory;
     }
 

@@ -1,6 +1,4 @@
-package com.ifce.model.main;
-
-import lombok.val;
+package com.ifce.model.common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +16,7 @@ public class Word {
     }
 
     public void add(final String... words) {
-        for (val word : words) {
+        for (var word : words) {
             add(word);
         }
     }
@@ -34,5 +32,9 @@ public class Word {
         } else {
             return "";
         }
+    }
+
+    public boolean isContent(String name) {
+        return words.contains(name);
     }
 }

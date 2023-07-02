@@ -1,8 +1,10 @@
 package com.ifce.service;
 
+import com.ifce.model.common.*;
+
 /**
- * Server assembles all model ({@link com.ifce.model.Item}, {@link com.ifce.model.Room}, {@link com.ifce.model.Door},
- * {@link com.ifce.model.Dialog})
+ * Server assembles all model ({@link com.ifce.model.common.Item}, {@link com.ifce.model.common.Room}, {@link com.ifce.model.common.Door},
+ * {@link com.ifce.model.common.Dialog})
  * <p>
  * Server uses string names.
  * <p>
@@ -31,7 +33,18 @@ package com.ifce.service;
  */
 public interface AssemblerService {
     /**
-     * Assembling developer code and building {@link com.ifce.model.Game} state
+     * Assembling developer code and building {@link com.ifce.model.singletons.Game} state
      */
-    void assemble();
+    void start(String annotation);
+
+    Player getPlayer(String name, String place);
+
+    Room getRoom(String name);
+
+    Door getDoor(String name, String roomFrom, String roomTo);
+
+    Item getItem(String name, String place);
+
+    Dialog getDialog(String title, Dialog... dialogs);
+
 }

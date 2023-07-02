@@ -1,6 +1,7 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
 import com.ifce.assember.model.singletons.AsmList;
+import com.ifce.util.cor.CoRHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,16 +10,16 @@ import org.springframework.stereotype.Component;
  */
 @RequiredArgsConstructor
 @Component
-public class BindingDialogsHandler implements AssemblerHandler {
+public class BindingDialogsHandler implements CoRHandler {
     private final AsmList asmList;
 
     @Override
     public void exec() {
 //        dialogAsmList.getDialogAsms().forEach(dialogAsm -> {
-//            val dialogAsmName = dialogAsm.getName();
-//            val asmRoomFrom = dialogAsm.getItem();
-//            val asmRoomTo = dialogAsm.getRoomTo();
-//            val roomTo = objects.getRoom(asmRoomTo);
+//            var dialogAsmName = dialogAsm.getName();
+//            var asmRoomFrom = dialogAsm.getItem();
+//            var asmRoomTo = dialogAsm.getRoomTo();
+//            var roomTo = objects.getRoom(asmRoomTo);
 //            if (roomTo == null) {
 //                error(String.format(
 //                        "Assembler.bindingDoors: For door name [%s] not found roomTo name [%s]",
@@ -27,7 +28,7 @@ public class BindingDialogsHandler implements AssemblerHandler {
 //                ));
 //            }
 //
-//            val roomFrom = objects.getRoom(asmRoomFrom);
+//            var roomFrom = objects.getRoom(asmRoomFrom);
 //            if (roomFrom == null) {
 //                error(String.format(
 //                        "Assembler.bindingDoors: For door name [%s] not found roomFrom name [%s]",

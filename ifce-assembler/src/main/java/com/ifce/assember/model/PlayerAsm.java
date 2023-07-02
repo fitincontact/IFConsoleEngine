@@ -1,16 +1,11 @@
 package com.ifce.assember.model;
 
-import com.ifce.assember.assemblerHandler.AssemblerHandlerService;
-import com.ifce.model.common.Item;
+import com.ifce.model.common.Player;
 import com.ifce.model.singletons.Objects;
 import lombok.Data;
 
-/**
- * Assembling date for items
- * Use in {@link AssemblerHandlerService} for assembling
- */
 @Data
-public class ItemAsm {
+public class PlayerAsm {
     /**
      * Map to {@link Objects#items}
      */
@@ -22,15 +17,15 @@ public class ItemAsm {
     /**
      * General game object for game engine
      */
-    private final Item item;
+    private final Player player;
 
-    public ItemAsm(
+    public PlayerAsm(
             final String name,
             final String place,
             final Objects objects
     ) {
         this.name = name;
         this.place = place;
-        item = new Item(name, objects);
+        player = new Player(name, objects);
     }
 }

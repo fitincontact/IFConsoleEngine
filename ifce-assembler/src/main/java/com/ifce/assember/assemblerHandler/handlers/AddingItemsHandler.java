@@ -2,26 +2,28 @@ package com.ifce.assember.assemblerHandler.handlers;
 
 import com.ifce.assember.model.singletons.AsmList;
 import com.ifce.model.singletons.Objects;
+import com.ifce.util.cor.CoRHandler;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Component;
+
+import static com.ifce.assember.assemblerHandler.handlers.AssemblerHandler.throwError;
 
 /**
  * Add items to pool see {@link Objects}
  */
 @RequiredArgsConstructor
 @Component
-public class AddingItemsHandler implements AssemblerHandler {
+public class AddingItemsHandler implements CoRHandler {
     private final AsmList asmList;
 
     @Override
     public void exec() {
         asmList.getItemAsmList().getItemAsms().forEach(itemAsm -> {
-            val asmName = itemAsm.getName();
+            var asmName = itemAsm.getName();
             if (asmList.getObjects().isExistsItem(asmName)) {
-                error(String.format("Assembler.addItems: There is duplicate item name [%s]", asmName));
+                throwError(String.format("Assembler.addItems: There is duplicate item name [%s]", asmName));
             } else if (asmList.getObjects().isExists(asmName)) {
-                error(String.format("Assembler.addItems: There is duplicate object name [%s]", asmName));
+                throwError(String.format("Assembler.addItems: There is duplicate object name [%s]", asmName));
             } else {
                 asmList.getObjects().add(itemAsm.getItem());
             }

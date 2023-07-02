@@ -1,12 +1,11 @@
 package com.ifce.model.singletons;
 
-import com.ifce.model.main.Dialog;
-import com.ifce.model.main.Door;
-import com.ifce.model.main.Item;
-import com.ifce.model.main.Room;
-import com.ifce.model.main.enums.ObjectType;
+import com.ifce.model.common.Dialog;
+import com.ifce.model.common.Door;
+import com.ifce.model.common.Item;
+import com.ifce.model.common.Room;
+import com.ifce.model.common.enums.ObjectType;
 import lombok.Data;
-import lombok.val;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -61,25 +60,25 @@ public class Objects {
     }
 
     public void add(final Room room) {
-        val word = room.getName();
+        var word = room.getName();
         rooms.put(word, room);
         objectTypes.put(word, ObjectType.ROOM);
     }
 
     public void add(Item item) {
-        val word = item.getName();
+        var word = item.getName();
         items.put(word, item);
         objectTypes.put(word, ObjectType.ITEM);
     }
 
     public void add(final Door door) {
-        val word = door.getName();
+        var word = door.getName();
         doors.put(word, door);
         objectTypes.put(word, ObjectType.DOOR);
     }
 
     public void add(final Dialog dialog) {
-        val word = dialog.getName();
+        var word = dialog.getName();
         dialogs.put(word, dialog);
         objectTypes.put(word, ObjectType.DIALOG);
     }
@@ -100,8 +99,8 @@ public class Objects {
      */
     public Room getItemRoom(final Item item) {
         Room room = null;
-        val rooms = new ArrayList<>(getRooms().values());
-        for (val r : rooms) {
+        var rooms = new ArrayList<>(getRooms().values());
+        for (var r : rooms) {
             if (r.contains(item)) {
                 room = r;
             }

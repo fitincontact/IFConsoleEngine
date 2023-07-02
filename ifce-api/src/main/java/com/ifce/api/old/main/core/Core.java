@@ -1,12 +1,11 @@
 package com.ifce.api.old.main.core;
 
-import com.ifce.api.old.main.enums.EffectType;
-import com.ifce.api.old.main.format.Format1;
-import com.ifce.api.old.main.object.Inventory1;
-import com.ifce.api.old.main.object.Item1;
-import com.ifce.api.old.main.object.Room1;
-import com.ifce.api.old.main.utils.Print1;
-import com.ifce.api.old.main.utils.SaveLoad1;
+import com.ifce.format.Format;
+import com.ifce.model.common.Inventory;
+import com.ifce.model.common.Item;
+import com.ifce.model.common.Room;
+import com.ifce.model.common.enums.EffectType;
+import com.ifce.saver.SaveLoad;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,20 +15,20 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-import static com.ifce.api.old.main.utils.Print1.p;
-import static com.ifce.api.old.main.utils.Print1.pl;
+import static com.ifce.util.Print.p;
+import static com.ifce.util.Print.pl;
 
 public class Core {
-
     private final Monitor monitor = Monitor.getInstance();
-    private final Format1 format1 = Format1.getInstance();
+    private final Format format = Format.getInstance();
+    SaveLoad saveLoad;
 
     protected Core(
-            final Room1 room1,
-            final Inventory1 inventory1
+            final Room room,
+            final Inventory inventory
     ) {
-        this.monitor.setRoomCurrent(room1);
-        this.monitor.setInventoryCurrent(inventory1);
+        this.monitor.setRoomCurrent(room);
+        this.monitor.setInventoryCurrent(inventory);
         this.monitor.setVictory(false);
     }
 
@@ -38,10 +37,10 @@ public class Core {
         String word;
         pl(monitor.toStrRoomCurrent());
         while (!monitor.isVictory()) {
-            p(format1.getConsoleHead());
+            p(format.getConsoleHead());
             word = reader.readLine();
 
-            if (!word.equals(Format1.EMPTY) && !defineShotWord(word)) {
+            if (!word.equals(Format.EMPTY) && !defineShotWord(word)) {
                 defineEffect(word);
                 produceEffect(monitor);
             }
@@ -49,32 +48,32 @@ public class Core {
     }
 
     private boolean defineShotWord(final String word) throws IOException, ClassNotFoundException {
-        if (word.equals(format1.getFlagFinish().cmd())) {
-            Print1.p(format1.getFlagFinish().print());
+        if (word.equals(format.getFlagFinish())) {
+            p(format.getFlagFinish());
             monitor.setVictory(true);
             return true;
         }
-        if (word.equals(format1.getFlagItems().cmd())) {
-            Print1.p(format1.getFlagItems().print());
-            pl(monitor.getRoomCurrent().riString());
+        if (word.equals(format.getFlagItems())) {
+            p(format.getFlagItems().toString());
+            pl(monitor.getRoomCurrent().toString());
             return true;
         }
-        if (word.equals(format1.getFlagInventory().cmd())) {
-            Print1.p(format1.getFlagInventory().print());
-            pl(monitor.getInventoryCurrent().toStr());
+        if (word.equals(format.getFlagInventory().toString())) {
+            p(format.getFlagInventory().toString());
+            pl(monitor.getInventoryCurrent().toString());
             return true;
         }
-        if (word.equals(format1.getFlagRoom().cmd())) {
+        if (word.equals(format.getFlagRoom().toString())) {
             pl(monitor.toStrRoomCurrent());
             return true;
         }
-        final String[] splitWords = word.split(Format1.SPLIT_SPACE);
-        if (splitWords[0].equals(format1.getFlagSave())) {
-            SaveLoad1.save(splitWords);
+        final String[] splitWords = word.split(Format.SPLIT_SPACE);
+        if (splitWords[0].equals(format.getFlagSave())) {
+            SaveLoad.save(splitWords);
             return true;
         }
-        if (splitWords[0].equals(format1.getFlagLoad())) {
-            SaveLoad1.load(splitWords);
+        if (splitWords[0].equals(format.getFlagLoad())) {
+            SaveLoad.load(splitWords);
             return true;
         }
         return false;
@@ -86,9 +85,9 @@ public class Core {
         final var isInInventory = new AtomicBoolean(false);
         final var isInWay = new AtomicBoolean(false);
 
-        if (word.indexOf(format1.getUseSplitSymbol()) > 0) {
+        if (word.indexOf(format.getUseSplitSymbol()) > 0) {
             final var splitWords = new ArrayList<String>();
-            for (final String splitWord : word.split(format1.getUseSplitSymbol())) {
+            for (final String splitWord : word.split(format.getUseSplitSymbol())) {
 
                 final String splitUnSpaceWord = splitWord.trim();
                 splitWords.add(splitUnSpaceWord);
@@ -182,8 +181,8 @@ public class Core {
         }
 
         if (monitor.getActType() == EffectType.USE_ITEM) {
-            final Item1 rootItem1OrRandom = getItemRootOrRandom(monitor.getItemsUse());
-            pl(rootItem1OrRandom.use(
+            final Item rootItemOrRandom = getItemRootOrRandom(monitor.getItemsUse());
+            pl(rootItemOrRandom.use(
                     monitor.getRoomCurrent(),
                     monitor.getItemsUse()
             ));
@@ -227,22 +226,22 @@ public class Core {
 
     private void unDefininedWord(final String word) {
         if (monitor.toString().contains(word)) {
-            pl(word + format1.getUnDefininedWordIfContains());
+            pl(word + format.getUnDefininedWordIfContains());
             return;
         }
-        pl(word + format1.getUnDefininedWordIfNotContains());
+        pl(word + format.getUnDefininedWordIfNotContains());
     }
 
     //todo naming logic
     private void unDefininedWord2(final String word) {
-        pl(word + format1.getUnDefininedWordUse());
+        pl(word + format.getUnDefininedWordUse());
     }
 
-    private Item1 getItemRootOrRandom(final List<Item1> useItem1s) {
-        final List<Item1> useItemsWithNonDefaultUse =
-                useItem1s.stream().filter(i -> i.getUse() != null).collect(Collectors.toList());
+    private Item getItemRootOrRandom(final List<Item> useItems) {
+        final List<Item> useItemsWithNonDefaultUse =
+                useItems.stream().filter(i -> i.getUse()).collect(Collectors.toList());
         if (useItemsWithNonDefaultUse.size() != 1) {
-            return useItem1s.get(0);
+            return useItems.get(0);
         }
         return useItemsWithNonDefaultUse.get(0);
     }

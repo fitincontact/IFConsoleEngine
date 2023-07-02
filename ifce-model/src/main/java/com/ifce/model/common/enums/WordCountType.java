@@ -1,4 +1,4 @@
-package com.ifce.model.main.enums;
+package com.ifce.model.common.enums;
 
 import lombok.RequiredArgsConstructor;
 

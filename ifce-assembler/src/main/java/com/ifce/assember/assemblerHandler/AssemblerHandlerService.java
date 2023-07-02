@@ -1,6 +1,7 @@
 package com.ifce.assember.assemblerHandler;
 
 import com.ifce.assember.assemblerHandler.handlers.*;
+import com.ifce.util.cor.CoRExecutor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,8 @@ public class AssemblerHandlerService {
     /**
      * Method includes all steps for assembling objects for game
      */
-    public void handler() {
-        new AssemblerExecutor()
-                .addHandler(validateHandler)
+    public void handle() {
+        new CoRExecutor(validateHandler)
                 .addHandler(addingRoomsHandler)
                 .addHandler(addingItemsHandler)
                 .addHandler(addingDoorsHandler)

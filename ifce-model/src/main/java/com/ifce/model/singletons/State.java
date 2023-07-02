@@ -1,10 +1,10 @@
 package com.ifce.model.singletons;
 
-import com.ifce.model.main.Door;
-import com.ifce.model.main.Item;
-import com.ifce.model.main.Room;
-import com.ifce.model.main.Word;
-import com.ifce.model.main.enums.WordCountType;
+import com.ifce.model.common.Door;
+import com.ifce.model.common.Item;
+import com.ifce.model.common.Room;
+import com.ifce.model.common.Word;
+import com.ifce.model.common.enums.WordCountType;
 import com.ifce.util.Print;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -44,7 +44,7 @@ public class State {
      */
     private Door door;
     /**
-     * If complited for finalizer
+     * If completed for finalizer
      */
     private boolean isOmit;
     /**

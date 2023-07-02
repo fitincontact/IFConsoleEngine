@@ -1,9 +1,8 @@
 package com.ifce.assember.model.singletons;
 
 import com.ifce.assember.model.ItemAsm;
-import com.ifce.model.main.Item;
+import com.ifce.model.common.Item;
 import lombok.Data;
-import lombok.val;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class ItemAsmList {
     }
 
     public Item getItem(final String name) {
-        for (val i : itemAsms) {
+        for (var i : itemAsms) {
             if (i.getItem().getName().equals(name)) {
                 return i.getItem();
             }

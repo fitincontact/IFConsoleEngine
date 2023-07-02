@@ -71,8 +71,8 @@ public class AssebmlerFailTest {
         doorAsmList = new DoorAsmList();
         objects = new Objects();
         gameAsm = new GameAsm();
-
-        asmList = new AsmList(dialogAsmList, doorAsmList, itemAsmList, roomAsmList, gameAsm, objects);
+        PlayerAsmList playerAsmList = null;
+        asmList = new AsmList(dialogAsmList, doorAsmList, itemAsmList, playerAsmList, roomAsmList, gameAsm, objects);
         game = new Game(format, asmList.getObjects());
 
         validateHandler = new ValidateHandler(asmList);
@@ -96,7 +96,7 @@ public class AssebmlerFailTest {
                 bindingDialogsHandler,
                 gameProcessHandler
         );
-        assemblerService = new AssemblerServiceImpl(assemblerHandlerService);
+        assemblerService = new AssemblerServiceImpl(assemblerHandlerService, asmList);
         state = new State(game);
 
         ifceService = new IFCEServiceImpl(
@@ -115,7 +115,7 @@ public class AssebmlerFailTest {
         ifceService.room(ROOM_1);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -132,7 +132,7 @@ public class AssebmlerFailTest {
         ifceService.item(ITEM_1, ROOM_2);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -150,7 +150,7 @@ public class AssebmlerFailTest {
         ifceService.door(DOOR, ROOM_1, ROOM_2);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -166,7 +166,7 @@ public class AssebmlerFailTest {
         var msg = "";
         try {
             ifceService.story(ITEM_1, ANNOTATION);
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -190,7 +190,7 @@ public class AssebmlerFailTest {
         ifceService.item(ROOM_1, ROOM_2);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -210,7 +210,7 @@ public class AssebmlerFailTest {
             ifceService.story(ITEM_1, ANNOTATION);
             ifceService.item(ITEM_1, ROOM_1);
             ifceService.room(ROOM_1);
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -229,7 +229,7 @@ public class AssebmlerFailTest {
         ifceService.door(DOOR, ROOM_1, ROOM_2);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -244,7 +244,7 @@ public class AssebmlerFailTest {
         var msg = "";
         try {
             ifceService.story(ITEM_1, ITEM_1);
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -262,7 +262,7 @@ public class AssebmlerFailTest {
         ifceService.room(ROOM_1);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -279,7 +279,7 @@ public class AssebmlerFailTest {
         ifceService.room(ITEM_1);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -296,7 +296,7 @@ public class AssebmlerFailTest {
         ifceService.door(ITEM_1, ROOM_1, ROOM_2);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -312,7 +312,7 @@ public class AssebmlerFailTest {
         //ifceService.dialog(ITEM,);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -330,7 +330,7 @@ public class AssebmlerFailTest {
         ifceService.door(ITEM_1, ROOM_1, ROOM_2);
         var msg = "";
         try {
-            ifceService.start();
+            ifceService.start("");
         } catch (RuntimeException e) {
             msg = e.getMessage();
         }
@@ -344,10 +344,10 @@ public class AssebmlerFailTest {
 //    @MethodSource("sumTestData")
 //    public void story(int a, int b, int expectedSum) {
 //        Assertions.assertEquals(expectedSum, a + b);
-//        val hero = ifceService.item("Аруй", "двор");
-//        val hero2 = ifceService.item("Аруй", "двор");
+//        var hero = ifceService.item("Аруй", "двор");
+//        var hero2 = ifceService.item("Аруй", "двор");
 //        //System.out.println(hero);
-//        ifceService.start();
+//        ifceService.start("");
 //    }
 //    public static Object[][] sumTestData() {
 //        return new Object[][]{

@@ -2,26 +2,28 @@ package com.ifce.assember.assemblerHandler.handlers;
 
 import com.ifce.assember.model.singletons.AsmList;
 import com.ifce.model.singletons.Objects;
+import com.ifce.util.cor.CoRHandler;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Component;
+
+import static com.ifce.assember.assemblerHandler.handlers.AssemblerHandler.throwError;
 
 /**
  * Add dialogs to pool see {@link Objects}
  */
 @RequiredArgsConstructor
 @Component
-public class AddingDialogsHandler implements AssemblerHandler {
+public class AddingDialogsHandler implements CoRHandler {
     private final AsmList asmList;
 
     @Override
     public void exec() {
         asmList.getDialogAsmList().getDialogAsms().forEach(dialogAsm -> {
-            val asmName = dialogAsm.getName();
+            var asmName = dialogAsm.getName();
             if (asmList.getObjects().isExistsDialog(asmName)) {
-                error(String.format("Assembler.addDialogs: There is duplicate dialog name [%s]", asmName));
+                throwError(String.format("Assembler.addDialogs: There is duplicate dialog name [%s]", asmName));
             } else if (asmList.getObjects().isExists(asmName)) {
-                error(String.format("Assembler.addDialogs: There is duplicate object name [%s]", asmName));
+                throwError(String.format("Assembler.addDialogs: There is duplicate object name [%s]", asmName));
             } else {
                 //TODO
                 asmList.getObjects().add(dialogAsm.getDialogs().get(0));

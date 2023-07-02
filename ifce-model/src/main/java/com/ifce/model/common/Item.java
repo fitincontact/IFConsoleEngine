@@ -1,9 +1,8 @@
-package com.ifce.model.main;
+package com.ifce.model.common;
 
-import com.ifce.model.main.enums.PlaceType;
+import com.ifce.model.common.enums.PlaceType;
 import com.ifce.model.singletons.Objects;
 import lombok.Data;
-import lombok.val;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +30,14 @@ public class Item extends ObjectAbstract {
     }
 
     public void move(final String word) {
-        val type = objects.defineObjectType(word);
+        var type = objects.defineObjectType(word);
         switch (type) {
             case ITEM -> {
-                val item = objects.getItem(word);
+                var item = objects.getItem(word);
                 move(item);
             }
             case ROOM -> {
-                val room = objects.getRoom(word);
+                var room = objects.getRoom(word);
                 move(room);
             }
         }
@@ -52,5 +51,21 @@ public class Item extends ObjectAbstract {
         //todo
         //this.inventory.
         item.add(this);
+    }
+
+    public Object getWord() {
+        return null;
+    }
+
+    public List<String> use(Room roomCurrent, List<Item> itemsUse) {
+        return null;
+    }
+
+    public List<String> act(Room roomCurrent, Inventory inventoryCurrent) {
+        return null;
+    }
+
+    public boolean getUse() {
+        return false;
     }
 }

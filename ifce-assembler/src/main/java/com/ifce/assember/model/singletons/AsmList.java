@@ -13,6 +13,7 @@ public class AsmList {
     private final DialogAsmList dialogAsmList;
     private final DoorAsmList doorAsmList;
     private final ItemAsmList itemAsmList;
+    private final PlayerAsmList playerAsmList;
     private final RoomAsmList roomAsmList;
     private final GameAsm gameAsm;
     private final Objects objects;

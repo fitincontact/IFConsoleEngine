@@ -7,7 +7,6 @@ import com.ifce.model.singletons.State;
 import com.ifce.service.EngineService;
 import com.ifce.util.Print;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -25,7 +24,9 @@ public class EngineServiceImpl implements EngineService {
 
     @Override
     public void start() {
-        val reader = new BufferedReader(new InputStreamReader(System.in));
+        state.init();
+
+        var reader = new BufferedReader(new InputStreamReader(System.in));
         Print.pl(game.getAnnotation());
         while (!state.isEnd()) {
             Print.p(format.getConsoleHead());

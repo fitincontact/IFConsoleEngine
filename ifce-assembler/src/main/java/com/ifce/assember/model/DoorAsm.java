@@ -1,7 +1,7 @@
 package com.ifce.assember.model;
 
 import com.ifce.assember.assemblerHandler.AssemblerHandlerService;
-import com.ifce.model.main.Door;
+import com.ifce.model.common.Door;
 import com.ifce.model.singletons.Objects;
 import lombok.Data;
 

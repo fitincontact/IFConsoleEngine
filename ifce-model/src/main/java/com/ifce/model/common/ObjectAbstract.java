@@ -1,4 +1,4 @@
-package com.ifce.model.main;
+package com.ifce.model.common;
 
 import lombok.Data;
 

@@ -11,7 +11,6 @@ import com.ifce.model.singletons.Objects;
 import com.ifce.model.singletons.State;
 import com.ifce.service.AssemblerService;
 import com.ifce.service.EngineService;
-import lombok.val;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,7 +73,7 @@ public class AssemblerSuccessTest {
         objects = new Objects();
         gameAsm = new GameAsm();
 
-        asmList = new AsmList(dialogAsmList, doorAsmList, itemAsmList, roomAsmList, gameAsm, objects);
+        asmList = new AsmList(dialogAsmList, doorAsmList, itemAsmList, null, roomAsmList, gameAsm, objects);
         game = new Game(format, asmList.getObjects());
 
         validateHandler = new ValidateHandler(asmList);
@@ -98,7 +97,7 @@ public class AssemblerSuccessTest {
                 bindingDialogsHandler,
                 gameProcessHandler
         );
-        assemblerService = new AssemblerServiceImpl(assemblerHandlerService);
+        assemblerService = new AssemblerServiceImpl(assemblerHandlerService, asmList);
         state = new State(game);
 
         ifceService = new IFCEServiceImpl(
@@ -117,7 +116,7 @@ public class AssemblerSuccessTest {
         ifceService.item(ITEM_3, ROOM_2);
         var room1 = ifceService.room(ROOM_1);
         var room2 = ifceService.room(ROOM_2);
-        ifceService.start();
+        ifceService.start("");
 
         Assertions.assertEquals(
                 game.getAnnotation(),
@@ -143,11 +142,11 @@ public class AssemblerSuccessTest {
     public void storyTest() {
         ifceService.story(ITEM_1, ANNOTATION);
         ifceService.item(ITEM_1, ROOM_1);
-        val door = ifceService.door(DOOR, ROOM_1, ROOM_2);
+        var door = ifceService.door(DOOR, ROOM_1, ROOM_2);
         ifceService.room(ROOM_1);
         ifceService.room(ROOM_2);
-        val item2 = ifceService.item(ITEM_2, ITEM_1);
-        ifceService.start();
+        var item2 = ifceService.item(ITEM_2, ITEM_1);
+        ifceService.start("");
 
         Assertions.assertEquals(
                 game.getAnnotation(),

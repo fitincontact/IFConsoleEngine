@@ -28,7 +28,7 @@ public class ValidateHandlerTest {
     @Test
     public void validatePlayer() {
         when(asmList.getGameAsm()).thenReturn(gameAsm);
-        when(asmList.getGameAsm().getPlayerName()).thenReturn(null);
+        when(asmList.getGameAsm().getPlayerNames()).thenReturn(null);
         when(asmList.getItemAsmList()).thenReturn(itemAsmList);
         when(asmList.getItemAsmList().getItem(any())).thenReturn(null);
 

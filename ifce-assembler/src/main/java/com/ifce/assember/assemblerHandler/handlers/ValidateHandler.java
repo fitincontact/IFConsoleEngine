@@ -1,16 +1,18 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
 import com.ifce.assember.model.singletons.AsmList;
+import com.ifce.util.cor.CoRHandler;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Component;
+
+import static com.ifce.assember.assemblerHandler.handlers.AssemblerHandler.throwError;
 
 /**
  * Validate game state
  */
 @RequiredArgsConstructor
 @Component
-public class ValidateHandler implements AssemblerHandler {
+public class ValidateHandler implements CoRHandler {
     private final AsmList asmList;
 
     @Override
@@ -19,9 +21,9 @@ public class ValidateHandler implements AssemblerHandler {
     }
 
     private void validatePlayer() {
-        val player = asmList.getItemAsmList().getItem(asmList.getGameAsm().getPlayerName());
+        var player = asmList.getItemAsmList().getItem(asmList.getGameAsm().getPlayerNames().get(0));
         if (player == null) {
-            error("Assembler.ValidateHandler: Player is not created");
+            throwError("Assembler.ValidateHandler: Player is not created");
         }
     }
 }

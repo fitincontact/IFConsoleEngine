@@ -1,36 +1,38 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
 import com.ifce.assember.model.singletons.AsmList;
+import com.ifce.util.cor.CoRHandler;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Component;
+
+import static com.ifce.assember.assemblerHandler.handlers.AssemblerHandler.throwError;
 
 /**
  * Arrange doors in rooms
  */
 @RequiredArgsConstructor
 @Component
-public class BindingDoorsHandler implements AssemblerHandler {
+public class BindingDoorsHandler implements CoRHandler {
     private final AsmList asmList;
 
     @Override
     public void exec() {
         asmList.getDoorAsmList().getDoorAsms().forEach(doorAsm -> {
-            val asmDoorName = doorAsm.getName();
-            val asmRoomFrom = doorAsm.getRoomFrom();
-            val asmRoomTo = doorAsm.getRoomTo();
-            val roomTo = asmList.getObjects().getRoom(asmRoomTo);
+            var asmDoorName = doorAsm.getName();
+            var asmRoomFrom = doorAsm.getRoomFrom();
+            var asmRoomTo = doorAsm.getRoomTo();
+            var roomTo = asmList.getObjects().getRoom(asmRoomTo);
             if (roomTo == null) {
-                error(String.format(
+                throwError(String.format(
                         "Assembler.bindingDoors: For door name [%s] not found roomTo name [%s]",
                         asmDoorName,
                         asmRoomTo
                 ));
             }
 
-            val roomFrom = asmList.getObjects().getRoom(asmRoomFrom);
+            var roomFrom = asmList.getObjects().getRoom(asmRoomFrom);
             if (roomFrom == null) {
-                error(String.format(
+                throwError(String.format(
                         "Assembler.bindingDoors: For door name [%s] not found roomFrom name [%s]",
                         asmDoorName,
                         asmRoomFrom

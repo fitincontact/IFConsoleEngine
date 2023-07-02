@@ -1,3 +1,9 @@
+dialog
+door
+item
+player
+
+
 
 
 "single abstract method", and "SAM-type" refers to interfaces like Runnable, Callable, etc.
