@@ -8,11 +8,12 @@ import org.springframework.lang.NonNull;
  */
 public interface IFCEService {
     /**
-     * @param name  player name
-     * @param place player room
+     * @param name player name
+     * @param room player room
      * @return player
      */
-    Player player(String name, String place);
+    Player player(String name,
+                  String room);
 
     /**
      * Main Room constructor
@@ -44,8 +45,7 @@ public interface IFCEService {
     Door door(
             @NonNull String name,
             @NonNull String roomFrom,
-            String roomTo
-    );
+            String roomTo);
 
     /**
      * Main Dialog constructor
@@ -73,10 +73,12 @@ public interface IFCEService {
             @NonNull Dialog... dialogs
     );
 
+    void story(
+            String item,
+            String annotation);
+
     /**
      * Start game
      */
     void start(String annotation);
-
-    void story(String item1, String annotation);
 }

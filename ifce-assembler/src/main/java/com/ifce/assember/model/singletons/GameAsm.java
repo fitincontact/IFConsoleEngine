@@ -19,6 +19,4 @@ public class GameAsm {
      * Game annotation
      */
     private String annotation;
-
-
 }

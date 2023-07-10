@@ -17,14 +17,14 @@ public class ItemAsmList {
     /**
      * All ItemAsm
      */
-    private final List<ItemAsm> itemAsms = new ArrayList<>();
+    private final List<ItemAsm> itemAsmList = new ArrayList<>();
 
     public void add(final ItemAsm itemAsm) {
-        itemAsms.add(itemAsm);
+        itemAsmList.add(itemAsm);
     }
 
     public Item getItem(final String name) {
-        for (var i : itemAsms) {
+        for (var i : itemAsmList) {
             if (i.getItem().getName().equals(name)) {
                 return i.getItem();
             }

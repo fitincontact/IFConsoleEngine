@@ -18,7 +18,7 @@ public class AddingDialogsHandler implements CoRHandler {
 
     @Override
     public void exec() {
-        asmList.getDialogAsmList().getDialogAsms().forEach(dialogAsm -> {
+        asmList.getDialogAsmList().getDialogAsmList().forEach(dialogAsm -> {
             var asmName = dialogAsm.getName();
             if (asmList.getObjects().isExistsDialog(asmName)) {
                 throwError(String.format("Assembler.addDialogs: There is duplicate dialog name [%s]", asmName));

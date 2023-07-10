@@ -23,7 +23,7 @@ public class DoorAsm {
     @SuppressWarnings("JavadocReference")
     private final String roomFrom;
     /**
-     * Connect to room which this door opens
+     * Connect to room which this door can open
      * {@link Objects#rooms}
      */
     @SuppressWarnings("JavadocReference")

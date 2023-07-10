@@ -18,6 +18,7 @@ public class DialogAsm {
     /**
      * Map to {@link Objects#dialogs}
      */
+    @SuppressWarnings("JavadocReference")
     private final String name;
     /**
      * General game object for game engine

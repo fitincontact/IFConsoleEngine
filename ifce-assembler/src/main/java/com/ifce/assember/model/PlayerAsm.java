@@ -9,11 +9,12 @@ public class PlayerAsm {
     /**
      * Map to {@link Objects#items}
      */
+    @SuppressWarnings("JavadocReference")
     private final String name;
     /**
      * Room or item where this item is placed
      */
-    private final String place;
+    private final String room;
     /**
      * General game object for game engine
      */
@@ -21,11 +22,11 @@ public class PlayerAsm {
 
     public PlayerAsm(
             final String name,
-            final String place,
+            final String room,
             final Objects objects
     ) {
         this.name = name;
-        this.place = place;
+        this.room = room;
         player = new Player(name, objects);
     }
 }

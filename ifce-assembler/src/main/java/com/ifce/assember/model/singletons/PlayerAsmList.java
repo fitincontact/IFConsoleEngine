@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerAsmList {
-    private final List<PlayerAsm> playerAsms = new ArrayList<>();
+    private final List<PlayerAsm> playerAsmList = new ArrayList<>();
 
     public void add(final PlayerAsm playerAsm) {
-        playerAsms.add(playerAsm);
+        playerAsmList.add(playerAsm);
     }
 
     public Player getItem(final String name) {
-        for (var i : playerAsms) {
+        for (var i : playerAsmList) {
             if (i.getPlayer().getName().equals(name)) {
                 return i.getPlayer();
             }

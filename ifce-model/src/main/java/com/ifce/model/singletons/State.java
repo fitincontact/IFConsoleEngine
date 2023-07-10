@@ -3,7 +3,7 @@ package com.ifce.model.singletons;
 import com.ifce.model.common.Door;
 import com.ifce.model.common.Item;
 import com.ifce.model.common.Room;
-import com.ifce.model.common.Word;
+import com.ifce.model.common.Words;
 import com.ifce.model.common.enums.WordCountType;
 import com.ifce.util.Print;
 import lombok.Data;
@@ -24,9 +24,9 @@ public class State {
      */
     private Item player;
     /**
-     * Console raw word
+     * Console raw words
      */
-    private Word word;
+    private Words words;
     /**
      * Current room
      */
@@ -34,7 +34,7 @@ public class State {
     /**
      * Console split words (just not defined)
      */
-    private List<String> words = new ArrayList<>();
+    private List<String> consoleWords = new ArrayList<>();
     /**
      * Defined items
      */
@@ -62,7 +62,7 @@ public class State {
     public void clear() {
         isOmit = false;
         wordCountType = WordCountType.EMPTY;
-        words.clear();
+        consoleWords.clear();
     }
 
     public void init() {

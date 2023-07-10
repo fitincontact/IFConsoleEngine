@@ -18,7 +18,7 @@ public class AddingRoomsHandler implements CoRHandler {
 
     @Override
     public void exec() {
-        asmList.getRoomAsmList().getRoomAsms().forEach(roomAsm -> {
+        asmList.getRoomAsmList().getRoomAsmList().forEach(roomAsm -> {
             var asmName = roomAsm.getName();
             if (asmList.getObjects().isExistsRoom(asmName)) {
                 throwError(String.format("Assembler.addRooms: There is duplicate room name [%s]", asmName));

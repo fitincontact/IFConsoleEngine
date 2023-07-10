@@ -18,7 +18,7 @@ public class AddingItemsHandler implements CoRHandler {
 
     @Override
     public void exec() {
-        asmList.getItemAsmList().getItemAsms().forEach(itemAsm -> {
+        asmList.getItemAsmList().getItemAsmList().forEach(itemAsm -> {
             var asmName = itemAsm.getName();
             if (asmList.getObjects().isExistsItem(asmName)) {
                 throwError(String.format("Assembler.addItems: There is duplicate item name [%s]", asmName));

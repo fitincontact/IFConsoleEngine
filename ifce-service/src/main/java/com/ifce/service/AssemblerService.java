@@ -32,11 +32,6 @@ import com.ifce.model.common.*;
  * place name = string name = "yard"
  */
 public interface AssemblerService {
-    /**
-     * Assembling developer code and building {@link com.ifce.model.singletons.Game} state
-     */
-    void start(String annotation);
-
     Player getPlayer(String name, String place);
 
     Room getRoom(String name);
@@ -47,4 +42,8 @@ public interface AssemblerService {
 
     Dialog getDialog(String title, Dialog... dialogs);
 
+    /**
+     * Assembling developer code and building {@link com.ifce.model.singletons.Game} state
+     */
+    void start(String annotation);
 }

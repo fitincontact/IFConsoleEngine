@@ -5,6 +5,8 @@ import com.ifce.util.cor.CoRHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.text.MessageFormat;
+
 import static com.ifce.assember.assemblerHandler.handlers.AssemblerHandler.throwError;
 
 /**
@@ -21,9 +23,11 @@ public class ValidateHandler implements CoRHandler {
     }
 
     private void validatePlayer() {
-        var player = asmList.getItemAsmList().getItem(asmList.getGameAsm().getPlayerNames().get(0));
-        if (player == null) {
-            throwError("Assembler.ValidateHandler: Player is not created");
-        }
+        asmList.getPlayerNames().forEach(asmPlayer -> {
+            var player = asmList.getItemAsmList().getItem(asmPlayer);
+            if (player == null) {
+                throwError(MessageFormat.format("Assembler.ValidateHandler: Player {0} is not created", asmPlayer));
+            }
+        });
     }
 }

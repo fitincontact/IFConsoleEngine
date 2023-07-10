@@ -18,7 +18,7 @@ public class AddingDoorsHandler implements CoRHandler {
 
     @Override
     public void exec() {
-        asmList.getDoorAsmList().getDoorAsms().forEach(doorAsm -> {
+        asmList.getDoorAsmList().getDoorAsmList().forEach(doorAsm -> {
             var asmName = doorAsm.getName();
             if (asmList.getObjects().isExistsDoor(asmName)) {
                 throwError(String.format("Assembler.addDoors: There is duplicate door name [%s]", asmName));

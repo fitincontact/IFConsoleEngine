@@ -24,8 +24,8 @@ public class BindingItemsHandler implements CoRHandler {
 
     @Override
     public void exec() {
-        asmList.getItemAsmList().getItemAsms().forEach(itemAsm -> {
-            var asmPlaceName = itemAsm.getPlace();
+        asmList.getItemAsmList().getItemAsmList().forEach(itemAsm -> {
+            var asmPlaceName = itemAsm.getRoom();
             var room = asmList.getObjects().getRoom(asmPlaceName);
             var item = asmList.getObjects().getItem(asmPlaceName);
             checkError(room, item, itemAsm);
@@ -37,7 +37,7 @@ public class BindingItemsHandler implements CoRHandler {
     private void checkError(final Room room, final Item item, final ItemAsm itemAsm) {
         if (room == null && item == null) {
             var itemName = itemAsm.getName();
-            var asmPlaceName = itemAsm.getPlace();
+            var asmPlaceName = itemAsm.getRoom();
             var msgRoom = String.format("Assembler.bindingItems: For item name [%s] not found room name [%s]", itemName, asmPlaceName);
             var msgItem = String.format("Assembler.bindingItems: For item name [%s] not found item name [%s]", itemName, asmPlaceName);
             throwError(msgRoom + "\n" + msgItem);

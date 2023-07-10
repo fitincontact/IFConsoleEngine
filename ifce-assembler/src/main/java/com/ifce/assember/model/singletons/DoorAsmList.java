@@ -16,9 +16,9 @@ public class DoorAsmList {
     /**
      * All DoorAsm
      */
-    private final List<DoorAsm> doorAsms = new ArrayList<>();
+    private final List<DoorAsm> doorAsmList = new ArrayList<>();
 
     public void add(DoorAsm doorAsm) {
-        doorAsms.add(doorAsm);
+        doorAsmList.add(doorAsm);
     }
 }

@@ -17,7 +17,7 @@ public class BindingDoorsHandler implements CoRHandler {
 
     @Override
     public void exec() {
-        asmList.getDoorAsmList().getDoorAsms().forEach(doorAsm -> {
+        asmList.getDoorAsmList().getDoorAsmList().forEach(doorAsm -> {
             var asmDoorName = doorAsm.getName();
             var asmRoomFrom = doorAsm.getRoomFrom();
             var asmRoomTo = doorAsm.getRoomTo();

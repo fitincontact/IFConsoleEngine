@@ -16,9 +16,9 @@ public class DialogAsmList {
     /**
      * All DialogAsm
      */
-    private final List<DialogAsm> dialogAsms = new ArrayList<>();
+    private final List<DialogAsm> dialogAsmList = new ArrayList<>();
 
     public void add(DialogAsm dialogAsm) {
-        dialogAsms.add(dialogAsm);
+        dialogAsmList.add(dialogAsm);
     }
 }

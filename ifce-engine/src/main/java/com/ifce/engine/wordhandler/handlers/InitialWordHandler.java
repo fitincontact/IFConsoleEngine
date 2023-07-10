@@ -23,7 +23,7 @@ public class InitialWordHandler implements WordHandler {
     }
 
     public WordHandler init(final String word) {
-        state.getWord().add(word);
+        state.getConsoleWords().add(word);
         return this;
     }
 }

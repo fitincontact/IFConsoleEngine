@@ -3,7 +3,7 @@ package com.ifce.model.common.enums;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Word count type for console word
+ * Words count type for console word
  */
 @RequiredArgsConstructor
 public enum WordCountType {

@@ -28,8 +28,8 @@ public class IFCEServiceImpl implements IFCEService {
     }
 
     @Override
-    public Player player(String name, String place) {
-        return assemblerService.getPlayer(name, place);
+    public Player player(String name, String room) {
+        return assemblerService.getPlayer(name, room);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class IFCEServiceImpl implements IFCEService {
     }
 
     @Override
-    public void story(String item1, String annotation) {
+    public void story(String item, String annotation) {
 
     }
 }

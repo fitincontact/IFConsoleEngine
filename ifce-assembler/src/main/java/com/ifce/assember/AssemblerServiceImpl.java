@@ -20,43 +20,43 @@ public class AssemblerServiceImpl implements AssemblerService {
     }
 
     @Override
-    public void start(String annotation) {
-        asmList.getGameAsm().setAnnotation(annotation);
-        assemblerHandlerService.handle();
-    }
-
-    @Override
-    public Player getPlayer(String name, String place) {
-        var asm = new PlayerAsm(name, place, asmList.getObjects());
-        asmList.getPlayerAsmList().add(asm);
+    public Player getPlayer(String name, String room) {
+        var asm = new PlayerAsm(name, room, asmList.getObjects());
+        asmList.add(asm);
         return asm.getPlayer();
     }
 
     @Override
     public Room getRoom(String name) {
         var asm = new RoomAsm(name);
-        asmList.getRoomAsmList().add(asm);
+        asmList.add(asm);
         return asm.getRoom();
     }
 
     @Override
     public Door getDoor(String name, String roomFrom, String roomTo) {
         var asm = new DoorAsm(name, roomFrom, roomTo);
-        asmList.getDoorAsmList().add(asm);
+        asmList.add(asm);
         return asm.getDoor();
     }
 
     @Override
-    public Item getItem(String name, String place) {
-        var asm = new ItemAsm(name, place, asmList.getObjects());
-        asmList.getItemAsmList().add(asm);
+    public Item getItem(String name, String room) {
+        var asm = new ItemAsm(name, room, asmList.getObjects());
+        asmList.add(asm);
         return asm.getItem();
     }
 
     @Override
     public Dialog getDialog(String title, Dialog... dialogs) {
         var dialogAsm = new DialogAsm(title, dialogs);
-        asmList.getDialogAsmList().add(dialogAsm);
+        asmList.add(dialogAsm);
         return dialogAsm.getDialogs().get(0);
+    }
+
+    @Override
+    public void start(String annotation) {
+        asmList.setAnnotation(annotation);
+        assemblerHandlerService.handle();
     }
 }

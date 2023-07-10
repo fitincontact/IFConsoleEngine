@@ -16,9 +16,9 @@ public class RoomAsmList {
     /**
      * All RoomAsm
      */
-    private final List<RoomAsm> roomAsms = new ArrayList<>();
+    private final List<RoomAsm> roomAsmList = new ArrayList<>();
 
     public void add(final RoomAsm roomAsm) {
-        roomAsms.add(roomAsm);
+        roomAsmList.add(roomAsm);
     }
 }
