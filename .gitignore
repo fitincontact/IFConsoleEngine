@@ -23,9 +23,7 @@
 hs_err_pid*
 
 *.dmg
-
-
 *.iml
 
 etc1/
-*.idea
+.idea
