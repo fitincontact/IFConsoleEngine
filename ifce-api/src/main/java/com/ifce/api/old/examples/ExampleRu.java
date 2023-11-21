@@ -1,60 +1,59 @@
 package com.ifce.api.old.examples;
 
-
 import com.ifce.api.old.*;
-import com.ifce.api.old.main.core.Monitor;
-import com.ifce.api.old.main.format.PreFormat1;
-import com.ifce.api.old.main.object.Dialog1;
+import com.ifce.api.old.main.core.Monitor0;
+import com.ifce.api.old.main.format.PreFormat0;
+import com.ifce.api.old.main.object.Dialog0;
 
 import java.io.Serializable;
 
 public final class ExampleRu {
 
     public static void pl(final String s) {
-        Generator.pl(s);
+        Generator0.pl(s);
     }
 
     public static void p(final String s) {
-        Generator.p(s);
+        Generator0.p(s);
     }
 
     public static void main(final String[] args) throws Exception {
-        final var create = new Generator();
-        final var monitor = Monitor.getInstance();
+        final var create = new Generator0();
+        final var monitor = Monitor0.getInstance();
 
-        final PreFormat1 preFormat1 = create.PreFormat();
-        preFormat1.setGameName("БОЯРКА СПИРТ И МАГИЯ или ПО СЛЕДАМ ВОЛШЕБСТВА");
-        preFormat1.setSaveName("save");
-        preFormat1.setUnDefininedWordIfNotContains(" - не вижу здесь чего-то похожего");
-        preFormat1.setUnDefininedWordIfContains(" - это невозможно использовать");
-        preFormat1.setUnDefininedWordUse(" - нужно попробовать что-то другое");
-        create.setInstance(preFormat1);
+        final PreFormat0 preFormat0 = create.PreFormat();
+        preFormat0.setGameName("БОЯРКА СПИРТ И МАГИЯ или ПО СЛЕДАМ ВОЛШЕБСТВА");
+        preFormat0.setSaveName("save");
+        preFormat0.setUnDefininedWordIfNotContains(" - не вижу здесь чего-то похожего");
+        preFormat0.setUnDefininedWordIfContains(" - это невозможно использовать");
+        preFormat0.setUnDefininedWordUse(" - нужно попробовать что-то другое");
+        create.setInstance(preFormat0);
 
         final var dlg1 = create.Dialog(
                 "я начал разговор c дворецким"
         );
         {
-            final var dlg1_1 = dlg1.addContinues(new Dialog1(
+            dlg1.addContinues(new Dialog0(
                     "Доложите о моем приезде.",
                     "Господин просил не мешать."
             ));
-            final var dlg1_2 = dlg1.addContinues(
-                    new Dialog1("Впустите меня!", "И не подумаю!"));
-            final var dlg1_3 = dlg1.addContinues(new Dialog1(
+            dlg1.addContinues(
+                    new Dialog0("Впустите меня!", "И не подумаю!"));
+            final var dlg1_3 = dlg1.addContinues(new Dialog0(
                     "Где ваш хозяин?",
                     "Боюсь вам сегодня не назначено. Ступайте, сударь."
             ));
             {
                 final var dlg1_1_1 = dlg1_3.addContinues(
-                        new Dialog1("Именем короля, впустите!", "Я плохо слышу."));
-                final var dlg1_1_2 = dlg1_3.addContinues(new Dialog1(
+                        new Dialog0("Именем короля, впустите!", "Я плохо слышу."));
+                final var dlg1_1_2 = dlg1_3.addContinues(new Dialog0(
                         "Ну, смерд, отведаешь ты у меня плетей!",
                         "Кажется я начинаю вас понимать..."
                 ));
                 {
-                    final var dlg1_1_2_1 = dlg1_1_2.addContinues(new Dialog1(
+                    final var dlg1_1_2_1 = dlg1_1_2.addContinues(new Dialog0(
                             "И что дальше?",
-                            (Phrase1 & Serializable) (room, inventory) -> {
+                            (Phrase0 & Serializable) (room, inventory) -> {
                                 p("Входите пожалуйста, здесь вам искренне рады!");
                                 monitor.getDialogCurrent().stop();
                             }
@@ -81,7 +80,7 @@ public final class ExampleRu {
                         его, где бы этот скряга не спрятался."""
         );
 
-        final Act1 butlerAct1 = (Act1 & Serializable) (room, inv) -> {
+        final Act0 butlerAct0 = (Act0 & Serializable) (room, inv) -> {
             dlg1.start();
             return true;
         };
@@ -95,7 +94,7 @@ public final class ExampleRu {
                 "",
                 ""
         );
-        butler.add(butlerAct1);
+        butler.add(butlerAct0);
 
         main_room.add(butler);
 
@@ -161,14 +160,14 @@ public final class ExampleRu {
                 "\n\"в рот, компот и банку шпрот\nпропади же обормот\"\nчто это может значить?"
         );
 
-        final Use1 use1Note = (Use1 & Serializable) (room, items) -> {
+        final Use0 use0Note = (Use0 & Serializable) (room, items) -> {
             if (items.size() == 2 && items.contains(magnifier)) {
                 pl("теперь можно различить буквы, вот что тут написано: " + note.getUseTxt());
                 return true;
             }
             return false;
         };
-        note.add(use1Note);
+        note.add(use0Note);
 
         hall.add(table, note, trash, cabinet);
 
@@ -230,7 +229,7 @@ public final class ExampleRu {
                 "",
                 ""
         );
-        final Use1 use1Window = (Use1 & Serializable) (room, items) -> {
+        final Use0 use0Window = (Use0 & Serializable) (room, items) -> {
             if (items.size() == 2 && items.contains(hammer)) {
                 pl("разнес окно в дребезги, в душное пространство лаборатории ворвался лесной ветер, ветер хвои, " +
                         "душицы и смородины, ветер странствий, едкий дым развеяло");
@@ -249,7 +248,7 @@ public final class ExampleRu {
             }
             return false;
         };
-        window.add(use1Window);
+        window.add(use0Window);
 
         labor.add(hammer, alcohol, window);
         //---//
@@ -265,7 +264,7 @@ public final class ExampleRu {
         );
         wayPanty.setLock(true);
         wayPanty.setLockTxt("не открывается, может просто нужен ключ?");
-        final Use1 use1WayPanty = (Use1 & Serializable) (room, items) -> {
+        final Use0 use0WayPanty = (Use0 & Serializable) (room, items) -> {
             if (items.size() == 1 && items.contains(key)) {
                 wayPanty.setLock(false);
                 pl(key.getUseTxt());
@@ -274,7 +273,7 @@ public final class ExampleRu {
             pl("это не поможет");
             return false;
         };
-        wayPanty.add(use1WayPanty);
+        wayPanty.add(use0WayPanty);
         labor.add(wayPanty);
 
         create.Core(main_room, inventory).start();
