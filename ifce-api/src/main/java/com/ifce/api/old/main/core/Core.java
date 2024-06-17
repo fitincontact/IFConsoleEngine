@@ -1,10 +1,10 @@
 package com.ifce.api.old.main.core;
 
 import com.ifce.format.Format;
-import com.ifce.model.common.Inventory;
-import com.ifce.model.common.Item;
-import com.ifce.model.common.Room;
-import com.ifce.model.common.enums.EffectType;
+import com.service.model.common.Inventory;
+import com.service.model.common.Item;
+import com.service.model.common.Room;
+import com.service.model.common.enums.EffectType;
 import com.ifce.saver.SaveLoad;
 
 import java.io.BufferedReader;

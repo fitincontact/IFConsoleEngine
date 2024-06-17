@@ -12,12 +12,13 @@
 
     <modules>
         <module>ifce-api</module>
-        <module>ifce-impl</module>
+        <module>ifce-service-api</module>
         <module>ifce-engine</module>
         <module>ifce-format</module>
         <module>ifce-dialog</module>
         <module>ifce-saver</module>
-        <module>ifce-model</module>
+        <module>ifce-api-model</module>
+        <module>ifce-service-model</module>
         <module>ifce-assembler</module>
         <module>ifce-util</module>
         <module>ifce-service</module>
@@ -32,6 +33,8 @@
         <springframework.version>5.3.20</springframework.version>
         <mockito-junit-jupiter>5.4.0</mockito-junit-jupiter>
         <lombok.version>1.18.22</lombok.version>
+<!--        <maven.compiler.source>${source}</maven.compiler.source>-->
+<!--        <maven.compiler.target>${target}</maven.compiler.target>-->
     </properties>
 
     <dependencies>
@@ -62,7 +65,12 @@
             <version>${mockito-junit-jupiter}</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

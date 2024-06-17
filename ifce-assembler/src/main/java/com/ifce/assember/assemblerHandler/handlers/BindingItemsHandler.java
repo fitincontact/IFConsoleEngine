@@ -2,9 +2,9 @@ package com.ifce.assember.assemblerHandler.handlers;
 
 import com.ifce.assember.model.ItemAsm;
 import com.ifce.assember.model.singletons.AsmList;
-import com.ifce.model.common.Item;
-import com.ifce.model.common.Room;
-import com.ifce.model.common.enums.PlaceType;
+import com.api.model.common.Item;
+import com.api.model.common.Room;
+import com.service.model.common.enums.PlaceType;
 import com.ifce.util.cor.CoRHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

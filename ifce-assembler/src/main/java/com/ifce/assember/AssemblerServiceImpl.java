@@ -1,9 +1,9 @@
 package com.ifce.assember;
 
+import com.api.model.common.*;
 import com.ifce.assember.assemblerHandler.AssemblerHandlerService;
 import com.ifce.assember.model.*;
 import com.ifce.assember.model.singletons.AsmList;
-import com.ifce.model.common.*;
 import com.ifce.service.AssemblerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,7 @@
 package com.ifce.assember.model;
 
 import com.ifce.assember.assemblerHandler.AssemblerHandlerService;
-import com.ifce.model.common.Dialog;
-import com.ifce.model.singletons.Objects;
+import com.api.model.common.Dialog;
 import lombok.Data;
 
 import java.util.ArrayList;

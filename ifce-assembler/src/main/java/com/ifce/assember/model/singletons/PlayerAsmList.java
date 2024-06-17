@@ -1,7 +1,7 @@
 package com.ifce.assember.model.singletons;
 
 import com.ifce.assember.model.PlayerAsm;
-import com.ifce.model.common.Player;
+import com.api.model.common.Player;
 
 import java.util.ArrayList;
 import java.util.List;

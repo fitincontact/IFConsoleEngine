@@ -1,7 +1,6 @@
 package com.ifce.assember.model;
 
-import com.ifce.model.common.Player;
-import com.ifce.model.singletons.Objects;
+import com.api.model.common.Player;
 import lombok.Data;
 
 @Data

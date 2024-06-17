@@ -1,7 +1,7 @@
 package com.ifce.api.old.main.core;
 
-import com.ifce.model.common.*;
-import com.ifce.model.common.enums.EffectType;
+import com.service.model.common.*;
+import com.service.model.common.enums.EffectType;
 
 import java.io.Serializable;
 import java.util.ArrayList;

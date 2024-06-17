@@ -34,15 +34,10 @@
         </dependency>
         <dependency>
             <groupId>com.ifce</groupId>
-            <artifactId>ifce-model</artifactId>
+            <artifactId>ifce-api-model</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>${source}</maven.compiler.source>
-        <maven.compiler.target>${target}</maven.compiler.target>
-    </properties>
 
 </project>

@@ -1,7 +1,7 @@
 package com.ifce.assember.model.singletons;
 
 import com.ifce.assember.model.ItemAsm;
-import com.ifce.model.common.Item;
+import com.api.model.common.Item;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

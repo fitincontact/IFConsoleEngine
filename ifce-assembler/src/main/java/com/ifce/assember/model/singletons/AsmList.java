@@ -1,7 +1,6 @@
 package com.ifce.assember.model.singletons;
 
 import com.ifce.assember.model.*;
-import com.ifce.model.singletons.Objects;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 

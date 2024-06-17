@@ -1,7 +1,6 @@
 package com.ifce.assember.assemblerHandler.handlers;
 
 import com.ifce.assember.model.singletons.AsmList;
-import com.ifce.model.singletons.Game;
 import com.ifce.util.cor.CoRHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,7 @@
 package com.ifce.assember.model;
 
 import com.ifce.assember.assemblerHandler.AssemblerHandlerService;
-import com.ifce.model.common.Item;
-import com.ifce.model.singletons.Objects;
+import com.api.model.common.Item;
 import lombok.Data;
 
 /**
